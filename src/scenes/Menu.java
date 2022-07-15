@@ -1,5 +1,6 @@
 package scenes;
 
+import gui.MyButton;
 import main.Game;
 
 import javax.imageio.ImageIO;
@@ -10,24 +11,73 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static main.GameStates.*;
+
 public class Menu extends GameScene implements SceneMethods {
     private BufferedImage image;
     private ArrayList<BufferedImage> sprites = new ArrayList<>();
     private Random random;
+
+    private MyButton buttonPlaying, buttonSettings, buttonQuit;
+
     public Menu(Game game) {
         super(game);
         random = new Random();
         importImage();
         loadSprites();
+        initButtons();
+    }
+
+    private void initButtons() {
+        int width = 150;
+        int height = width / 3;
+        int x = 640 / 2 - width / 2;
+        int y = 150;
+        int yOffset = 100;
+
+        buttonPlaying = new MyButton("Play", x, y, width, height);
+        buttonSettings = new MyButton("Settings", x, y + yOffset, width, height);
+        buttonQuit = new MyButton("Quit", x, y + yOffset * 2, width, height);
     }
 
     @Override
     public void render(Graphics graphics) {
-        for(int y = 0; y < 20; y++) {
-            for(int x = 0; x < 20; x++) {
-                graphics.drawImage(sprites.get(getRandInt()), x * 32, y * 32, null);
-            }
+        drawButtons(graphics);
+    }
+
+    @Override
+    public void mouseClicked(int x, int y) {
+        if(buttonPlaying.getBounds().contains(x, y)) {
+            SetGameSate(PLAYING);
         }
+    }
+
+    @Override
+    public void mouseMoved(int x, int y) {
+        buttonPlaying.setHover(false);
+        if(buttonPlaying.getBounds().contains(x, y)) {
+            buttonPlaying.setHover(true);
+        }
+    }
+
+    @Override
+    public void mousePressed(int x, int y) {
+        if(buttonPlaying.getBounds().contains(x, y)) {
+            buttonPlaying.setPressed(true);
+        }
+    }
+
+    @Override
+    public void mouseReleased(int x, int y) {
+        reset();
+    }
+
+    private void reset() {
+        buttonPlaying.resetBooleans();
+    }
+
+    private void drawButtons(Graphics graphics) {
+        buttonPlaying.draw(graphics);
     }
 
     private void importImage() {
