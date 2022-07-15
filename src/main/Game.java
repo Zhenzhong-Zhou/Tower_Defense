@@ -14,6 +14,8 @@ public class Game extends JFrame {
         importImage();
 
         setSize(640, 640);
+        setResizable(false);
+        setTitle("Tower Defense");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
