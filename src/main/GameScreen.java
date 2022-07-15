@@ -2,17 +2,52 @@ package main;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class GameScreen extends JPanel {
-    public GameScreen() {
+    private BufferedImage image;
+    private Random random;
 
+    private ArrayList<BufferedImage> sprites = new ArrayList<>();
+
+    public GameScreen(BufferedImage image) {
+        this.image = image;
+        loadSprites();
+        random = new Random();
+    }
+
+    private void loadSprites() {
+        for(int y = 0; y < 10; y++) {
+            for(int x = 0; x < 10; x++) {
+                sprites.add(image.getSubimage(x * 32, y * 32, 32, 32));
+            }
+        }
     }
 
     public void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
 
-        graphics.setColor(Color.cyan);
-        graphics.drawRect(150,150, 100, 100)  ;
-        graphics.fillRect(50,50, 100, 100);
+//        graphics.drawImage(sprites.get(8), 0, 0, null);
+//        graphics.drawImage(image.getSubimage(32 * 9, 32, 32, 32), 0, 0, null);
+
+        for(int y = 0; y < 20; y++) {
+            for(int x = 0; x < 20; x++) {
+                graphics.drawImage(sprites.get(getRandInt()), x * 32, y * 32, null);
+            }
+        }
+    }
+
+    private int getRandInt() {
+        return random.nextInt(100);
+    }
+
+    private Color getRanColor() {
+        int r = random.nextInt(256);
+        int g = random.nextInt(256);
+        int b = random.nextInt(256);
+
+        return new Color(r, g, b);
     }
 }
