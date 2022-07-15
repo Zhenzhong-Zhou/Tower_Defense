@@ -6,9 +6,13 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class Game extends JFrame {
+public class Game extends JFrame implements Runnable {
     private GameScreen gameScreen;
     private BufferedImage image;
+    private Thread gameThread;
+
+    private final double FPS_SET = 120.0;
+    private final double UPS_SET = 60.0;
 
     public Game() {
         importImage();
@@ -34,7 +38,54 @@ public class Game extends JFrame {
         }
     }
 
+    private void start() {
+        gameThread = new Thread(this) {};
+        gameThread.start();;
+    }
+
+    private void updateGame() {
+//        System.out.println("Game Updated!");
+    }
+
     public static void main(String[] args) {
-        new Game();
+       Game game = new Game();
+       game.start();
+    }
+
+    @Override
+    public void run() {
+        double timePerFrame = 1000000000.0 / FPS_SET;;
+        double timePerUpdate = 1000000000.0 / UPS_SET;;
+
+        long lastFrame = System.nanoTime();
+        long lastUpdate = System.nanoTime();
+        long lastTimeCheck = System.currentTimeMillis();
+
+        int frames = 0;
+        int updates = 0;
+
+        while(true) {
+            // Render
+            if(System.nanoTime() - lastFrame >= timePerFrame) {
+                repaint();
+                lastFrame = System.nanoTime();
+                frames++;
+            }
+
+            // Update
+            if(System.nanoTime() - lastUpdate >= timePerUpdate) {
+                updateGame();
+                lastUpdate = System.nanoTime();
+                updates++;
+            }
+
+            // Check FPS and UPS
+            if(System.currentTimeMillis() - lastTimeCheck >= 1000) {
+                System.out.println("FPS: " + frames + " | UPS: " + updates);
+                frames = 0;
+                updates = 0;
+                lastTimeCheck = System.currentTimeMillis();
+            }
+        }
     }
 }
