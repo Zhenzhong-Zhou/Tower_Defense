@@ -1,23 +1,32 @@
 package main;
 
-import javax.imageio.ImageIO;
+import inputs.KeyboardListener;
+import inputs.MyMouseListener;
+import scenes.Menu;
+import scenes.Playing;
+import scenes.Settings;
+
 import javax.swing.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class Game extends JFrame implements Runnable {
     private GameScreen gameScreen;
-    private BufferedImage image;
     private Thread gameThread;
 
     private final double FPS_SET = 120.0;
     private final double UPS_SET = 60.0;
 
-    public Game() {
-        importImage();
+    private MyMouseListener myMouseListener;
+    private KeyboardListener keyboardListener;
 
-        gameScreen = new GameScreen(image);
+    // Classes
+    private Render render;
+    private Menu menu;
+    private Playing playing;
+    private Settings settings;
+
+    public Game() {
+        initClasses();
+
         add(gameScreen);
         pack();
 
@@ -28,14 +37,23 @@ public class Game extends JFrame implements Runnable {
         setVisible(true);
     }
 
-    private void importImage() {
-        InputStream is = getClass().getResourceAsStream("/spriteatlas.png");
-        try {
-            assert is != null;
-            image = ImageIO.read(is);
-        } catch(IOException ioException) {
-            ioException.printStackTrace();
-        }
+    private void initClasses() {
+        render = new Render(this);
+        gameScreen = new GameScreen(this);
+        menu = new Menu(this);
+        playing = new Playing(this);
+        settings = new Settings(this);
+    }
+
+    private void initInputs() {
+        myMouseListener = new MyMouseListener();
+        keyboardListener = new KeyboardListener();
+
+        addMouseListener(myMouseListener);
+        addMouseMotionListener(myMouseListener);
+        addKeyListener(keyboardListener);
+
+        requestFocus();
     }
 
     private void start() {
@@ -47,6 +65,7 @@ public class Game extends JFrame implements Runnable {
 
     public static void main(String[] args) {
        Game game = new Game();
+       game.initInputs();
        game.start();
     }
 
@@ -87,5 +106,22 @@ public class Game extends JFrame implements Runnable {
                 lastTimeCheck = System.currentTimeMillis();
             }
         }
+    }
+
+    // Getters
+    public Render getRender() {
+        return render;
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public Playing getPlaying() {
+        return playing;
+    }
+
+    public Settings getSettings() {
+        return settings;
     }
 }
