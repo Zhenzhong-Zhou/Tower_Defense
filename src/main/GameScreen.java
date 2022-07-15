@@ -7,15 +7,24 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class GameScreen extends JPanel {
+    private Dimension size;
     private BufferedImage image;
     private Random random;
 
     private ArrayList<BufferedImage> sprites = new ArrayList<>();
 
     public GameScreen(BufferedImage image) {
+        setPanelSize();
         this.image = image;
         loadSprites();
         random = new Random();
+    }
+
+    private void setPanelSize() {
+        size = new Dimension(640, 640);
+        setMinimumSize(size);
+        setPreferredSize(size);
+        setMaximumSize(size);
     }
 
     private void loadSprites() {

@@ -17,14 +17,14 @@ public class Game extends JFrame implements Runnable {
     public Game() {
         importImage();
 
-        setSize(640, 640);
+        gameScreen = new GameScreen(image);
+        add(gameScreen);
+        pack();
+
         setResizable(false);
         setTitle("Tower Defense");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-
-        gameScreen = new GameScreen(image);
-        add(gameScreen);
         setVisible(true);
     }
 
@@ -58,22 +58,24 @@ public class Game extends JFrame implements Runnable {
         long lastFrame = System.nanoTime();
         long lastUpdate = System.nanoTime();
         long lastTimeCheck = System.currentTimeMillis();
+        long now;
 
         int frames = 0;
         int updates = 0;
 
         while(true) {
+            now = System.nanoTime();
             // Render
-            if(System.nanoTime() - lastFrame >= timePerFrame) {
+            if(now - lastFrame >= timePerFrame) {
                 repaint();
-                lastFrame = System.nanoTime();
+                lastFrame = now;
                 frames++;
             }
 
             // Update
-            if(System.nanoTime() - lastUpdate >= timePerUpdate) {
+            if(now - lastUpdate >= timePerUpdate) {
                 updateGame();
-                lastUpdate = System.nanoTime();
+                lastUpdate = now;
                 updates++;
             }
 
