@@ -29,9 +29,6 @@ public class GameScreen extends JPanel {
     public void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
 
-//        graphics.drawImage(sprites.get(8), 0, 0, null);
-//        graphics.drawImage(image.getSubimage(32 * 9, 32, 32, 32), 0, 0, null);
-
         for(int y = 0; y < 20; y++) {
             for(int x = 0; x < 20; x++) {
                 graphics.drawImage(sprites.get(getRandInt()), x * 32, y * 32, null);

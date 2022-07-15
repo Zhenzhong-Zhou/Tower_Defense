@@ -43,9 +43,7 @@ public class Game extends JFrame implements Runnable {
         gameThread.start();;
     }
 
-    private void updateGame() {
-//        System.out.println("Game Updated!");
-    }
+    private void updateGame() {}
 
     public static void main(String[] args) {
        Game game = new Game();
