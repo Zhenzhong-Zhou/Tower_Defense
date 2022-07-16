@@ -13,9 +13,8 @@ import java.util.ArrayList;
 import static main.GameStates.*;
 
 public class Menu extends GameScene implements SceneMethods {
-    private BufferedImage image;
     private final ArrayList<BufferedImage> sprites = new ArrayList<>();
-
+    private BufferedImage image;
     private MyButton buttonPlaying, buttonSettings, buttonQuit;
 
     public Menu(Game game) {

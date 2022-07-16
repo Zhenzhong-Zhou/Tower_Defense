@@ -3,8 +3,8 @@ package gui;
 import java.awt.*;
 
 public class MyButton {
-    public int x, y, width, height, id;
     private final String text;
+    public int x, y, width, height, id;
     private Rectangle bounds;
     private boolean hover, pressed;
 

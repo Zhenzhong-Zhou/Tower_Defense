@@ -28,6 +28,12 @@ public class Game extends JFrame implements Runnable {
         setVisible(true);
     }
 
+    public static void main(String[] args) {
+        Game game = new Game();
+        game.gameScreen.initInputs();
+        game.start();
+    }
+
     private void initClasses() {
         render = new Render(this);
         gameScreen = new GameScreen(this);
@@ -43,12 +49,6 @@ public class Game extends JFrame implements Runnable {
     }
 
     private void updateGame() {
-    }
-
-    public static void main(String[] args) {
-        Game game = new Game();
-        game.gameScreen.initInputs();
-        game.start();
     }
 
     @Override

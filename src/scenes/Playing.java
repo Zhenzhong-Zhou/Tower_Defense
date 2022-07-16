@@ -11,8 +11,8 @@ import java.awt.*;
 public class Playing extends GameScene implements SceneMethods {
     private final int[][] level;
     private final TileManager tileManager;
-    private Tile selectedTile;
     private final BottomBar bottomBar;
+    private Tile selectedTile;
     private int mouseX, mouseY;
     private int lastTileX, lastTileY, lastTileId;
     private boolean drawSelected;
@@ -100,7 +100,7 @@ public class Playing extends GameScene implements SceneMethods {
     @Override
     public void mouseReleased(int x, int y) {
         if(y >= 640) {
-            bottomBar.mouseReleased(x, y);
+            bottomBar.mouseReleased();
         }
     }
 

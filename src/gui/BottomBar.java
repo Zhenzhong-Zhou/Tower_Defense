@@ -13,11 +13,9 @@ import static main.GameStates.SetGameSate;
 public class BottomBar {
     private final int x, y, width, height;
     private final Playing playing;
-    private MyButton buttonMenu;
-
-    private Tile selectedTile;
-
     private final ArrayList<MyButton> tileButtons = new ArrayList<>();
+    private MyButton buttonMenu;
+    private Tile selectedTile;
 
     public BottomBar(int x, int y, int width, int height, Playing playing) {
         this.x = x;
@@ -142,7 +140,7 @@ public class BottomBar {
         }
     }
 
-    public void mouseReleased(int x, int y) {
+    public void mouseReleased() {
         buttonMenu.resetBooleans();
         for(MyButton button : tileButtons) {
             button.resetBooleans();
