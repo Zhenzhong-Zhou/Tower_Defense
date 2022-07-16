@@ -3,7 +3,7 @@ package main;
 import java.awt.*;
 
 public class Render {
-    private Game game;
+    private final Game game;
 
     public Render(Game game) {
         this.game = game;

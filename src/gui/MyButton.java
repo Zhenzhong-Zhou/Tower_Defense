@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class MyButton {
     public int x, y, width, height, id;
-    private String text;
+    private final String text;
     private Rectangle bounds;
     private boolean hover, pressed;
 
@@ -15,7 +15,7 @@ public class MyButton {
         this.width = width;
         this.height = height;
         this.text = text;
-        this.id = -1;
+        this.id = - 1;
 
         initBounds();
     }
@@ -60,8 +60,8 @@ public class MyButton {
         graphics.setColor(Color.BLACK);
         graphics.drawRect(x, y, width, height);
         if(pressed) {
-            graphics.drawRect(x + 1, y + 1, width - 2,height - 2);
-            graphics.drawRect(x + 2, y + 2, width - 4,height - 4);
+            graphics.drawRect(x + 1, y + 1, width - 2, height - 2);
+            graphics.drawRect(x + 2, y + 2, width - 4, height - 4);
         }
     }
 

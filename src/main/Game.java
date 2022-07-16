@@ -8,10 +8,6 @@ import javax.swing.*;
 
 public class Game extends JFrame implements Runnable {
     private GameScreen gameScreen;
-    private Thread gameThread;
-
-    private final double FPS_SET = 120.0;
-    private final double UPS_SET = 60.0;
 
     // Classes
     private Render render;
@@ -41,22 +37,26 @@ public class Game extends JFrame implements Runnable {
     }
 
     private void start() {
-        gameThread = new Thread(this) {};
-        gameThread.start();;
+        Thread gameThread = new Thread(this) {
+        };
+        gameThread.start();
     }
 
-    private void updateGame() {}
+    private void updateGame() {
+    }
 
     public static void main(String[] args) {
-       Game game = new Game();
-       game.gameScreen.initInputs();
-       game.start();
+        Game game = new Game();
+        game.gameScreen.initInputs();
+        game.start();
     }
 
     @Override
     public void run() {
-        double timePerFrame = 1000000000.0 / FPS_SET;;
-        double timePerUpdate = 1000000000.0 / UPS_SET;;
+        double FPS_SET = 120.0;
+        double timePerFrame = 1000000000.0 / FPS_SET;
+        double UPS_SET = 60.0;
+        double timePerUpdate = 1000000000.0 / UPS_SET;
 
         long lastFrame = System.nanoTime();
         long lastUpdate = System.nanoTime();

@@ -5,7 +5,8 @@ import main.Game;
 
 import java.awt.*;
 
-import static main.GameStates.*;
+import static main.GameStates.MENU;
+import static main.GameStates.SetGameSate;
 
 public class Settings extends GameScene implements SceneMethods {
     private MyButton buttonMenu;

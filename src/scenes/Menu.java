@@ -14,7 +14,7 @@ import static main.GameStates.*;
 
 public class Menu extends GameScene implements SceneMethods {
     private BufferedImage image;
-    private ArrayList<BufferedImage> sprites = new ArrayList<>();
+    private final ArrayList<BufferedImage> sprites = new ArrayList<>();
 
     private MyButton buttonPlaying, buttonSettings, buttonQuit;
 

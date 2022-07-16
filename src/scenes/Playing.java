@@ -9,10 +9,10 @@ import objects.Tile;
 import java.awt.*;
 
 public class Playing extends GameScene implements SceneMethods {
-    private int[][] level;
-    private TileManager tileManager;
+    private final int[][] level;
+    private final TileManager tileManager;
     private Tile selectedTile;
-    private BottomBar bottomBar;
+    private final BottomBar bottomBar;
     private int mouseX, mouseY;
     private int lastTileX, lastTileY, lastTileId;
     private boolean drawSelected;

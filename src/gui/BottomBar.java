@@ -11,13 +11,13 @@ import static main.GameStates.MENU;
 import static main.GameStates.SetGameSate;
 
 public class BottomBar {
-    private int x, y, width, height;
-    private Playing playing;
+    private final int x, y, width, height;
+    private final Playing playing;
     private MyButton buttonMenu;
 
     private Tile selectedTile;
 
-    private ArrayList<MyButton> tileButtons = new ArrayList<>();
+    private final ArrayList<MyButton> tileButtons = new ArrayList<>();
 
     public BottomBar(int x, int y, int width, int height, Playing playing) {
         this.x = x;
@@ -29,7 +29,7 @@ public class BottomBar {
         initButtons();
     }
 
-    private void initButtons()  {
+    private void initButtons() {
         buttonMenu = new MyButton("Menu", 0, 642, 100, 30);
 
         int width = 50;
@@ -37,7 +37,7 @@ public class BottomBar {
         int xStart = 110;
         int yStart = 650;
         int xOffset = (int) (width * 1.1f);
-        int i = 0 ;
+        int i = 0;
 
         for(Tile tile : playing.getTileManager().tiles) {
             tileButtons.add(new MyButton(tile.getName(), xStart + xOffset * i, yStart, width, height, i));
@@ -90,7 +90,7 @@ public class BottomBar {
 
     private void drawSelectedTile(Graphics graphics) {
         if(selectedTile != null) {
-            graphics.drawImage(selectedTile.getSprite(),550, 650, 50, 50, null);
+            graphics.drawImage(selectedTile.getSprite(), 550, 650, 50, 50, null);
             graphics.setColor(Color.BLACK);
             graphics.drawRect(550, 650, 50, 50);
         }
