@@ -9,20 +9,18 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Random;
 
 import static main.GameStates.*;
 
 public class Menu extends GameScene implements SceneMethods {
     private BufferedImage image;
     private ArrayList<BufferedImage> sprites = new ArrayList<>();
-    private Random random;
 
     private MyButton buttonPlaying, buttonSettings, buttonQuit;
 
     public Menu(Game game) {
         super(game);
-        random = new Random();
+
         importImage();
         loadSprites();
         initButtons();
@@ -43,6 +41,12 @@ public class Menu extends GameScene implements SceneMethods {
     @Override
     public void render(Graphics graphics) {
         drawButtons(graphics);
+    }
+
+    private void drawButtons(Graphics graphics) {
+        buttonPlaying.draw(graphics);
+        buttonSettings.draw(graphics);
+        buttonQuit.draw(graphics);
     }
 
     @Override
@@ -93,12 +97,6 @@ public class Menu extends GameScene implements SceneMethods {
         buttonQuit.resetBooleans();
     }
 
-    private void drawButtons(Graphics graphics) {
-        buttonPlaying.draw(graphics);
-        buttonSettings.draw(graphics);
-        buttonQuit.draw(graphics);
-    }
-
     private void importImage() {
         InputStream is = getClass().getResourceAsStream("/spriteatlas.png");
         try {
@@ -115,9 +113,5 @@ public class Menu extends GameScene implements SceneMethods {
                 sprites.add(image.getSubimage(x * 32, y * 32, 32, 32));
             }
         }
-    }
-
-    private int getRandInt() {
-        return random.nextInt(100);
     }
 }
