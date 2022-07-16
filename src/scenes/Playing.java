@@ -10,7 +10,7 @@ import objects.Tile;
 import java.awt.*;
 
 public class Playing extends GameScene implements SceneMethods {
-    private final int[][] level;
+    private int[][] level;
     private final TileManager tileManager;
     private final BottomBar bottomBar;
     private Tile selectedTile;
@@ -31,6 +31,7 @@ public class Playing extends GameScene implements SceneMethods {
 //        LoadSave.WriteToFile();
 //        LoadSave.ReadFromFile();
         createDefaultLevel();
+        loadDefaultLevel();
     }
 
     private void createDefaultLevel() {
@@ -39,6 +40,14 @@ public class Playing extends GameScene implements SceneMethods {
             array[i] = 0;
         }
         LoadSave.CreateLevel("default_level", array);
+    }
+
+    private void loadDefaultLevel() {
+        level = LoadSave.GetLevelData("default_level");
+    }
+
+    public void saveLevel() {
+        LoadSave.SaveLevel("default_level", level);
     }
 
     @Override

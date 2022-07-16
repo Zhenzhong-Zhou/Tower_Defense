@@ -3,6 +3,7 @@ package helperMethods;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LoadSave {
@@ -34,6 +35,7 @@ public class LoadSave {
         }
     }
 
+    // Save 2D int array to the file
     private static void WriteToFile(File file, int[] id_Array) {
         try {
             PrintWriter printWriter = new PrintWriter(file);
@@ -46,20 +48,39 @@ public class LoadSave {
         }
     }
 
-    public static void ReadFromFile() {
-        File txtFile = new File("res/readLevel.txt");
+    public static void SaveLevel(String name, int[][] id_Array) {
+        File levelFile = new File("res/" + name + ".txt");
+        if(levelFile.exists()) {
+            WriteToFile(levelFile, Utilities.TwoDtoIntArray(id_Array));
+        } else {
+            System.out.println("File: " + name + " does not exist.");
+        }
+    }
+
+    // Load 2D int array to the file
+    private static ArrayList<Integer> ReadFromFile(File file) {
+        ArrayList<Integer> list = new ArrayList<>();
         try {
-            Scanner scanner = new Scanner(txtFile);
+            Scanner scanner = new Scanner(file);
             while(scanner.hasNextLine()) {
-                System.out.println(scanner.nextLine());
+                list.add(Integer.parseInt(scanner.nextLine()));
             }
             scanner.close();
         } catch(FileNotFoundException fileNotFoundException) {
             fileNotFoundException.printStackTrace();
         }
+        return list;
     }
 
-    // Save 2D int array to the file
-    // Load 2D int array to the file
+    public static int[][] GetLevelData(String name) {
+        File levelFile = new File("res/" + name + ".txt");
 
+        if(levelFile.exists()) {
+            ArrayList<Integer> list = ReadFromFile(levelFile);
+            return Utilities.ArrayListTo2dInt(list, 20, 20);
+        } else {
+            System.out.println("File: " + name + " does not exist!");
+            return null;
+        }
+    }
 }
