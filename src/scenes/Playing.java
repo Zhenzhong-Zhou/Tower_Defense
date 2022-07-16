@@ -1,21 +1,21 @@
 package scenes;
 
 import gui.BottomBar;
-import gui.MyButton;
 import helperMethods.LevelBuild;
 import main.Game;
 import managers.TileManager;
+import objects.Tile;
 
 import java.awt.*;
-
-import static main.GameStates.*;
 
 public class Playing extends GameScene implements SceneMethods {
     private int[][] level;
     private TileManager tileManager;
-
-
+    private Tile selectedTile;
     private BottomBar bottomBar;
+    private int mouseX, mouseY;
+    private int lastTileX, lastTileY, lastTileId;
+    private boolean drawSelected;
 
     public Playing(Game game) {
         super(game);
@@ -36,16 +36,45 @@ public class Playing extends GameScene implements SceneMethods {
             }
         }
         bottomBar.draw(graphics);
+        drawSelectedTile(graphics);
     }
 
     public TileManager getTileManager() {
         return tileManager;
     }
 
+    private void drawSelectedTile(Graphics graphics) {
+        if(selectedTile != null && drawSelected) {
+            graphics.drawImage(selectedTile.getSprite(), mouseX, mouseY, 32, 32, null);
+        }
+    }
+
+    public void setSelectedTile(Tile tile) {
+        this.selectedTile = tile;
+        drawSelected = true;
+    }
+
     @Override
     public void mouseClicked(int x, int y) {
         if(y >= 640) {
             bottomBar.mouseClicked(x, y);
+        } else {
+            changeTile(mouseX, mouseY);
+        }
+    }
+
+    private void changeTile(int mouseX, int mouseY) {
+        if(selectedTile != null) {
+            int tileX = mouseX / 32;
+            int tileY = mouseY / 32;
+
+            if(lastTileX == tileX && lastTileY == tileY && lastTileId == selectedTile.getId()) {
+                return;
+            }
+            lastTileX = tileX;
+            lastTileY = tileY;
+
+            level[tileY][tileX] = selectedTile.getId();
         }
     }
 
@@ -53,6 +82,11 @@ public class Playing extends GameScene implements SceneMethods {
     public void mouseMoved(int x, int y) {
         if(y >= 640) {
             bottomBar.mouseMoved(x, y);
+            drawSelected = false;
+        } else {
+            drawSelected = true;
+            mouseX = (x / 32) * 32;
+            mouseY = (y / 32) * 32;
         }
     }
 
@@ -67,6 +101,15 @@ public class Playing extends GameScene implements SceneMethods {
     public void mouseReleased(int x, int y) {
         if(y >= 640) {
             bottomBar.mouseReleased(x, y);
+        }
+    }
+
+    @Override
+    public void mouseDragged(int x, int y) {
+        if(y >= 640) {
+
+        } else {
+            changeTile(x, y);
         }
     }
 }

@@ -79,6 +79,14 @@ public class MyButton {
         this.pressed = pressed;
     }
 
+    public boolean isMouseHover() {
+        return hover;
+    }
+
+    public boolean isMousePressed() {
+        return pressed;
+    }
+
     public void resetBooleans() {
         this.hover = false;
         this.pressed = false;

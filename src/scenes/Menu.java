@@ -91,6 +91,11 @@ public class Menu extends GameScene implements SceneMethods {
         reset();
     }
 
+    @Override
+    public void mouseDragged(int x, int y) {
+
+    }
+
     private void reset() {
         buttonPlaying.resetBooleans();
         buttonSettings.resetBooleans();
