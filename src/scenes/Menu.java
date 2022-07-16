@@ -49,14 +49,25 @@ public class Menu extends GameScene implements SceneMethods {
     public void mouseClicked(int x, int y) {
         if(buttonPlaying.getBounds().contains(x, y)) {
             SetGameSate(PLAYING);
+        } else if(buttonSettings.getBounds().contains(x, y)) {
+            SetGameSate(SETTINGS);
+        } else if(buttonQuit.getBounds().contains(x, y)) {
+            System.exit(0);
         }
     }
 
     @Override
     public void mouseMoved(int x, int y) {
         buttonPlaying.setHover(false);
+        buttonSettings.setHover(false);
+        buttonQuit.setHover(false);
+
         if(buttonPlaying.getBounds().contains(x, y)) {
             buttonPlaying.setHover(true);
+        } else if(buttonSettings.getBounds().contains(x, y)) {
+            buttonSettings.setHover(true);
+        } else if(buttonQuit.getBounds().contains(x, y)) {
+            buttonQuit.setHover(true);
         }
     }
 
@@ -64,6 +75,10 @@ public class Menu extends GameScene implements SceneMethods {
     public void mousePressed(int x, int y) {
         if(buttonPlaying.getBounds().contains(x, y)) {
             buttonPlaying.setPressed(true);
+        } else if(buttonSettings.getBounds().contains(x, y)) {
+            buttonSettings.setPressed(true);
+        } else if(buttonQuit.getBounds().contains(x, y)) {
+            buttonQuit.setPressed(true);
         }
     }
 
@@ -74,10 +89,14 @@ public class Menu extends GameScene implements SceneMethods {
 
     private void reset() {
         buttonPlaying.resetBooleans();
+        buttonSettings.resetBooleans();
+        buttonQuit.resetBooleans();
     }
 
     private void drawButtons(Graphics graphics) {
         buttonPlaying.draw(graphics);
+        buttonSettings.draw(graphics);
+        buttonQuit.draw(graphics);
     }
 
     private void importImage() {
