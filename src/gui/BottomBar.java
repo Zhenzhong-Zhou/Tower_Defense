@@ -155,7 +155,7 @@ public class BottomBar {
 
     public void mouseReleased() {
         buttonMenu.resetBooleans();
-        buttonSave.resetBooleans();;
+        buttonSave.resetBooleans();
         for(MyButton button : tileButtons) {
             button.resetBooleans();
         }

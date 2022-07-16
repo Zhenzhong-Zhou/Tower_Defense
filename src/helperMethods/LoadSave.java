@@ -24,7 +24,6 @@ public class LoadSave {
         File newLevel = new File("res/" + name + ".txt");
         if(newLevel.exists()) {
             System.out.println("File: " + name + " is already exists.");
-            return;
         } else {
             try {
                 newLevel.createNewFile();

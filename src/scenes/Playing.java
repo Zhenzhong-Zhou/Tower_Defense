@@ -10,9 +10,9 @@ import objects.Tile;
 import java.awt.*;
 
 public class Playing extends GameScene implements SceneMethods {
-    private int[][] level;
     private final TileManager tileManager;
     private final BottomBar bottomBar;
+    private int[][] level;
     private Tile selectedTile;
     private int mouseX, mouseY;
     private int lastTileX, lastTileY, lastTileId;
@@ -36,9 +36,6 @@ public class Playing extends GameScene implements SceneMethods {
 
     private void createDefaultLevel() {
         int[] array = new int[400];
-        for(int i =0; i < array.length; i++) {
-            array[i] = 0;
-        }
         LoadSave.CreateLevel("default_level", array);
     }
 
