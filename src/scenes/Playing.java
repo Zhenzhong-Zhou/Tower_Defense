@@ -1,5 +1,6 @@
 package scenes;
 
+import gui.BottomBar;
 import gui.MyButton;
 import helperMethods.LevelBuild;
 import main.Game;
@@ -13,7 +14,8 @@ public class Playing extends GameScene implements SceneMethods {
     private int[][] level;
     private TileManager tileManager;
 
-    private MyButton buttonMenu;
+
+    private BottomBar bottomBar;
 
     public Playing(Game game) {
         super(game);
@@ -21,11 +23,8 @@ public class Playing extends GameScene implements SceneMethods {
         // Level => tileManager
         level = LevelBuild.getLevelData();
         tileManager = new TileManager();
-        initButtons();
-    }
 
-    private void initButtons() {
-        buttonMenu = new MyButton("Menu", 0, 0, 100, 30);
+        bottomBar = new BottomBar(0, 640, 640, 100, this);
     }
 
     @Override
@@ -36,39 +35,38 @@ public class Playing extends GameScene implements SceneMethods {
                 graphics.drawImage(tileManager.getSprite(id), x * 32, y * 32, null);
             }
         }
-        drawButtons(graphics);
+        bottomBar.draw(graphics);
     }
 
-    private void drawButtons(Graphics graphics) {
-        buttonMenu.draw(graphics);
+    public TileManager getTileManager() {
+        return tileManager;
     }
 
     @Override
     public void mouseClicked(int x, int y) {
-        if(buttonMenu.getBounds().contains(x, y)) {
-            System.out.println("pressed!");
-            SetGameSate(MENU);
+        if(y >= 640) {
+            bottomBar.mouseClicked(x, y);
         }
     }
 
     @Override
     public void mouseMoved(int x, int y) {
-        buttonMenu.setHover(false);
-
-        if(buttonMenu.getBounds().contains(x, y)) {
-            buttonMenu.setHover(true);
+        if(y >= 640) {
+            bottomBar.mouseMoved(x, y);
         }
     }
 
     @Override
     public void mousePressed(int x, int y) {
-        if(buttonMenu.getBounds().contains(x, y)) {
-            buttonMenu.setPressed(true);
+        if(y >= 640) {
+            bottomBar.mousePressed(x, y);
         }
     }
 
     @Override
     public void mouseReleased(int x, int y) {
-        buttonMenu.resetBooleans();
+        if(y >= 640) {
+            bottomBar.mouseReleased(x, y);
+        }
     }
 }

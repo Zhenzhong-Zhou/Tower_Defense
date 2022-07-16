@@ -3,17 +3,31 @@ package gui;
 import java.awt.*;
 
 public class MyButton {
-    private int x, y, width, height;
+    public int x, y, width, height, id;
     private String text;
     private Rectangle bounds;
     private boolean hover, pressed;
 
+    // For Normal Buttons
     public MyButton(String text, int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.text = text;
+        this.id = -1;
+
+        initBounds();
+    }
+
+    // For Tile Buttons
+    public MyButton(String text, int x, int y, int width, int height, int id) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.text = text;
+        this.id = id;
 
         initBounds();
     }
@@ -72,5 +86,9 @@ public class MyButton {
 
     public Rectangle getBounds() {
         return bounds;
+    }
+
+    public int getId() {
+        return id;
     }
 }
