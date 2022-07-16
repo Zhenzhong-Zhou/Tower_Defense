@@ -2,6 +2,7 @@ package scenes;
 
 import gui.BottomBar;
 import helperMethods.LevelBuild;
+import helperMethods.LoadSave;
 import main.Game;
 import managers.TileManager;
 import objects.Tile;
@@ -25,6 +26,19 @@ public class Playing extends GameScene implements SceneMethods {
         tileManager = new TileManager();
 
         bottomBar = new BottomBar(0, 640, 640, 100, this);
+
+//        LoadSave.CreateFile();
+//        LoadSave.WriteToFile();
+//        LoadSave.ReadFromFile();
+        createDefaultLevel();
+    }
+
+    private void createDefaultLevel() {
+        int[] array = new int[400];
+        for(int i =0; i < array.length; i++) {
+            array[i] = 0;
+        }
+        LoadSave.CreateLevel("default_level", array);
     }
 
     @Override
