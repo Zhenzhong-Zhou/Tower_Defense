@@ -76,4 +76,8 @@ public class Playing extends GameScene implements SceneMethods {
     @Override
     public void mouseDragged(int x, int y) {
     }
+
+    public void setLevel(int[][] level) {
+        this.level = level;
+    }
 }
