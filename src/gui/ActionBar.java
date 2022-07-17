@@ -7,7 +7,7 @@ import java.awt.*;
 import static main.GameStates.MENU;
 import static main.GameStates.SetGameSate;
 
-public class ActionBar extends Bar{
+public class ActionBar extends Bar {
     private final Playing playing;
     private MyButton buttonMenu;
 

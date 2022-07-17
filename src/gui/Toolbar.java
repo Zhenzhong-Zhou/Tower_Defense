@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import static main.GameStates.MENU;
 import static main.GameStates.SetGameSate;
 
-public class Toolbar extends Bar{
-    private Editing editing;
-    private MyButton buttonMenu, buttonSave;
+public class Toolbar extends Bar {
     private final ArrayList<MyButton> tileButtons = new ArrayList<>();
+    private final Editing editing;
+    private MyButton buttonMenu, buttonSave;
     private Tile selectedTile;
 
     public Toolbar(int x, int y, int width, int height, Editing editing) {
@@ -97,7 +97,6 @@ public class Toolbar extends Bar{
 
     public void mouseClicked(int x, int y) {
         if(buttonMenu.getBounds().contains(x, y)) {
-            System.out.println("pressed!");
             SetGameSate(MENU);
         } else if(buttonSave.getBounds().contains(x, y)) {
             saveLevel();

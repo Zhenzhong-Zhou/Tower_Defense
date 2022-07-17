@@ -9,12 +9,12 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Editing extends GameScene implements SceneMethods {
+    private final Toolbar toolbar;
     private int[][] level;
     private Tile selectedTile;
     private int mouseX, mouseY;
     private int lastTileX, lastTileY, lastTileId;
     private boolean drawSelected;
-    private Toolbar toolbar;
 
     public Editing(Game game) {
         super(game);

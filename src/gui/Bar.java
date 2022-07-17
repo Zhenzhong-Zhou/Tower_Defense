@@ -1,10 +1,5 @@
 package gui;
 
-import objects.Tile;
-import scenes.Playing;
-
-import java.util.ArrayList;
-
 public class Bar {
     protected int x, y, width, height;
 
