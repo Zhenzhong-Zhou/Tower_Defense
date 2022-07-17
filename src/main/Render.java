@@ -19,6 +19,7 @@ public class Render {
                 break;
             case EDITING:
                 game.getEditor().render(graphics);
+                break;
             case SETTINGS:
                 game.getSettings().render(graphics);
                 break;
