@@ -36,25 +36,8 @@ public class ImageFix {
     }
 
     // Rotate second image only
-    public static BufferedImage getBuildRotateImage(BufferedImage[] images, int rotAngle, int rotAtIndex) {
-        int width = images[0].getWidth();
-        int height = images[0].getHeight();
-
-        BufferedImage newImage = new BufferedImage(width, height, images[0].getType());
-        Graphics2D graphics2D = newImage.createGraphics();
-
-       for(int i = 0; i < images.length; i++) {
-           if(rotAtIndex == i) {
-               graphics2D.rotate(Math.toRadians(rotAngle), width/ 2, height / 2);
-           }
-           graphics2D.drawImage(images[i], 0, 0 , null);
-           if(rotAtIndex == i) {
-               graphics2D.rotate(Math.toRadians(-rotAngle), width/ 2, height / 2);
-           }
-
-       }
-       graphics2D.dispose();
-
-       return newImage;
+    public static BufferedImage getBuildRotateImage(BufferedImage[] images, int index, int rotation) {
+        images[index] = getRotateImage(images[index], rotation);
+        return buildImage(images);
     }
 }

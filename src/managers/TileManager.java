@@ -23,7 +23,7 @@ public class TileManager {
         tiles.add(WATER = new Tile(getSprite(0, 0), id++, "Water"));
         tiles.add(ROAD = new Tile(getSprite(8, 0), id++, "Road"));
         tiles.add(BL_WATER_CORNER = new Tile(ImageFix.buildImage(getImages(0, 0, 5, 0)), id++, "BL_Water_Corner"));
-        tiles.add(TL_WATER_CORNER = new Tile(ImageFix.getBuildRotateImage(getImages(0, 0, 5, 0), 90, 1), id++, "TLL_Water_Corner"));
+        tiles.add(TL_WATER_CORNER = new Tile(ImageFix.getBuildRotateImage(getImages(0, 0, 5, 0), 1, 90), id++, "TLL_Water_Corner"));
     }
 
     private BufferedImage[] getImages(int firstX, int firstY, int secondX, int secondY) {
