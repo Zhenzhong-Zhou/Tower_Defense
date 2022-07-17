@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class TileManager {
-    public Tile GRASS, WATER, ROAD, BL_WATER_CORNER, TL_WATER_CORNER, TR_WATER_CORNER, BR_WATER_CORNER,
+    public Tile GRASS, WATER, BL_WATER_CORNER, TL_WATER_CORNER, TR_WATER_CORNER, BR_WATER_CORNER,
             T_WATER, R_WATER, B_WATER, L_WATER, ROAD_LR, ROAD_TB, ROAD_B_TO_R, ROAD_L_TO_B, ROAD_L_TO_T, ROAD_T_TO_R,
             TL_ISLE, TR_ISLE, BR_ISLE, BL_ISLE;
     public BufferedImage atlas;
