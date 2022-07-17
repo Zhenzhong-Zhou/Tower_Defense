@@ -3,11 +3,8 @@ package scenes;
 import gui.MyButton;
 import main.Game;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 import static main.GameStates.*;
@@ -15,13 +12,10 @@ import static main.GameStates.*;
 public class Menu extends GameScene implements SceneMethods {
     private final ArrayList<BufferedImage> sprites = new ArrayList<>();
     private BufferedImage image;
-    private MyButton buttonPlaying, buttonSettings, buttonQuit;
+    private MyButton buttonPlaying, buttonEditing, buttonSettings, buttonQuit;
 
     public Menu(Game game) {
         super(game);
-
-        importImage();
-        loadSprites();
         initButtons();
     }
 
@@ -33,8 +27,9 @@ public class Menu extends GameScene implements SceneMethods {
         int yOffset = 100;
 
         buttonPlaying = new MyButton("Play", x, y, width, height);
-        buttonSettings = new MyButton("Settings", x, y + yOffset, width, height);
-        buttonQuit = new MyButton("Quit", x, y + yOffset * 2, width, height);
+        buttonEditing = new MyButton("Edit", x, y + yOffset, width, height);
+        buttonSettings = new MyButton("Settings", x, y + yOffset * 2, width, height);
+        buttonQuit = new MyButton("Quit", x, y + yOffset * 3, width, height);
     }
 
     @Override
@@ -44,6 +39,7 @@ public class Menu extends GameScene implements SceneMethods {
 
     private void drawButtons(Graphics graphics) {
         buttonPlaying.draw(graphics);
+        buttonEditing.draw(graphics);
         buttonSettings.draw(graphics);
         buttonQuit.draw(graphics);
     }
@@ -52,6 +48,8 @@ public class Menu extends GameScene implements SceneMethods {
     public void mouseClicked(int x, int y) {
         if(buttonPlaying.getBounds().contains(x, y)) {
             SetGameSate(PLAYING);
+        } else if(buttonEditing.getBounds().contains(x, y)) {
+            SetGameSate(EDITING);
         } else if(buttonSettings.getBounds().contains(x, y)) {
             SetGameSate(SETTINGS);
         } else if(buttonQuit.getBounds().contains(x, y)) {
@@ -62,11 +60,14 @@ public class Menu extends GameScene implements SceneMethods {
     @Override
     public void mouseMoved(int x, int y) {
         buttonPlaying.setHover(false);
+        buttonEditing.setHover(false);
         buttonSettings.setHover(false);
         buttonQuit.setHover(false);
 
         if(buttonPlaying.getBounds().contains(x, y)) {
             buttonPlaying.setHover(true);
+        } else if(buttonEditing.getBounds().contains(x, y)) {
+            buttonEditing.setHover(true);
         } else if(buttonSettings.getBounds().contains(x, y)) {
             buttonSettings.setHover(true);
         } else if(buttonQuit.getBounds().contains(x, y)) {
@@ -78,6 +79,8 @@ public class Menu extends GameScene implements SceneMethods {
     public void mousePressed(int x, int y) {
         if(buttonPlaying.getBounds().contains(x, y)) {
             buttonPlaying.setPressed(true);
+        } else if(buttonEditing.getBounds().contains(x, y)) {
+            buttonEditing.setPressed(true);
         } else if(buttonSettings.getBounds().contains(x, y)) {
             buttonSettings.setPressed(true);
         } else if(buttonQuit.getBounds().contains(x, y)) {
@@ -97,25 +100,8 @@ public class Menu extends GameScene implements SceneMethods {
 
     private void reset() {
         buttonPlaying.resetBooleans();
+        buttonEditing.resetBooleans();
         buttonSettings.resetBooleans();
         buttonQuit.resetBooleans();
-    }
-
-    private void importImage() {
-        InputStream is = getClass().getResourceAsStream("/spriteatlas.png");
-        try {
-            assert is != null;
-            image = ImageIO.read(is);
-        } catch(IOException ioException) {
-            ioException.printStackTrace();
-        }
-    }
-
-    private void loadSprites() {
-        for(int y = 0; y < 10; y++) {
-            for(int x = 0; x < 10; x++) {
-                sprites.add(image.getSubimage(x * 32, y * 32, 32, 32));
-            }
-        }
     }
 }
