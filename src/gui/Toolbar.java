@@ -13,11 +13,11 @@ import static main.GameStates.MENU;
 import static main.GameStates.SetGameSate;
 
 public class Toolbar extends Bar {
-    private Map<MyButton, ArrayList<Tile>> arrayListMap = new HashMap<MyButton, ArrayList<Tile>>();
+    private final Editing editing;
+    private final Map<MyButton, ArrayList<Tile>> arrayListMap = new HashMap<MyButton, ArrayList<Tile>>();
     private MyButton buttonGrass, buttonWater, buttonRoadStraight, buttonRoadCorner, buttonCorner, buttonBeaches, buttonIsland;
     private MyButton currentButton;
     private int currentIndex = 0;
-    private final Editing editing;
     private MyButton buttonMenu, buttonSave;
     private Tile selectedTile;
 
@@ -51,8 +51,6 @@ public class Toolbar extends Bar {
     private void initMapButton(MyButton button, ArrayList<Tile> list, int x, int y, int xOffset, int width, int height, int id) {
         button = new MyButton("", x + xOffset * id, y, width, height, id);
         arrayListMap.put(button, list);
-//
-//        arrayListMap.get(button).
     }
 
     private void saveLevel() {
@@ -194,10 +192,10 @@ public class Toolbar extends Bar {
             buttonSave.setPressed(true);
         } else if(buttonGrass.getBounds().contains(x, y)) {
             buttonGrass.setPressed(true);
-        }else if(buttonWater.getBounds().contains(x, y)) {
+        } else if(buttonWater.getBounds().contains(x, y)) {
             buttonWater.setPressed(true);
         } else {
-             for(MyButton button : arrayListMap.keySet()) {
+            for(MyButton button : arrayListMap.keySet()) {
                 if(button.getBounds().contains(x, y)) {
                     button.setPressed(true);
                     return;
