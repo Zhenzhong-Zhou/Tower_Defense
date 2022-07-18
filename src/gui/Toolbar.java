@@ -6,12 +6,17 @@ import scenes.Editing;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static main.GameStates.MENU;
 import static main.GameStates.SetGameSate;
 
 public class Toolbar extends Bar {
-    private final ArrayList<MyButton> tileButtons = new ArrayList<>();
+    private Map<MyButton, ArrayList<Tile>> arrayListMap = new HashMap<MyButton, ArrayList<Tile>>();
+    private MyButton buttonGrass, buttonWater, buttonRoadStraight, buttonRoadCorner, buttonCorner, buttonBeaches, buttonIsland;
+    private MyButton currentButton;
+    private int currentIndex = 0;
     private final Editing editing;
     private MyButton buttonMenu, buttonSave;
     private Tile selectedTile;
@@ -33,14 +38,34 @@ public class Toolbar extends Bar {
         int xOffset = (int) (width * 1.1f);
         int i = 0;
 
-        for(Tile tile : editing.getGame().getTileManager().tiles) {
-            tileButtons.add(new MyButton(tile.getName(), xStart + xOffset * i, yStart, width, height, i));
-            i++;
-        }
+        buttonGrass = new MyButton("Grass", xStart, yStart, width, height, i++);
+        buttonWater = new MyButton("Water", xStart + xOffset, yStart, width, height, i++);
+
+        initMapButton(buttonRoadStraight, editing.getGame().getTileManager().getRoadStraights(), xStart, yStart, xOffset, width, height, i++);
+        initMapButton(buttonRoadCorner, editing.getGame().getTileManager().getRoadCorners(), xStart, yStart, xOffset, width, height, i++);
+        initMapButton(buttonWater, editing.getGame().getTileManager().getWaterCorners(), xStart, yStart, xOffset, width, height, i++);
+        initMapButton(buttonBeaches, editing.getGame().getTileManager().getBeaches(), xStart, yStart, xOffset, width, height, i++);
+        initMapButton(buttonIsland, editing.getGame().getTileManager().getIslands(), xStart, yStart, xOffset, width, height, i++);
+    }
+
+    private void initMapButton(MyButton button, ArrayList<Tile> list, int x, int y, int xOffset, int width, int height, int id) {
+        button = new MyButton("", x + xOffset * id, y, width, height, id);
+        arrayListMap.put(button, list);
+//
+//        arrayListMap.get(button).
     }
 
     private void saveLevel() {
         editing.saveLevel();
+    }
+
+    public void rotateSprite() {
+        currentIndex++;
+        if(currentIndex >= arrayListMap.get(currentButton).size()) {
+            currentIndex = 0;
+        }
+        selectedTile = arrayListMap.get(currentButton).get(currentIndex);
+        editing.setSelectedTile(selectedTile);
     }
 
     public void draw(Graphics graphics) {
@@ -56,30 +81,46 @@ public class Toolbar extends Bar {
         buttonMenu.draw(graphics);
         buttonSave.draw(graphics);
 
-        drawTileButtons(graphics);
+        drawNormalButtons(graphics, buttonGrass);
+        drawNormalButtons(graphics, buttonWater);
+        drawMapButtons(graphics);
         drawSelectedTile(graphics);
     }
 
-    private void drawTileButtons(Graphics graphics) {
-        for(MyButton button : tileButtons) {
+    private void drawNormalButtons(Graphics graphics, MyButton button) {
+        // Sprite Background
+        graphics.drawImage(getBufferedImage(button.getId()), button.x, button.y, button.width, button.height, null);
+
+        drawButtonFeedback(graphics, button);
+    }
+
+    private void drawMapButtons(Graphics graphics) {
+        for(Map.Entry<MyButton, ArrayList<Tile>> entry : arrayListMap.entrySet()) {
+            MyButton button = entry.getKey();
+            BufferedImage image = entry.getValue().get(0).getSprite();
+
             // Sprite Background
-            graphics.drawImage(getBufferedImage(button.getId()), button.x, button.y, button.width, button.height, null);
+            graphics.drawImage(image, button.x, button.y, button.width, button.height, null);
 
-            // Mouse Hover
-            if(button.isMouseHover()) {
-                graphics.setColor(Color.WHITE);
-            } else {
-                graphics.setColor(Color.BLACK);
-            }
+            drawButtonFeedback(graphics, button);
+        }
+    }
 
-            // Border
-            graphics.drawRect(button.x, button.y, button.width, button.height);
+    private void drawButtonFeedback(Graphics graphics, MyButton button) {
+        // Mouse Hover
+        if(button.isMouseHover()) {
+            graphics.setColor(Color.WHITE);
+        } else {
+            graphics.setColor(Color.BLACK);
+        }
 
-            // Mouse Pressed
-            if(button.isMousePressed()) {
-                graphics.drawRect(button.x + 1, button.y + 1, button.width - 2, button.height - 2);
-                graphics.drawRect(button.x + 2, button.y + 2, button.width - 4, button.height - 4);
-            }
+        // Border
+        graphics.drawRect(button.x, button.y, button.width, button.height);
+
+        // Mouse Pressed
+        if(button.isMousePressed()) {
+            graphics.drawRect(button.x + 1, button.y + 1, button.width - 2, button.height - 2);
+            graphics.drawRect(button.x + 2, button.y + 2, button.width - 4, button.height - 4);
         }
     }
 
@@ -100,11 +141,19 @@ public class Toolbar extends Bar {
             SetGameSate(MENU);
         } else if(buttonSave.getBounds().contains(x, y)) {
             saveLevel();
+        } else if(buttonGrass.getBounds().contains(x, y)) {
+            selectedTile = editing.getGame().getTileManager().getTitle(buttonGrass.getId());
+            editing.setSelectedTile(selectedTile);
+        } else if(buttonWater.getBounds().contains(x, y)) {
+            selectedTile = editing.getGame().getTileManager().getTitle(buttonWater.getId());
+            editing.setSelectedTile(selectedTile);
         } else {
-            for(MyButton button : tileButtons) {
+            for(MyButton button : arrayListMap.keySet()) {
                 if(button.getBounds().contains(x, y)) {
-                    selectedTile = editing.getGame().getTileManager().getTitle(button.getId());
+                    selectedTile = arrayListMap.get(button).get(0);
                     editing.setSelectedTile(selectedTile);
+                    currentButton = button;
+                    currentIndex = 0;
                     return;
                 }
             }
@@ -114,7 +163,9 @@ public class Toolbar extends Bar {
     public void mouseMoved(int x, int y) {
         buttonMenu.setHover(false);
         buttonSave.setHover(false);
-        for(MyButton button : tileButtons) {
+        buttonGrass.setHover(false);
+        buttonWater.setHover(false);
+        for(MyButton button : arrayListMap.keySet()) {
             button.setHover(false);
         }
 
@@ -122,8 +173,12 @@ public class Toolbar extends Bar {
             buttonMenu.setHover(true);
         } else if(buttonSave.getBounds().contains(x, y)) {
             buttonSave.setHover(true);
+        } else if(buttonGrass.getBounds().contains(x, y)) {
+            buttonGrass.setHover(true);
+        } else if(buttonWater.getBounds().contains(x, y)) {
+            buttonWater.setHover(true);
         } else {
-            for(MyButton button : tileButtons) {
+            for(MyButton button : arrayListMap.keySet()) {
                 if(button.getBounds().contains(x, y)) {
                     button.setHover(true);
                     return;
@@ -137,8 +192,12 @@ public class Toolbar extends Bar {
             buttonMenu.setPressed(true);
         } else if(buttonSave.getBounds().contains(x, y)) {
             buttonSave.setPressed(true);
+        } else if(buttonGrass.getBounds().contains(x, y)) {
+            buttonGrass.setPressed(true);
+        }else if(buttonWater.getBounds().contains(x, y)) {
+            buttonWater.setPressed(true);
         } else {
-            for(MyButton button : tileButtons) {
+             for(MyButton button : arrayListMap.keySet()) {
                 if(button.getBounds().contains(x, y)) {
                     button.setPressed(true);
                     return;
@@ -150,7 +209,9 @@ public class Toolbar extends Bar {
     public void mouseReleased() {
         buttonMenu.resetBooleans();
         buttonSave.resetBooleans();
-        for(MyButton button : tileButtons) {
+        buttonGrass.resetBooleans();
+        buttonWater.resetBooleans();
+        for(MyButton button : arrayListMap.keySet()) {
             button.resetBooleans();
         }
     }

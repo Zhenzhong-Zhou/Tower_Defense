@@ -6,6 +6,7 @@ import main.Game;
 import objects.Tile;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 public class Editing extends GameScene implements SceneMethods {
@@ -118,6 +119,12 @@ public class Editing extends GameScene implements SceneMethods {
 
         } else {
             changeTile(x, y);
+        }
+    }
+
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_R) {
+            toolbar.rotateSprite();
         }
     }
 }
