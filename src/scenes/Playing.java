@@ -6,7 +6,6 @@ import main.Game;
 import managers.EnemyManager;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class Playing extends GameScene implements SceneMethods {
     private final ActionBar bottomBar;
@@ -27,6 +26,7 @@ public class Playing extends GameScene implements SceneMethods {
     }
 
     public void update() {
+        updateTick();
         enemyManager.update();
     }
 
@@ -45,13 +45,13 @@ public class Playing extends GameScene implements SceneMethods {
         for(int y = 0; y < level.length; y++) {
             for(int x = 0; x < level[y].length; x++) {
                 int id = level[y][x];
-                graphics.drawImage(getSprite(id), x * 32, y * 32, null);
+                if(isAnimation(id)) {
+                    graphics.drawImage(getSprite(id, animationIndex), x * 32, y * 32, null);
+                } else {
+                    graphics.drawImage(getSprite(id), x * 32, y * 32, null);
+                }
             }
         }
-    }
-
-    private BufferedImage getSprite(int spriteID) {
-        return getGame().getTileManager().getSprite(spriteID);
     }
 
     @Override

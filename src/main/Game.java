@@ -65,6 +65,7 @@ public class Game extends JFrame implements Runnable {
                 playing.update();
                 break;
             case EDITING:
+                editing.update();
                 break;
             case SETTINGS:
                 break;
