@@ -6,10 +6,10 @@ import main.GameStates;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import static main.GameStates.*;
+import static main.GameStates.EDITING;
 
 public class KeyboardListener implements KeyListener {
-    private Game game;
+    private final Game game;
 
     public KeyboardListener(Game game) {
         this.game = game;
