@@ -18,7 +18,8 @@ public class EnemyManager {
     private final BufferedImage[] enemyImages;
     private final ArrayList<Enemy> enemies = new ArrayList<>();
     private final float speed = 0.5f;
-    private PathPoint start, end;
+    private final PathPoint start;
+    private final PathPoint end;
 
     public EnemyManager(Playing playing, PathPoint start, PathPoint end) {
         this.playing = playing;
@@ -66,8 +67,8 @@ public class EnemyManager {
     }
 
     public void addEnemy(int enemyType) {
-        int x = start.getxCord() *32;
-        int y = start.getyCord() *32;
+        int x = start.getxCord() * 32;
+        int y = start.getyCord() * 32;
         switch(enemyType) {
             case ORC:
                 enemies.add(new Orc(x, y, 0));
@@ -115,10 +116,8 @@ public class EnemyManager {
     }
 
     private boolean isAtEnd(Enemy enemy) {
-        if(enemy.getX() == end.getxCord()*32) {
-            if(enemy.getY() == end.getyCord()*32) {
-                return true;
-            }
+        if(enemy.getX() == end.getxCord() * 32) {
+            return enemy.getY() == end.getyCord() * 32;
         }
         return false;
     }

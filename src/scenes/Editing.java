@@ -68,11 +68,11 @@ public class Editing extends GameScene implements SceneMethods {
 
     private void drawPathPoints(Graphics graphics) {
         if(start != null) {
-            graphics.drawImage(toolbar.getPathStartImage(), start.getxCord()*32, start.getyCord()*32,32,32, null);
+            graphics.drawImage(toolbar.getPathStartImage(), start.getxCord() * 32, start.getyCord() * 32, 32, 32, null);
         }
 
         if(end != null) {
-            graphics.drawImage(toolbar.getPathEndImage(), end.getxCord()*32, end.getyCord()*32,32,32, null);
+            graphics.drawImage(toolbar.getPathEndImage(), end.getxCord() * 32, end.getyCord() * 32, 32, 32, null);
         }
     }
 
@@ -101,7 +101,7 @@ public class Editing extends GameScene implements SceneMethods {
             } else {
                 int id = level[tileY][tileX];
                 if(getGame().getTileManager().getTile(id).getTileType() == ROAD_TILE) {
-                    if(selectedTile.getId() == -1) {
+                    if(selectedTile.getId() == - 1) {
                         start = new PathPoint(tileX, tileY);
                     } else {
                         end = new PathPoint(tileX, tileY);
