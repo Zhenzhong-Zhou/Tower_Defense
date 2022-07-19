@@ -6,10 +6,10 @@ import static helperMethods.Constants.Direction.*;
 
 public class Enemy {
     private float x, y;
-    private Rectangle bounds;
+    private final Rectangle bounds;
     private int health;
-    private int ID;
-    private int enemyType;
+    private final int ID;
+    private final int enemyType;
     private int lastDirection;
 
     public Enemy(float x, float y, int ID, int enemyType) {
