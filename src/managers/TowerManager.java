@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 public class TowerManager {
     private final Playing playing;
-    private BufferedImage[] towerImages;
     private final ArrayList<Tower> towers = new ArrayList<>();
+    private BufferedImage[] towerImages;
     private int towerAmount = 0;
 
     public TowerManager(Playing playing) {

@@ -20,7 +20,7 @@ public abstract class Enemy {
         this.ID = ID;
         this.enemyType = enemyType;
         bounds = new Rectangle((int) x, (int) y, 32, 32);
-        lastDirection = -1;
+        lastDirection = - 1;
         setStartHealth();
     }
 

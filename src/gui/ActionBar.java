@@ -56,7 +56,8 @@ public class ActionBar extends Bar {
         for(MyButton button : towerButtons) {
             graphics.setColor(Color.GRAY);
             graphics.fillRect(button.x, button.y, button.width, button.height);
-            graphics.drawImage(playing.getTowerManager().getTowerImages()[button.getId()], button.x, button.y, button.width, button.height, null);
+            graphics.drawImage(playing.getTowerManager().getTowerImages()[button.getId()],
+                    button.x, button.y, button.width, button.height, null);
             drawButtonFeedback(graphics, button);
         }
     }
@@ -68,7 +69,8 @@ public class ActionBar extends Bar {
             graphics.setColor(Color.BLACK);
             graphics.drawRect(410, 645, 220, 85);
             graphics.drawRect(420, 650, 50, 50);
-            graphics.drawImage(playing.getTowerManager().getTowerImages()[displayedTower.getTowerType()], 420, 650, 50, 50, null);
+            graphics.drawImage(playing.getTowerManager().getTowerImages()[displayedTower.getTowerType()],
+                    420, 650, 50, 50, null);
             graphics.setFont(new Font("LucidaSans", Font.BOLD, 15));
             graphics.drawString("" + GetName(displayedTower.getTowerType()), 490, 660);
             graphics.drawString("ID: " + displayedTower.getId(), 490, 675);
@@ -80,8 +82,8 @@ public class ActionBar extends Bar {
 
     private void drawSelectedTowerRange(Graphics graphics) {
         graphics.setColor(Color.WHITE);
-        graphics.drawOval(displayedTower.getX() +16 - (int) displayedTower.getRange()/2,
-                displayedTower.getY() +16 - (int) displayedTower.getRange()/2,
+        graphics.drawOval(displayedTower.getX() + 16 - (int) displayedTower.getRange() / 2,
+                displayedTower.getY() + 16 - (int) displayedTower.getRange() / 2,
                 (int) displayedTower.getRange(), (int) displayedTower.getRange());
     }
 
@@ -91,7 +93,7 @@ public class ActionBar extends Bar {
 
     private void drawSelectedTowerBorder(Graphics graphics) {
         graphics.setColor(Color.cyan);
-        graphics.drawRect(displayedTower.getX(), displayedTower.getY(),32, 32);
+        graphics.drawRect(displayedTower.getX(), displayedTower.getY(), 32, 32);
     }
 
     public void mouseClicked(int x, int y) {
