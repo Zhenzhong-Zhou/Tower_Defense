@@ -74,7 +74,15 @@ public class ActionBar extends Bar {
             graphics.drawString("ID: " + displayedTower.getId(), 490, 675);
 
             drawSelectedTowerBorder(graphics);
+            drawSelectedTowerRange(graphics);
         }
+    }
+
+    private void drawSelectedTowerRange(Graphics graphics) {
+        graphics.setColor(Color.WHITE);
+        graphics.drawOval(displayedTower.getX() +16 - (int) displayedTower.getRange()/2,
+                displayedTower.getY() +16 - (int) displayedTower.getRange()/2,
+                (int) displayedTower.getRange(), (int) displayedTower.getRange());
     }
 
     public void displayTower(Tower tower) {

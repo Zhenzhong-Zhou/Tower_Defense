@@ -20,6 +20,7 @@ public class EnemyManager {
     //    private final float speed = 0.5f;
     private final PathPoint start;
     private final PathPoint end;
+    private int HpBarWidth = 20;
 
     public EnemyManager(Playing playing, PathPoint start, PathPoint end) {
         this.playing = playing;
@@ -88,7 +89,17 @@ public class EnemyManager {
     public void draw(Graphics graphics) {
         for(Enemy enemy : enemies) {
             drawEnemy(enemy, graphics);
+            drawHealthBar(enemy, graphics);
         }
+    }
+
+    private void drawHealthBar(Enemy enemy, Graphics graphics) {
+        graphics.setColor(Color.RED);
+        graphics.fillRect((int) enemy.getX() + 16 -(getNewBarWidth(enemy)/2), (int) enemy.getY() - 10, getNewBarWidth(enemy), 3);
+    }
+
+    private int getNewBarWidth(Enemy enemy) {
+       return (int) (HpBarWidth * enemy.getHealthBarFloat());
     }
 
     private void drawEnemy(Enemy enemy, Graphics graphics) {

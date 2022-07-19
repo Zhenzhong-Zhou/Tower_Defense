@@ -11,6 +11,7 @@ public abstract class Enemy {
     private final int enemyType;
     private float x, y;
     private int health;
+    private int maxHealth;
     private int lastDirection;
 
     public Enemy(float x, float y, int ID, int enemyType) {
@@ -57,6 +58,10 @@ public abstract class Enemy {
         return health;
     }
 
+    public float getHealthBarFloat() {
+        return (float) health / maxHealth;
+    }
+
     public int getID() {
         return ID;
     }
@@ -77,5 +82,6 @@ public abstract class Enemy {
 
     private void setStartHealth() {
         health = GetStartHealth(enemyType);
+        maxHealth = health;
     }
 }
