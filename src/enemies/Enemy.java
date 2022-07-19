@@ -19,7 +19,8 @@ public abstract class Enemy {
         this.ID = ID;
         this.enemyType = enemyType;
         bounds = new Rectangle((int) x, (int) y, 32, 32);
-        lastDirection = - 1;
+        lastDirection = -1;
+        setStartHealth();
     }
 
     public void move(float speed, int direction) {
@@ -74,7 +75,7 @@ public abstract class Enemy {
         this.y = y;
     }
 
-    protected void setStartHealth() {
+    private void setStartHealth() {
         health = GetStartHealth(enemyType);
     }
 }
