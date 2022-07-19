@@ -86,6 +86,8 @@ public class EnemyManager {
             enemy.move(GetSpeed(enemy.getEnemyType()), enemy.getLastDirection());
         } else if(isAtEnd(enemy)) {
             // reached the end
+            enemy.kill();
+            System.out.println("A life is lost!");
         } else {
             // find new direction
             setNewDirectionAndMove(enemy);
