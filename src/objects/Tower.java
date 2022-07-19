@@ -3,8 +3,8 @@ package objects;
 import static helperMethods.Constants.Towers.*;
 
 public class Tower {
-    private int x, y, id, towerType;
-    private float damage, range, CD;
+    private int x, y, id, towerType, damage, cdTick;
+    private float  range, CD;
 
     public Tower(int x, int y, int id, int towerType) {
         this.x = x;
@@ -14,6 +14,18 @@ public class Tower {
         setDefaultDamage();
         setDefaultRange();
         setDefaultCD();
+    }
+
+    public void update() {
+        cdTick++;
+    }
+
+    public boolean isCD() {
+        return cdTick >= CD ;
+    }
+
+    public void restCD() {
+        cdTick = 0;
     }
 
     private void setDefaultCD() {
@@ -60,7 +72,7 @@ public class Tower {
         this.towerType = towerType;
     }
 
-    public float getDamage() {
+    public int getDamage() {
         return damage;
     }
 

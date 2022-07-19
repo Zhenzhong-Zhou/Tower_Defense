@@ -36,19 +36,23 @@ public class TowerManager {
     }
 
     public void update() {
-        attackEnemyIfClose();
+        for(Tower tower : towers) {
+            tower.update();
+            attackEnemyIfClose(tower);
+        }
     }
 
-    private void attackEnemyIfClose() {
-        for(Tower tower : towers) {
-            for(Enemy enemy : playing.getEnemyManager().getEnemies()) {
-                if(enemy.isAlive()) {
-                    if(isEnemyInRange(tower, enemy)) {
+    private void attackEnemyIfClose(Tower tower) {
+        for(Enemy enemy : playing.getEnemyManager().getEnemies()) {
+            if(enemy.isAlive()) {
+                if(isEnemyInRange(tower, enemy)) {
+                    if(tower.isCD()) {
                         // tower shoot enemy
-                        enemy.hurt(1);
-                    } else {
-                        // we do nothing
+                        playing.shootEnemy(tower, enemy);
+                        tower.restCD();
                     }
+                } else {
+                    // we do nothing
                 }
             }
         }

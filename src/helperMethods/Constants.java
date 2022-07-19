@@ -6,8 +6,8 @@ public class Constants {
         public static final int BOMB = 1;
         public static final int CHAINS = 2;
 
-        public static float GetSpeed(int towerType) {
-            switch(towerType) {
+        public static float GetSpeed(int projectileType) {
+            switch(projectileType) {
                 case ARROW:
                     return 3f;
                 case BOMB:
@@ -36,7 +36,7 @@ public class Constants {
             return "";
         }
 
-        public static float GetStartDamage(int towerType) {
+        public static int GetStartDamage(int towerType) {
             switch(towerType) {
                 case CANNON:
                     return 25;
