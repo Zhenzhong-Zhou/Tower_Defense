@@ -39,11 +39,11 @@ public class Constants {
         public static int GetStartDamage(int towerType) {
             switch(towerType) {
                 case CANNON:
-                    return 25;
+                    return 10;
                 case ARCHER:
-                    return 15;
+                    return 1;
                 case WIZARD:
-                    return 5;
+                    return 2;
             }
             return 0;
         }

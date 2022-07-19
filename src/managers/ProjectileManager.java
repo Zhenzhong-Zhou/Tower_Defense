@@ -38,11 +38,11 @@ public class ProjectileManager {
     public void newProjectile(Tower tower, Enemy enemy) {
         int projectileType = getProjectileType(tower);
 
-        int xDistance = (int) Math.abs(tower.getX() - enemy.getX());
-        int yDistance = (int) Math.abs(tower.getY() - enemy.getY());
-        int totalDistance = xDistance + yDistance;
+        int xDistance = (int) (tower.getX() - enemy.getX());
+        int yDistance = (int) (tower.getY() - enemy.getY());
+        int totalDistance = Math.abs(xDistance)  + Math.abs(yDistance);
 
-        float xPercentage = (float) xDistance / totalDistance;
+        float xPercentage = (float) Math.abs(xDistance) / totalDistance;
 
         float xSpeed = xPercentage * GetSpeed(projectileType);
         float ySpeed = GetSpeed(projectileType) - xSpeed;
@@ -54,7 +54,12 @@ public class ProjectileManager {
             ySpeed *= -1;
         }
 
-        projectiles.add(new Projectile(tower.getX()+16, tower.getY()+16, xSpeed, ySpeed, tower.getDamage(), project_id++, projectileType));
+        float arcValue = (float) Math.atan(yDistance / (float) xDistance);
+        float rotation = (float) Math.toDegrees(arcValue);
+        if(xDistance < 0) {
+            rotation += 180;
+        }
+        projectiles.add(new Projectile(tower.getX()+16, tower.getY()+16, xSpeed, ySpeed, tower.getDamage(), rotation, project_id++, projectileType));
     }
 
     public void update() {
@@ -81,10 +86,14 @@ public class ProjectileManager {
     }
 
     public void draw(Graphics graphics) {
+        Graphics2D graphics2D = (Graphics2D) graphics;
         for(Projectile projectile : projectiles) {
             if(projectile.isActive()) {
-                graphics.drawImage(projectile_images[projectile.getProjectileType()],
-                        (int) projectile.getPosition().x, (int) projectile.getPosition().y, null);
+                graphics2D.translate(projectile.getPosition().x, projectile.getPosition().y);
+                graphics2D.rotate(Math.toRadians(projectile.getRotation()));
+                graphics2D.drawImage(projectile_images[projectile.getProjectileType()], -16,-16, null);
+                graphics2D.rotate(-Math.toRadians(projectile.getRotation()));
+                graphics2D.translate(-projectile.getPosition().x, -projectile.getPosition().y);
             }
         }
     }
