@@ -26,22 +26,18 @@ public class EnemyManager {
 
     private void loadEnemyImages() {
         BufferedImage atlas = LoadSave.getSpriteAtlas();
-        enemyImages[0] = LoadSave.getSpriteAtlas().getSubimage(0,32,32,32);
-        enemyImages[1] = LoadSave.getSpriteAtlas().getSubimage(32,32,32,32);
-        enemyImages[2] = LoadSave.getSpriteAtlas().getSubimage(2*32,32,32,32);
-        enemyImages[3] = LoadSave.getSpriteAtlas().getSubimage(3*32,32,32,32);
+        for(int i = 0; i < 4; i++) {
+            enemyImages[i] = atlas.getSubimage(i * 32,32,32,32);
+        }
     }
 
     public void update() {
         for(Enemy enemy : enemies) {
-            // is next tile road(position, direction)
-            if(isNextTileRoad(enemy)) {
-                // Enemy moves
-            }
+            updateEnemyMove(enemy);
         }
     }
 
-    public boolean isNextTileRoad(Enemy enemy) {
+    public void updateEnemyMove(Enemy enemy) {
         // Enemy Position
         // Enemy Direction
         // Tile at new possible position
@@ -57,7 +53,6 @@ public class EnemyManager {
             // find new direction
             setNewDirectionAndMove(enemy);
         }
-        return false;
     }
 
     public void addEnemy(int x, int y) {
