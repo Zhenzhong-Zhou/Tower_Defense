@@ -4,25 +4,32 @@ import gui.ActionBar;
 import helperMethods.LoadSave;
 import main.Game;
 import managers.EnemyManager;
+import objects.PathPoint;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Playing extends GameScene implements SceneMethods {
     private final ActionBar bottomBar;
     private final EnemyManager enemyManager;
     private int[][] level;
     private int mouseX, mouseY;
+    private PathPoint start, end;
 
     public Playing(Game game) {
         super(game);
 
         loadDefaultLevel();
         bottomBar = new ActionBar(0, 640, 640, 160, this);
-        enemyManager = new EnemyManager(this);
+        enemyManager = new EnemyManager(this, start, end);
     }
 
     private void loadDefaultLevel() {
         level = LoadSave.GetLevelData("default_level");
+        ArrayList<PathPoint> points = LoadSave.GetLevelPathPoints("default_level");
+        assert points != null;
+        start = points.get(0);
+        end = points.get(1);
     }
 
     public void update() {

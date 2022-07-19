@@ -3,10 +3,14 @@ package scenes;
 import gui.Toolbar;
 import helperMethods.LoadSave;
 import main.Game;
+import objects.PathPoint;
 import objects.Tile;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+
+import static helperMethods.Constants.Tiles.ROAD_TILE;
 
 public class Editing extends GameScene implements SceneMethods {
     private final Toolbar toolbar;
@@ -15,6 +19,7 @@ public class Editing extends GameScene implements SceneMethods {
     private int mouseX, mouseY;
     private int lastTileX, lastTileY, lastTileId;
     private boolean drawSelected;
+    private PathPoint start, end;
 
     public Editing(Game game) {
         super(game);
@@ -24,6 +29,10 @@ public class Editing extends GameScene implements SceneMethods {
 
     private void loadDefaultLevel() {
         level = LoadSave.GetLevelData("default_level");
+        ArrayList<PathPoint> points = LoadSave.GetLevelPathPoints("default_level");
+        assert points != null;
+        start = points.get(0);
+        end = points.get(1);
     }
 
     public void update() {
@@ -35,6 +44,7 @@ public class Editing extends GameScene implements SceneMethods {
         drawLevel(graphics);
         toolbar.draw(graphics);
         drawSelectedTile(graphics);
+        drawPathPoints(graphics);
     }
 
     private void drawLevel(Graphics graphics) {
@@ -56,8 +66,18 @@ public class Editing extends GameScene implements SceneMethods {
         }
     }
 
+    private void drawPathPoints(Graphics graphics) {
+        if(start != null) {
+            graphics.drawImage(toolbar.getPathStartImage(), start.getxCord()*32, start.getyCord()*32,32,32, null);
+        }
+
+        if(end != null) {
+            graphics.drawImage(toolbar.getPathEndImage(), end.getxCord()*32, end.getyCord()*32,32,32, null);
+        }
+    }
+
     public void saveLevel() {
-        LoadSave.SaveLevel("default_level", level);
+        LoadSave.SaveLevel("default_level", level, start, end);
         getGame().getPlaying().setLevel(level);
     }
 
@@ -70,14 +90,24 @@ public class Editing extends GameScene implements SceneMethods {
         if(selectedTile != null) {
             int tileX = mouseX / 32;
             int tileY = mouseY / 32;
+            if(selectedTile.getId() >= 0) {
+                if(lastTileX == tileX && lastTileY == tileY && lastTileId == selectedTile.getId()) {
+                    return;
+                }
+                lastTileX = tileX;
+                lastTileY = tileY;
 
-            if(lastTileX == tileX && lastTileY == tileY && lastTileId == selectedTile.getId()) {
-                return;
+                level[tileY][tileX] = selectedTile.getId();
+            } else {
+                int id = level[tileY][tileX];
+                if(getGame().getTileManager().getTitle(id).getTileType() == ROAD_TILE) {
+                    if(selectedTile.getId() == -1) {
+                        start = new PathPoint(tileX, tileY);
+                    } else {
+                        end = new PathPoint(tileX, tileY);
+                    }
+                }
             }
-            lastTileX = tileX;
-            lastTileY = tileY;
-
-            level[tileY][tileX] = selectedTile.getId();
         }
     }
 

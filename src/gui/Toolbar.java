@@ -251,4 +251,12 @@ public class Toolbar extends Bar {
             button.resetBooleans();
         }
     }
+
+    public BufferedImage getPathStartImage() {
+        return pathStart;
+    }
+
+    public BufferedImage getPathEndImage() {
+        return pathEnd;
+    }
 }

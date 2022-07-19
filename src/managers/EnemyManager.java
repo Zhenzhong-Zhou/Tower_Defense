@@ -2,6 +2,7 @@ package managers;
 
 import enemies.*;
 import helperMethods.LoadSave;
+import objects.PathPoint;
 import scenes.Playing;
 
 import java.awt.*;
@@ -17,14 +18,17 @@ public class EnemyManager {
     private final BufferedImage[] enemyImages;
     private final ArrayList<Enemy> enemies = new ArrayList<>();
     private final float speed = 0.5f;
+    private PathPoint start, end;
 
-    public EnemyManager(Playing playing) {
+    public EnemyManager(Playing playing, PathPoint start, PathPoint end) {
         this.playing = playing;
         enemyImages = new BufferedImage[4];
-        addEnemy(0, 19 * 32, ORC);
-        addEnemy(2 * 32, 19 * 32, BAT);
-        addEnemy(5 * 32, 8 * 32, KNIGHT);
-        addEnemy(8 * 32, 14 * 32, WOLF);
+        this.start = start;
+        this.end = end;
+        addEnemy(ORC);
+        addEnemy(BAT);
+        addEnemy(KNIGHT);
+        addEnemy(WOLF);
         loadEnemyImages();
     }
 
@@ -54,13 +58,16 @@ public class EnemyManager {
             enemy.move(speed, enemy.getLastDirection());
         } else if(isAtEnd(enemy)) {
             // reached the end
+            System.out.println("Lives Lost!");
         } else {
             // find new direction
             setNewDirectionAndMove(enemy);
         }
     }
 
-    public void addEnemy(int x, int y, int enemyType) {
+    public void addEnemy(int enemyType) {
+        int x = start.getxCord() *32;
+        int y = start.getyCord() *32;
         switch(enemyType) {
             case ORC:
                 enemies.add(new Orc(x, y, 0));
@@ -108,6 +115,11 @@ public class EnemyManager {
     }
 
     private boolean isAtEnd(Enemy enemy) {
+        if(enemy.getX() == end.getxCord()*32) {
+            if(enemy.getY() == end.getyCord()*32) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -119,6 +131,10 @@ public class EnemyManager {
         int yCord = (int) (enemy.getY() / 32);
 
         fixEnemyOffsetTile(enemy, direction, xCord, yCord);
+
+        if(isAtEnd(enemy)) {
+            return;
+        }
 
         if(direction == LEFT || direction == RIGHT) {
             int newY = (int) (enemy.getY() + getSpeedAndHeight(UP));
