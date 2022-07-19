@@ -21,8 +21,8 @@ public class Playing extends GameScene implements SceneMethods {
     private final ActionBar actionBar;
     private final EnemyManager enemyManager;
     private final TowerManager towerManager;
-    private ProjectileManager projectileManager;
-    private WaveManager waveManager;
+    private final ProjectileManager projectileManager;
+    private final WaveManager waveManager;
     private int[][] level;
     private int mouseX, mouseY;
     private PathPoint start, end;

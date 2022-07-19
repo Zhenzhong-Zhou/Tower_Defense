@@ -4,8 +4,12 @@ import java.awt.geom.Point2D;
 
 public class Projectile {
     private Point2D.Float position;
-    private int id, projectileType, damage;
-    private float xSpeed, ySpeed, rotation;
+    private final int id;
+    private final int projectileType;
+    private final int damage;
+    private final float xSpeed;
+    private final float ySpeed;
+    private final float rotation;
     private boolean active = true;
 
     public Projectile(float x, float y, float xSpeed, float ySpeed, int damage, float rotation, int id, int projectileType) {

@@ -48,7 +48,7 @@ public abstract class Enemy {
         lastDirection = direction;
         if(slowTick < slowTickLimit) {
             slowTick++;
-            speed*= 0.5f;
+            speed *= 0.5f;
         }
         switch(direction) {
             case LEFT:

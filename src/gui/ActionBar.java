@@ -16,7 +16,7 @@ public class ActionBar extends Bar {
     private MyButton[] towerButtons;
     private Tower selectedTower;
     private Tower displayedTower;
-    private DecimalFormat format;
+    private final DecimalFormat format;
 
     public ActionBar(int x, int y, int width, int height, Playing playing) {
         super(x, y, width, height);
@@ -98,14 +98,14 @@ public class ActionBar extends Bar {
             graphics.setColor(Color.BLACK);
             float timeLeft = playing.getWaveManager().getTimeLeft();
             String formattedText = format.format(timeLeft);
-            graphics.drawString("Time Left: "+formattedText,  425, 680);
+            graphics.drawString("Time Left: " + formattedText, 425, 680);
         }
     }
 
     private void drawWavesLeftInfo(Graphics graphics) {
-        int current = playing.getWaveManager().getWaveIndex() +1;
+        int current = playing.getWaveManager().getWaveIndex() + 1;
         int size = playing.getWaveManager().getWaves().size();
-        graphics.drawString("Wave " + current + " / " +size, 425, 710);
+        graphics.drawString("Wave " + current + " / " + size, 425, 710);
     }
 
     private void drawEnemiesLeftInfo(Graphics graphics) {
@@ -115,9 +115,9 @@ public class ActionBar extends Bar {
 
     private void drawSelectedTowerRange(Graphics graphics) {
         graphics.setColor(Color.WHITE);
-        graphics.drawOval(displayedTower.getX() + 16 - (int) (displayedTower.getRange()*2) / 2,
-                displayedTower.getY() + 16 - (int) (displayedTower.getRange()*2) / 2,
-                (int) displayedTower.getRange()*2, (int) displayedTower.getRange()*2);
+        graphics.drawOval(displayedTower.getX() + 16 - (int) (displayedTower.getRange() * 2) / 2,
+                displayedTower.getY() + 16 - (int) (displayedTower.getRange() * 2) / 2,
+                (int) displayedTower.getRange() * 2, (int) displayedTower.getRange() * 2);
     }
 
     public void displayTower(Tower tower) {

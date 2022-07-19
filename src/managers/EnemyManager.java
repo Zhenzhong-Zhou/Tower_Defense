@@ -36,7 +36,7 @@ public class EnemyManager {
     }
 
     private void loadEffectImage() {
-        slowEffect = LoadSave.getSpriteAtlas().getSubimage(32*9, 32*2,32,32);
+        slowEffect = LoadSave.getSpriteAtlas().getSubimage(32 * 9, 32 * 2, 32, 32);
     }
 
     private void loadEnemyImages() {
@@ -53,8 +53,6 @@ public class EnemyManager {
             }
         }
     }
-
-
 
 
     public void updateEnemyMove(Enemy enemy) {
@@ -113,7 +111,7 @@ public class EnemyManager {
 
     private void drawEffect(Enemy enemy, Graphics graphics) {
         if(enemy.isSlowed()) {
-            graphics.drawImage(slowEffect,(int) enemy.getX(),(int) enemy.getY(), null);
+            graphics.drawImage(slowEffect, (int) enemy.getX(), (int) enemy.getY(), null);
         }
     }
 

@@ -4,7 +4,7 @@ import static helperMethods.Constants.Towers.*;
 
 public class Tower {
     private int x, y, id, towerType, damage, cdTick;
-    private float  range, CD;
+    private float range, CD;
 
     public Tower(int x, int y, int id, int towerType) {
         this.x = x;
@@ -21,7 +21,7 @@ public class Tower {
     }
 
     public boolean isCD() {
-        return cdTick >= CD ;
+        return cdTick >= CD;
     }
 
     public void restCD() {

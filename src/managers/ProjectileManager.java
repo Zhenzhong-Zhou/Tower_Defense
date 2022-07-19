@@ -15,9 +15,9 @@ import static helperMethods.Constants.Projectiles.*;
 import static helperMethods.Constants.Towers.*;
 
 public class ProjectileManager {
-    private Playing playing;
-    private ArrayList<Projectile> projectiles = new ArrayList<>();
-    private ArrayList<Explosion> explosions = new ArrayList<>();
+    private final Playing playing;
+    private final ArrayList<Projectile> projectiles = new ArrayList<>();
+    private final ArrayList<Explosion> explosions = new ArrayList<>();
     private BufferedImage[] projectile_images, explosion_images;
     private int project_id = 0;
 
@@ -32,8 +32,8 @@ public class ProjectileManager {
         BufferedImage atlas = LoadSave.getSpriteAtlas();
         projectile_images = new BufferedImage[3];
 
-        for(int i=0; i< projectile_images.length; i++) {
-            projectile_images[i] = atlas.getSubimage((7 +i)*32, 32, 32, 32);
+        for(int i = 0; i < projectile_images.length; i++) {
+            projectile_images[i] = atlas.getSubimage((7 + i) * 32, 32, 32, 32);
         }
         importExplosion(atlas);
     }
@@ -41,8 +41,8 @@ public class ProjectileManager {
     private void importExplosion(BufferedImage atlas) {
         explosion_images = new BufferedImage[7];
 
-        for(int i =0; i < explosion_images.length; i++) {
-            explosion_images[i] = atlas.getSubimage(i*32, 32*2, 32, 23);
+        for(int i = 0; i < explosion_images.length; i++) {
+            explosion_images[i] = atlas.getSubimage(i * 32, 32 * 2, 32, 23);
         }
     }
 
@@ -51,7 +51,7 @@ public class ProjectileManager {
 
         int xDistance = (int) (tower.getX() - enemy.getX());
         int yDistance = (int) (tower.getY() - enemy.getY());
-        int totalDistance = Math.abs(xDistance)  + Math.abs(yDistance);
+        int totalDistance = Math.abs(xDistance) + Math.abs(yDistance);
 
         float xPercentage = (float) Math.abs(xDistance) / totalDistance;
 
@@ -59,10 +59,10 @@ public class ProjectileManager {
         float ySpeed = GetSpeed(projectileType) - xSpeed;
 
         if(tower.getX() > enemy.getX()) {
-            xSpeed *= -1;
+            xSpeed *= - 1;
         }
         if(tower.getY() > enemy.getY()) {
-            ySpeed *= -1;
+            ySpeed *= - 1;
         }
 
         float rotation = 0;
@@ -73,7 +73,7 @@ public class ProjectileManager {
                 rotation += 180;
             }
         }
-        projectiles.add(new Projectile(tower.getX()+16, tower.getY()+16, xSpeed, ySpeed, tower.getDamage(), rotation, project_id++, projectileType));
+        projectiles.add(new Projectile(tower.getX() + 16, tower.getY() + 16, xSpeed, ySpeed, tower.getDamage(), rotation, project_id++, projectileType));
     }
 
     public void update() {
@@ -83,8 +83,8 @@ public class ProjectileManager {
                 if(isProjHittingEnemy(projectile)) {
                     projectile.setActive(false);
                     if(projectile.getProjectileType() == BOMB) {
-                       explosions.add(new Explosion(projectile.getPosition()));
-                       explodeOnEnemies(projectile);
+                        explosions.add(new Explosion(projectile.getPosition()));
+                        explodeOnEnemies(projectile);
                     }
                 } else {
                     // we do nothing
@@ -104,8 +104,8 @@ public class ProjectileManager {
             if(enemy.isAlive()) {
                 float radius = 40.0f;
 
-                float xDistance = Math.abs(projectile.getPosition().x -enemy.getX());
-                float yDistance = Math.abs(projectile.getPosition().y -enemy.getY());
+                float xDistance = Math.abs(projectile.getPosition().x - enemy.getX());
+                float yDistance = Math.abs(projectile.getPosition().y - enemy.getY());
                 float realDistance = (float) Math.hypot(xDistance, yDistance);
 
                 if(realDistance <= radius) {
@@ -137,12 +137,12 @@ public class ProjectileManager {
                 if(projectile.getProjectileType() == ARROW) {
                     graphics2D.translate(projectile.getPosition().x, projectile.getPosition().y);
                     graphics2D.rotate(Math.toRadians(projectile.getRotation()));
-                    graphics2D.drawImage(projectile_images[projectile.getProjectileType()], -16,-16, null);
-                    graphics2D.rotate(-Math.toRadians(projectile.getRotation()));
-                    graphics2D.translate(-projectile.getPosition().x, -projectile.getPosition().y);
+                    graphics2D.drawImage(projectile_images[projectile.getProjectileType()], - 16, - 16, null);
+                    graphics2D.rotate(- Math.toRadians(projectile.getRotation()));
+                    graphics2D.translate(- projectile.getPosition().x, - projectile.getPosition().y);
                 } else {
                     graphics2D.drawImage(projectile_images[projectile.getProjectileType()],
-                            (int) projectile.getPosition().x-16, (int) projectile.getPosition().y-16, null);
+                            (int) projectile.getPosition().x - 16, (int) projectile.getPosition().y - 16, null);
                 }
             }
         }
@@ -150,12 +150,12 @@ public class ProjectileManager {
     }
 
     private void drawExplosions(Graphics2D graphics2D) {
-       for(Explosion explosion : explosions) {
-           if(explosion.getExplosionIndex() < explosion_images.length) {
-               graphics2D.drawImage(explosion_images[explosion.getExplosionIndex()],
-                       (int) explosion.getPosition().x-16, (int) explosion.getPosition().y-16, null);
-           }
-       }
+        for(Explosion explosion : explosions) {
+            if(explosion.getExplosionIndex() < explosion_images.length) {
+                graphics2D.drawImage(explosion_images[explosion.getExplosionIndex()],
+                        (int) explosion.getPosition().x - 16, (int) explosion.getPosition().y - 16, null);
+            }
+        }
     }
 
     private int getProjectileType(Tower tower) {
@@ -170,9 +170,10 @@ public class ProjectileManager {
         return 0;
     }
 
-    public class Explosion{
-        private  Point2D.Float position;
-        private int explosionTick=0, explosionIndex =0;
+    public class Explosion {
+        private final Point2D.Float position;
+        private int explosionTick = 0, explosionIndex = 0;
+
         public Explosion(Point2D.Float position) {
             this.position = position;
         }
