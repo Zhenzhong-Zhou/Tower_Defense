@@ -54,13 +54,29 @@ public class Playing extends GameScene implements SceneMethods {
         }
     }
 
+    public int getTileType(int x, int y) {
+        int xCord = x / 32;
+        int yCord = y / 32;
+
+        if(xCord < 0 || xCord > 19) {
+            return 0;
+        }
+        if(yCord < 0 || yCord> 19) {
+            return 0;
+        }
+
+        int id = level[y / 32][x / 32];
+        return getGame().getTileManager().getTitle(id).getTileType();
+    }
+
     @Override
     public void mouseClicked(int x, int y) {
         if(y >= 640) {
             bottomBar.mouseClicked(x, y);
-        } else {
-            enemyManager.addEnemy(x, y);
         }
+//        else {
+//            enemyManager.addEnemy(x, y);
+//        }
     }
 
     @Override
