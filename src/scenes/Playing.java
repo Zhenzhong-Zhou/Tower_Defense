@@ -6,9 +6,12 @@ import main.Game;
 import managers.EnemyManager;
 import managers.TowerManager;
 import objects.PathPoint;
+import objects.Tower;
 
 import java.awt.*;
 import java.util.ArrayList;
+
+import static helperMethods.Constants.Tiles.GRASS_TILE;
 
 public class Playing extends GameScene implements SceneMethods {
     private final ActionBar actionBar;
@@ -17,6 +20,7 @@ public class Playing extends GameScene implements SceneMethods {
     private int[][] level;
     private int mouseX, mouseY;
     private PathPoint start, end;
+    private Tower selectedTower;
 
     public Playing(Game game) {
         super(game);
@@ -47,6 +51,7 @@ public class Playing extends GameScene implements SceneMethods {
         actionBar.draw(graphics);
         enemyManager.draw(graphics);
         towerManager.draw(graphics);
+        drawSelectedTower(graphics);
     }
 
     private void drawLevel(Graphics graphics) {
@@ -59,6 +64,12 @@ public class Playing extends GameScene implements SceneMethods {
                     graphics.drawImage(getSprite(id), x * 32, y * 32, null);
                 }
             }
+        }
+    }
+
+    private void drawSelectedTower(Graphics graphics) {
+        if(selectedTower != null) {
+            graphics.drawImage(towerManager.getTowerImages()[selectedTower.getTowerType()], mouseX, mouseY, null);
         }
     }
 
@@ -82,9 +93,20 @@ public class Playing extends GameScene implements SceneMethods {
         if(y >= 640) {
             actionBar.mouseClicked(x, y);
         }
-//        else {
-//            enemyManager.addEnemy(x, y);
-//        }
+        else {
+            if(selectedTower != null) {
+                if(isTileGrass(mouseX, mouseY)) {
+                    towerManager.addTower(selectedTower, mouseX, mouseY);
+                    selectedTower = null;
+                }
+            }
+        }
+    }
+
+    private boolean isTileGrass(int x, int y) {
+        int id = level[y/32][x/32];
+        int tileType = getGame().getTileManager().getTile(id).getTileType();
+        return tileType == GRASS_TILE;
     }
 
     @Override
@@ -121,5 +143,9 @@ public class Playing extends GameScene implements SceneMethods {
 
     public TowerManager getTowerManager() {
         return towerManager;
+    }
+
+    public void setSelectedTower(Tower selectedTower) {
+        this.selectedTower = selectedTower;
     }
 }

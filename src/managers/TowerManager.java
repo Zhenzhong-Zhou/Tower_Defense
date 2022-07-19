@@ -6,24 +6,20 @@ import scenes.Playing;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import static helperMethods.Constants.Towers.ARCHER;
-import static helperMethods.Constants.Towers.CANNON;
 
 public class TowerManager {
     private Playing playing;
     private BufferedImage[] towerImages;
-    private Tower tower;
+    private ArrayList<Tower> towers = new ArrayList<>();
+    private int towerAmount = 0;
 
     public TowerManager(Playing playing) {
         this.playing = playing;
 
         loadTowerImages();
-        initTowers();
-    }
-
-    private void initTowers() {
-        tower = new Tower(3*32, 6*32, 0, ARCHER);
     }
 
     private void loadTowerImages() {
@@ -34,12 +30,18 @@ public class TowerManager {
         }
     }
 
+    public void addTower(Tower selectedTower, int xPos, int yPos) {
+        towers.add(new Tower(xPos, yPos, towerAmount++, selectedTower.getTowerType()));
+    }
+
     public void update() {
 
     }
 
     public void draw(Graphics graphics) {
-        graphics.drawImage(towerImages[ARCHER], tower.getX(), tower.getY(), null);
+        for(Tower tower : towers) {
+            graphics.drawImage(towerImages[tower.getTowerType()], tower.getX(), tower.getY(), null);
+        }
     }
 
     public BufferedImage[] getTowerImages() {
