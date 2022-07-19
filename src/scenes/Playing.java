@@ -4,6 +4,7 @@ import gui.ActionBar;
 import helperMethods.LoadSave;
 import main.Game;
 import managers.EnemyManager;
+import managers.TowerManager;
 import objects.PathPoint;
 
 import java.awt.*;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 public class Playing extends GameScene implements SceneMethods {
     private final ActionBar actionBar;
     private final EnemyManager enemyManager;
+    private TowerManager towerManager;
     private int[][] level;
     private int mouseX, mouseY;
     private PathPoint start, end;
@@ -22,6 +24,7 @@ public class Playing extends GameScene implements SceneMethods {
         loadDefaultLevel();
         actionBar = new ActionBar(0, 640, 640, 160, this);
         enemyManager = new EnemyManager(this, start, end);
+        towerManager = new TowerManager(this);
     }
 
     private void loadDefaultLevel() {
@@ -35,6 +38,7 @@ public class Playing extends GameScene implements SceneMethods {
     public void update() {
         updateTick();
         enemyManager.update();
+        towerManager.update();
     }
 
     @Override
@@ -42,6 +46,7 @@ public class Playing extends GameScene implements SceneMethods {
         drawLevel(graphics);
         actionBar.draw(graphics);
         enemyManager.draw(graphics);
+        towerManager.draw(graphics);
     }
 
     private void drawLevel(Graphics graphics) {

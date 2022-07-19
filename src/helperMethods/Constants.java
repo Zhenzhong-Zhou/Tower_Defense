@@ -1,6 +1,12 @@
 package helperMethods;
 
 public class Constants {
+    public static class Towers {
+        public static final int CANNON = 0;
+        public static final int ARCHER = 1;
+        public static final int WIZARD = 2;
+    }
+
     public static class Direction {
         public static final int LEFT = 0;
         public static final int UP = 1;
