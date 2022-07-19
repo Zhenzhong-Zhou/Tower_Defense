@@ -41,4 +41,8 @@ public class TowerManager {
     public void draw(Graphics graphics) {
         graphics.drawImage(towerImages[ARCHER], tower.getX(), tower.getY(), null);
     }
+
+    public BufferedImage[] getTowerImages() {
+        return towerImages;
+    }
 }

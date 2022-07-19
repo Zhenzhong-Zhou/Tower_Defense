@@ -118,4 +118,8 @@ public class Playing extends GameScene implements SceneMethods {
     public void setLevel(int[][] level) {
         this.level = level;
     }
+
+    public TowerManager getTowerManager() {
+        return towerManager;
+    }
 }
