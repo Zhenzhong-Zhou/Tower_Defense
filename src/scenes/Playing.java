@@ -10,7 +10,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Playing extends GameScene implements SceneMethods {
-    private final ActionBar bottomBar;
+    private final ActionBar actionBar;
     private final EnemyManager enemyManager;
     private int[][] level;
     private int mouseX, mouseY;
@@ -20,7 +20,7 @@ public class Playing extends GameScene implements SceneMethods {
         super(game);
 
         loadDefaultLevel();
-        bottomBar = new ActionBar(0, 640, 640, 160, this);
+        actionBar = new ActionBar(0, 640, 640, 160, this);
         enemyManager = new EnemyManager(this, start, end);
     }
 
@@ -40,7 +40,7 @@ public class Playing extends GameScene implements SceneMethods {
     @Override
     public void render(Graphics graphics) {
         drawLevel(graphics);
-        bottomBar.draw(graphics);
+        actionBar.draw(graphics);
         enemyManager.draw(graphics);
     }
 
@@ -69,13 +69,13 @@ public class Playing extends GameScene implements SceneMethods {
         }
 
         int id = level[y / 32][x / 32];
-        return getGame().getTileManager().getTitle(id).getTileType();
+        return getGame().getTileManager().getTile(id).getTileType();
     }
 
     @Override
     public void mouseClicked(int x, int y) {
         if(y >= 640) {
-            bottomBar.mouseClicked(x, y);
+            actionBar.mouseClicked(x, y);
         }
 //        else {
 //            enemyManager.addEnemy(x, y);
@@ -85,7 +85,7 @@ public class Playing extends GameScene implements SceneMethods {
     @Override
     public void mouseMoved(int x, int y) {
         if(y >= 640) {
-            bottomBar.mouseMoved(x, y);
+            actionBar.mouseMoved(x, y);
         } else {
             mouseX = (x / 32) * 32;
             mouseY = (y / 32) * 32;
@@ -95,14 +95,14 @@ public class Playing extends GameScene implements SceneMethods {
     @Override
     public void mousePressed(int x, int y) {
         if(y >= 640) {
-            bottomBar.mousePressed(x, y);
+            actionBar.mousePressed(x, y);
         }
     }
 
     @Override
     public void mouseReleased(int x, int y) {
         if(y >= 640) {
-            bottomBar.mouseReleased();
+            actionBar.mouseReleased();
         }
     }
 

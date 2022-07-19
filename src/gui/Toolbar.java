@@ -160,10 +160,10 @@ public class Toolbar extends Bar {
         } else if(buttonSave.getBounds().contains(x, y)) {
             saveLevel();
         } else if(buttonGrass.getBounds().contains(x, y)) {
-            selectedTile = editing.getGame().getTileManager().getTitle(buttonGrass.getId());
+            selectedTile = editing.getGame().getTileManager().getTile(buttonGrass.getId());
             editing.setSelectedTile(selectedTile);
         } else if(buttonWater.getBounds().contains(x, y)) {
-            selectedTile = editing.getGame().getTileManager().getTitle(buttonWater.getId());
+            selectedTile = editing.getGame().getTileManager().getTile(buttonWater.getId());
             editing.setSelectedTile(selectedTile);
         } else if(buttonPathStart.getBounds().contains(x, y)) {
             selectedTile = new Tile(pathStart, - 1, - 1);

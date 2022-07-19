@@ -74,7 +74,7 @@ public class TileManager {
         atlas = LoadSave.getSpriteAtlas();
     }
 
-    public Tile getTitle(int id) {
+    public Tile getTile(int id) {
         return tiles.get(id);
     }
 

@@ -100,7 +100,7 @@ public class Editing extends GameScene implements SceneMethods {
                 level[tileY][tileX] = selectedTile.getId();
             } else {
                 int id = level[tileY][tileX];
-                if(getGame().getTileManager().getTitle(id).getTileType() == ROAD_TILE) {
+                if(getGame().getTileManager().getTile(id).getTileType() == ROAD_TILE) {
                     if(selectedTile.getId() == -1) {
                         start = new PathPoint(tileX, tileY);
                     } else {
