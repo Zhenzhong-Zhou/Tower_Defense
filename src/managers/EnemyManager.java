@@ -17,7 +17,6 @@ public class EnemyManager {
     private final Playing playing;
     private final BufferedImage[] enemyImages;
     private final ArrayList<Enemy> enemies = new ArrayList<>();
-    //    private final float speed = 0.5f;
     private final PathPoint start;
     private final PathPoint end;
     private final int HpBarWidth = 20;
@@ -29,10 +28,10 @@ public class EnemyManager {
         this.start = start;
         this.end = end;
         loadEffectImage();
-        addEnemy(ORC);
-        addEnemy(BAT);
-        addEnemy(KNIGHT);
-        addEnemy(WOLF);
+//        addEnemy(ORC);
+//        addEnemy(BAT);
+//        addEnemy(KNIGHT);
+//        addEnemy(WOLF);
         loadEnemyImages();
     }
 
@@ -48,11 +47,30 @@ public class EnemyManager {
     }
 
     public void update() {
+        updateWaveManager();
+        if(isTimeForNewEnemy()) {
+            spawnEnemy();
+        }
         for(Enemy enemy : enemies) {
             if(enemy.isAlive()) {
                 updateEnemyMove(enemy);
             }
         }
+    }
+
+    private void updateWaveManager() {
+        playing.getWaveManager().update();
+    }
+
+    private void spawnEnemy() {
+        addEnemy(playing.getWaveManager().getNextEnemy());
+    }
+
+    private boolean isTimeForNewEnemy() {
+        if(playing.getWaveManager().isTimeForNewEnemy()) {
+            return playing.getWaveManager().isThereMoreEnemiesInWave();
+        }
+        return false;
     }
 
     public void updateEnemyMove(Enemy enemy) {
@@ -68,7 +86,6 @@ public class EnemyManager {
             enemy.move(GetSpeed(enemy.getEnemyType()), enemy.getLastDirection());
         } else if(isAtEnd(enemy)) {
             // reached the end
-            System.out.println("Lives Lost!");
         } else {
             // find new direction
             setNewDirectionAndMove(enemy);

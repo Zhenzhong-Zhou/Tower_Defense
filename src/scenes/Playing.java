@@ -7,6 +7,7 @@ import main.Game;
 import managers.EnemyManager;
 import managers.ProjectileManager;
 import managers.TowerManager;
+import managers.WaveManager;
 import objects.PathPoint;
 import objects.Tower;
 
@@ -21,6 +22,7 @@ public class Playing extends GameScene implements SceneMethods {
     private final EnemyManager enemyManager;
     private final TowerManager towerManager;
     private ProjectileManager projectileManager;
+    private WaveManager waveManager;
     private int[][] level;
     private int mouseX, mouseY;
     private PathPoint start, end;
@@ -34,6 +36,7 @@ public class Playing extends GameScene implements SceneMethods {
         enemyManager = new EnemyManager(this, start, end);
         towerManager = new TowerManager(this);
         projectileManager = new ProjectileManager(this);
+        waveManager = new WaveManager(this);
     }
 
     private void loadDefaultLevel() {
@@ -132,6 +135,9 @@ public class Playing extends GameScene implements SceneMethods {
         return towerManager.getTowerAt(x, y);
     }
 
+    public void shootEnemy(Tower tower, Enemy enemy) {
+        projectileManager.newProjectile(tower, enemy);
+    }
 
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
@@ -179,11 +185,11 @@ public class Playing extends GameScene implements SceneMethods {
         return enemyManager;
     }
 
-    public void setSelectedTower(Tower selectedTower) {
-        this.selectedTower = selectedTower;
+    public WaveManager getWaveManager() {
+        return waveManager;
     }
 
-    public void shootEnemy(Tower tower, Enemy enemy) {
-        projectileManager.newProjectile(tower, enemy);
+    public void setSelectedTower(Tower selectedTower) {
+        this.selectedTower = selectedTower;
     }
 }
