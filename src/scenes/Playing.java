@@ -16,7 +16,7 @@ import static helperMethods.Constants.Tiles.GRASS_TILE;
 public class Playing extends GameScene implements SceneMethods {
     private final ActionBar actionBar;
     private final EnemyManager enemyManager;
-    private TowerManager towerManager;
+    private final TowerManager towerManager;
     private int[][] level;
     private int mouseX, mouseY;
     private PathPoint start, end;
@@ -92,8 +92,7 @@ public class Playing extends GameScene implements SceneMethods {
     public void mouseClicked(int x, int y) {
         if(y >= 640) {
             actionBar.mouseClicked(x, y);
-        }
-        else {
+        } else {
             if(selectedTower != null) {
                 if(isTileGrass(mouseX, mouseY)) {
                     if(getTowerAt(mouseX, mouseY) == null) {
@@ -110,13 +109,13 @@ public class Playing extends GameScene implements SceneMethods {
     }
 
     private boolean isTileGrass(int x, int y) {
-        int id = level[y/32][x/32];
+        int id = level[y / 32][x / 32];
         int tileType = getGame().getTileManager().getTile(id).getTileType();
         return tileType == GRASS_TILE;
     }
 
     private Tower getTowerAt(int x, int y) {
-        return towerManager.getTowerAt(x,y);
+        return towerManager.getTowerAt(x, y);
     }
 
     @Override

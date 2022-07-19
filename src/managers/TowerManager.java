@@ -9,9 +9,9 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class TowerManager {
-    private Playing playing;
+    private final Playing playing;
     private BufferedImage[] towerImages;
-    private ArrayList<Tower> towers = new ArrayList<>();
+    private final ArrayList<Tower> towers = new ArrayList<>();
     private int towerAmount = 0;
 
     public TowerManager(Playing playing) {
@@ -23,8 +23,8 @@ public class TowerManager {
     private void loadTowerImages() {
         BufferedImage atlas = LoadSave.getSpriteAtlas();
         towerImages = new BufferedImage[3];
-        for(int i = 0; i<3; i++) {
-            towerImages[i] = atlas.getSubimage((4 + i)*32, 32, 32, 32);
+        for(int i = 0; i < 3; i++) {
+            towerImages[i] = atlas.getSubimage((4 + i) * 32, 32, 32, 32);
         }
     }
 

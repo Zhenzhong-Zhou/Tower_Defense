@@ -17,7 +17,7 @@ public class EnemyManager {
     private final Playing playing;
     private final BufferedImage[] enemyImages;
     private final ArrayList<Enemy> enemies = new ArrayList<>();
-//    private final float speed = 0.5f;
+    //    private final float speed = 0.5f;
     private final PathPoint start;
     private final PathPoint end;
 
@@ -97,7 +97,7 @@ public class EnemyManager {
 
     private float getSpeedAndHeight(int direction, int enemyType) {
         if(direction == UP) {
-            return -GetSpeed(enemyType);
+            return - GetSpeed(enemyType);
         } else if(direction == DOWN) {
             return GetSpeed(enemyType) + 32;
         } else {

@@ -33,8 +33,8 @@ public class ActionBar extends Bar {
         int yStart = 650;
         int xOffset = (int) (width * 1.1f);
 
-        for(int i =0; i <towerButtons.length; i++) {
-            towerButtons[i] = new MyButton("", xStart+xOffset*i, yStart, width, height, i);
+        for(int i = 0; i < towerButtons.length; i++) {
+            towerButtons[i] = new MyButton("", xStart + xOffset * i, yStart, width, height, i);
         }
     }
 
@@ -55,7 +55,7 @@ public class ActionBar extends Bar {
 
         for(MyButton button : towerButtons) {
             graphics.setColor(Color.GRAY);
-            graphics.fillRect(button.x,button.y, button.width, button.height);
+            graphics.fillRect(button.x, button.y, button.width, button.height);
             graphics.drawImage(playing.getTowerManager().getTowerImages()[button.getId()], button.x, button.y, button.width, button.height, null);
             drawButtonFeedback(graphics, button);
         }
@@ -64,14 +64,14 @@ public class ActionBar extends Bar {
     private void drawDisplayedTower(Graphics graphics) {
         if(displayedTower != null) {
             graphics.setColor(Color.GRAY);
-            graphics.fillRect(410, 645,220,85);
+            graphics.fillRect(410, 645, 220, 85);
             graphics.setColor(Color.BLACK);
-            graphics.drawRect(410,645,220,85);
-            graphics.drawRect(420,650,50,50);
+            graphics.drawRect(410, 645, 220, 85);
+            graphics.drawRect(420, 650, 50, 50);
             graphics.drawImage(playing.getTowerManager().getTowerImages()[displayedTower.getTowerType()], 420, 650, 50, 50, null);
             graphics.setFont(new Font("LucidaSans", Font.BOLD, 15));
-            graphics.drawString("" + GetName(displayedTower.getTowerType()),490,660);
-            graphics.drawString("ID: " + displayedTower.getId(),490,675);
+            graphics.drawString("" + GetName(displayedTower.getTowerType()), 490, 660);
+            graphics.drawString("ID: " + displayedTower.getId(), 490, 675);
         }
     }
 
@@ -85,7 +85,7 @@ public class ActionBar extends Bar {
         } else {
             for(MyButton button : towerButtons) {
                 if(button.getBounds().contains(x, y)) {
-                    selectedTower = new Tower(0,0,-1, button.getId());
+                    selectedTower = new Tower(0, 0, - 1, button.getId());
                     playing.setSelectedTower(selectedTower);
                     return;
                 }
