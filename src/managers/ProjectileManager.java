@@ -84,6 +84,7 @@ public class ProjectileManager {
                     projectile.setActive(false);
                     if(projectile.getProjectileType() == BOMB) {
                        explosions.add(new Explosion(projectile.getPosition()));
+                       explodeOnEnemies(projectile);
                     }
                 } else {
                     // we do nothing
@@ -92,15 +93,35 @@ public class ProjectileManager {
         }
 
         for(Explosion explosion : explosions) {
-            explosion.update();
+            if(explosion.explosionIndex < explosion_images.length) {
+                explosion.update();
+            }
+        }
+    }
+
+    private void explodeOnEnemies(Projectile projectile) {
+        for(Enemy enemy : playing.getEnemyManager().getEnemies()) {
+            if(enemy.isAlive()) {
+                float radius = 40.0f;
+
+                float xDistance = Math.abs(projectile.getPosition().x -enemy.getX());
+                float yDistance = Math.abs(projectile.getPosition().y -enemy.getY());
+                float realDistance = (float) Math.hypot(xDistance, yDistance);
+
+                if(realDistance <= radius) {
+                    enemy.hurt(projectile.getDamage());
+                }
+            }
         }
     }
 
     private boolean isProjHittingEnemy(Projectile projectile) {
         for(Enemy enemy : playing.getEnemyManager().getEnemies()) {
-            if(enemy.getBounds().contains(projectile.getPosition())) {
-                enemy.hurt(projectile.getDamage());
-                return true;
+            if(enemy.isAlive()) {
+                if(enemy.getBounds().contains(projectile.getPosition())) {
+                    enemy.hurt(projectile.getDamage());
+                    return true;
+                }
             }
         }
         return false;
