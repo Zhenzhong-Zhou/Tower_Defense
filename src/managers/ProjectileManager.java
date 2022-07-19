@@ -54,10 +54,13 @@ public class ProjectileManager {
             ySpeed *= -1;
         }
 
-        float arcValue = (float) Math.atan(yDistance / (float) xDistance);
-        float rotation = (float) Math.toDegrees(arcValue);
-        if(xDistance < 0) {
-            rotation += 180;
+        float rotation = 0;
+        if(projectileType == ARROW) {
+            float arcValue = (float) Math.atan(yDistance / (float) xDistance);
+            rotation = (float) Math.toDegrees(arcValue);
+            if(xDistance < 0) {
+                rotation += 180;
+            }
         }
         projectiles.add(new Projectile(tower.getX()+16, tower.getY()+16, xSpeed, ySpeed, tower.getDamage(), rotation, project_id++, projectileType));
     }
@@ -89,11 +92,16 @@ public class ProjectileManager {
         Graphics2D graphics2D = (Graphics2D) graphics;
         for(Projectile projectile : projectiles) {
             if(projectile.isActive()) {
-                graphics2D.translate(projectile.getPosition().x, projectile.getPosition().y);
-                graphics2D.rotate(Math.toRadians(projectile.getRotation()));
-                graphics2D.drawImage(projectile_images[projectile.getProjectileType()], -16,-16, null);
-                graphics2D.rotate(-Math.toRadians(projectile.getRotation()));
-                graphics2D.translate(-projectile.getPosition().x, -projectile.getPosition().y);
+                if(projectile.getProjectileType() == ARROW) {
+                    graphics2D.translate(projectile.getPosition().x, projectile.getPosition().y);
+                    graphics2D.rotate(Math.toRadians(projectile.getRotation()));
+                    graphics2D.drawImage(projectile_images[projectile.getProjectileType()], -16,-16, null);
+                    graphics2D.rotate(-Math.toRadians(projectile.getRotation()));
+                    graphics2D.translate(-projectile.getPosition().x, -projectile.getPosition().y);
+                } else {
+                    graphics2D.drawImage(projectile_images[projectile.getProjectileType()],
+                            (int) projectile.getPosition().x-16, (int) projectile.getPosition().y-16, null);
+                }
             }
         }
     }
