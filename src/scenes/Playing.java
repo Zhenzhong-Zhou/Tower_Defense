@@ -101,6 +101,10 @@ public class Playing extends GameScene implements SceneMethods {
                         selectedTower = null;
                     }
                 }
+            } else {
+                // get tower if exists on (x, y)
+                Tower tower = getTowerAt(mouseX, mouseY);
+                actionBar.displayTower(tower);
             }
         }
     }

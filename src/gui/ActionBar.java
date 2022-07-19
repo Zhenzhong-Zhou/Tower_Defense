@@ -5,6 +5,7 @@ import scenes.Playing;
 
 import java.awt.*;
 
+import static helperMethods.Constants.Towers.GetName;
 import static main.GameStates.MENU;
 import static main.GameStates.SetGameSate;
 
@@ -13,6 +14,7 @@ public class ActionBar extends Bar {
     private MyButton buttonMenu;
     private MyButton[] towerButtons;
     private Tower selectedTower;
+    private Tower displayedTower;
 
     public ActionBar(int x, int y, int width, int height, Playing playing) {
         super(x, y, width, height);
@@ -43,6 +45,9 @@ public class ActionBar extends Bar {
 
         // Buttons
         drawButtons(graphics);
+
+        // Displayed Tower
+        drawDisplayedTower(graphics);
     }
 
     private void drawButtons(Graphics graphics) {
@@ -54,6 +59,24 @@ public class ActionBar extends Bar {
             graphics.drawImage(playing.getTowerManager().getTowerImages()[button.getId()], button.x, button.y, button.width, button.height, null);
             drawButtonFeedback(graphics, button);
         }
+    }
+
+    private void drawDisplayedTower(Graphics graphics) {
+        if(displayedTower != null) {
+            graphics.setColor(Color.GRAY);
+            graphics.fillRect(410, 645,220,85);
+            graphics.setColor(Color.BLACK);
+            graphics.drawRect(410,645,220,85);
+            graphics.drawRect(420,650,50,50);
+            graphics.drawImage(playing.getTowerManager().getTowerImages()[displayedTower.getTowerType()], 420, 650, 50, 50, null);
+            graphics.setFont(new Font("LucidaSans", Font.BOLD, 15));
+            graphics.drawString("" + GetName(displayedTower.getTowerType()),490,660);
+            graphics.drawString("ID: " + displayedTower.getId(),490,675);
+        }
+    }
+
+    public void displayTower(Tower tower) {
+        displayedTower = tower;
     }
 
     public void mouseClicked(int x, int y) {
