@@ -3,6 +3,7 @@ package enemies;
 import java.awt.*;
 
 import static helperMethods.Constants.Direction.*;
+import static helperMethods.Constants.Enemies.GetStartHealth;
 
 public abstract class Enemy {
     private final Rectangle bounds;
@@ -71,5 +72,9 @@ public abstract class Enemy {
         // Don't use this one for move, this is for position fix
         this.x = x;
         this.y = y;
+    }
+
+    protected void setStartHealth() {
+        health = GetStartHealth(enemyType);
     }
 }
