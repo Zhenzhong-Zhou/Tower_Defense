@@ -9,6 +9,7 @@ import objects.PathPoint;
 import objects.Tower;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import static helperMethods.Constants.Tiles.GRASS_TILE;
@@ -116,6 +117,13 @@ public class Playing extends GameScene implements SceneMethods {
 
     private Tower getTowerAt(int x, int y) {
         return towerManager.getTowerAt(x, y);
+    }
+
+
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            selectedTower = null;
+        }
     }
 
     @Override
