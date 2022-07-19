@@ -1,5 +1,6 @@
 package gui;
 
+import helperMethods.LoadSave;
 import objects.Tile;
 import scenes.Editing;
 
@@ -19,12 +20,20 @@ public class Toolbar extends Bar {
     private MyButton currentButton;
     private int currentIndex = 0;
     private MyButton buttonMenu, buttonSave;
+    private MyButton buttonPathStart, buttonPathEnd;
+    private BufferedImage pathStart, pathEnd;
     private Tile selectedTile;
 
     public Toolbar(int x, int y, int width, int height, Editing editing) {
         super(x, y, width, height);
         this.editing = editing;
+        initPathImages();
         initButtons();
+    }
+
+    private void initPathImages() {
+        pathStart = LoadSave.getSpriteAtlas().getSubimage(7*32, 2*32,32, 32);
+        pathEnd = LoadSave.getSpriteAtlas().getSubimage(8*32, 2*32,32, 32);
     }
 
     private void initButtons() {
@@ -46,6 +55,9 @@ public class Toolbar extends Bar {
         initMapButton(buttonWater, editing.getGame().getTileManager().getWaterCorners(), xStart, yStart, xOffset, width, height, i++);
         initMapButton(buttonBeaches, editing.getGame().getTileManager().getBeaches(), xStart, yStart, xOffset, width, height, i++);
         initMapButton(buttonIsland, editing.getGame().getTileManager().getIslands(), xStart, yStart, xOffset, width, height, i++);
+
+        buttonPathStart = new MyButton("Path Start", xStart, yStart + xOffset, width, height, i++);
+        buttonPathEnd = new MyButton("Path End", xStart + xOffset, yStart + xOffset, width, height, i++);
     }
 
     private void initMapButton(MyButton button, ArrayList<Tile> list, int x, int y, int xOffset, int width, int height, int id) {
@@ -79,10 +91,18 @@ public class Toolbar extends Bar {
         buttonMenu.draw(graphics);
         buttonSave.draw(graphics);
 
+        drawPathButtons(graphics, buttonPathStart, pathStart);
+        drawPathButtons(graphics, buttonPathEnd, pathEnd);
+
         drawNormalButtons(graphics, buttonGrass);
         drawNormalButtons(graphics, buttonWater);
         drawMapButtons(graphics);
         drawSelectedTile(graphics);
+    }
+
+    private void drawPathButtons(Graphics graphics, MyButton button, BufferedImage image) {
+        graphics.drawImage(image, button.x, button.y, button.width, button.height, null);
+        drawButtonFeedback(graphics, button);
     }
 
     private void drawNormalButtons(Graphics graphics, MyButton button) {
@@ -145,6 +165,12 @@ public class Toolbar extends Bar {
         } else if(buttonWater.getBounds().contains(x, y)) {
             selectedTile = editing.getGame().getTileManager().getTitle(buttonWater.getId());
             editing.setSelectedTile(selectedTile);
+        } else if(buttonPathStart.getBounds().contains(x, y)) {
+            selectedTile = new Tile(pathStart, -1, -1);
+            editing.setSelectedTile(selectedTile);
+        } else if(buttonPathEnd.getBounds().contains(x, y)) {
+            selectedTile = new Tile(pathEnd, -2, -2);
+            editing.setSelectedTile(selectedTile);
         } else {
             for(MyButton button : arrayListMap.keySet()) {
                 if(button.getBounds().contains(x, y)) {
@@ -163,6 +189,8 @@ public class Toolbar extends Bar {
         buttonSave.setHover(false);
         buttonGrass.setHover(false);
         buttonWater.setHover(false);
+        buttonPathStart.setHover(false);
+        buttonPathEnd.setHover(false);
         for(MyButton button : arrayListMap.keySet()) {
             button.setHover(false);
         }
@@ -175,6 +203,10 @@ public class Toolbar extends Bar {
             buttonGrass.setHover(true);
         } else if(buttonWater.getBounds().contains(x, y)) {
             buttonWater.setHover(true);
+        } else if(buttonPathStart.getBounds().contains(x, y)) {
+            buttonPathStart.setHover(true);
+        } else if(buttonPathEnd.getBounds().contains(x, y)) {
+            buttonPathEnd.setHover(true);
         } else {
             for(MyButton button : arrayListMap.keySet()) {
                 if(button.getBounds().contains(x, y)) {
@@ -194,6 +226,10 @@ public class Toolbar extends Bar {
             buttonGrass.setPressed(true);
         } else if(buttonWater.getBounds().contains(x, y)) {
             buttonWater.setPressed(true);
+        } else if(buttonPathStart.getBounds().contains(x, y)) {
+            buttonPathStart.setPressed(true);
+        } else if(buttonPathEnd.getBounds().contains(x, y)) {
+            buttonPathEnd.setPressed(true);
         } else {
             for(MyButton button : arrayListMap.keySet()) {
                 if(button.getBounds().contains(x, y)) {
@@ -209,6 +245,8 @@ public class Toolbar extends Bar {
         buttonSave.resetBooleans();
         buttonGrass.resetBooleans();
         buttonWater.resetBooleans();
+        buttonPathStart.resetBooleans();
+        buttonPathEnd.resetBooleans();
         for(MyButton button : arrayListMap.keySet()) {
             button.resetBooleans();
         }

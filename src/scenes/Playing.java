@@ -17,7 +17,7 @@ public class Playing extends GameScene implements SceneMethods {
         super(game);
 
         loadDefaultLevel();
-        bottomBar = new ActionBar(0, 640, 640, 100, this);
+        bottomBar = new ActionBar(0, 640, 640, 160, this);
         enemyManager = new EnemyManager(this);
     }
 
