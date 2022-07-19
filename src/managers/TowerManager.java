@@ -8,8 +8,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import static helperMethods.Constants.Towers.ARCHER;
-
 public class TowerManager {
     private Playing playing;
     private BufferedImage[] towerImages;
@@ -46,5 +44,16 @@ public class TowerManager {
 
     public BufferedImage[] getTowerImages() {
         return towerImages;
+    }
+
+    public Tower getTowerAt(int x, int y) {
+        for(Tower tower : towers) {
+            if(tower.getX() == x) {
+                if(tower.getY() == y) {
+                    return tower;
+                }
+            }
+        }
+        return null;
     }
 }
