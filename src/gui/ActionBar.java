@@ -87,6 +87,7 @@ public class ActionBar extends Bar {
     }
 
     private void drawWaveInfo(Graphics graphics) {
+        graphics.setColor(Color.BLACK);
         graphics.setFont(new Font("LucidaSans", Font.BOLD, 20));
         drawWaveTimerInfo(graphics);
         drawEnemiesLeftInfo(graphics);
@@ -95,7 +96,6 @@ public class ActionBar extends Bar {
 
     private void drawWaveTimerInfo(Graphics graphics) {
         if(playing.getWaveManager().isWaveTimerStarted()) {
-            graphics.setColor(Color.BLACK);
             float timeLeft = playing.getWaveManager().getTimeLeft();
             String formattedText = format.format(timeLeft);
             graphics.drawString("Time Left: " + formattedText, 425, 680);
