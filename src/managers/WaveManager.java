@@ -78,4 +78,17 @@ public class WaveManager {
     public void resetEnemyIndex() {
         enemyIndex = 0;
     }
+
+    public int getWaveIndex() {
+        return waveIndex;
+    }
+
+    public float getTimeLeft() {
+        float secondsLeft = waveTickLimit - waveTick;
+        return secondsLeft / 60.0f;
+    }
+
+    public boolean isWaveTimerStarted() {
+        return waveStartTimer;
+    }
 }
