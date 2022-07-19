@@ -32,8 +32,8 @@ public class Toolbar extends Bar {
     }
 
     private void initPathImages() {
-        pathStart = LoadSave.getSpriteAtlas().getSubimage(7*32, 2*32,32, 32);
-        pathEnd = LoadSave.getSpriteAtlas().getSubimage(8*32, 2*32,32, 32);
+        pathStart = LoadSave.getSpriteAtlas().getSubimage(7 * 32, 2 * 32, 32, 32);
+        pathEnd = LoadSave.getSpriteAtlas().getSubimage(8 * 32, 2 * 32, 32, 32);
     }
 
     private void initButtons() {
@@ -166,10 +166,10 @@ public class Toolbar extends Bar {
             selectedTile = editing.getGame().getTileManager().getTitle(buttonWater.getId());
             editing.setSelectedTile(selectedTile);
         } else if(buttonPathStart.getBounds().contains(x, y)) {
-            selectedTile = new Tile(pathStart, -1, -1);
+            selectedTile = new Tile(pathStart, - 1, - 1);
             editing.setSelectedTile(selectedTile);
         } else if(buttonPathEnd.getBounds().contains(x, y)) {
-            selectedTile = new Tile(pathEnd, -2, -2);
+            selectedTile = new Tile(pathEnd, - 2, - 2);
             editing.setSelectedTile(selectedTile);
         } else {
             for(MyButton button : arrayListMap.keySet()) {

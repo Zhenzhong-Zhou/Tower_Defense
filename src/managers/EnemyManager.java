@@ -42,7 +42,7 @@ public class EnemyManager {
     }
 
     public void updateEnemyMove(Enemy enemy) {
-        if(enemy.getLastDirection() == -1) {
+        if(enemy.getLastDirection() == - 1) {
             setNewDirectionAndMove(enemy);
         }
 

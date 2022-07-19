@@ -9,9 +9,9 @@ import java.awt.*;
 
 public class Playing extends GameScene implements SceneMethods {
     private final ActionBar bottomBar;
+    private final EnemyManager enemyManager;
     private int[][] level;
     private int mouseX, mouseY;
-    private final EnemyManager enemyManager;
 
     public Playing(Game game) {
         super(game);
