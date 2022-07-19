@@ -50,12 +50,43 @@ public class Playing extends GameScene implements SceneMethods {
     public void update() {
         updateTick();
         waveManager.update();
+        if(isAllEnemiesDead()) {
+            if(isThereMoreWaves()) {
+                waveManager.startWaveTimer();
+                // Check timer
+                if(isWaveTimerOver()) {
+                    waveManager.increaseWaveIndex();
+                    enemyManager.getEnemies().clear();
+                    waveManager.resetEnemyIndex();
+                }
+            }
+        }
         if(isTimeForNewEnemy()) {
             spawnEnemy();
         }
         enemyManager.update();
         towerManager.update();
         projectileManager.update();
+    }
+
+    private boolean isWaveTimerOver() {
+        return waveManager.isWaveTimerOver();
+    }
+
+    private boolean isThereMoreWaves() {
+        return waveManager.isThereMoreWaves();
+    }
+
+    private boolean isAllEnemiesDead() {
+        if(waveManager.isThereMoreEnemiesInWave()) {
+            return false;
+        }
+        for(Enemy enemy : enemyManager.getEnemies()) {
+            if(enemy.isAlive()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private void spawnEnemy() {
