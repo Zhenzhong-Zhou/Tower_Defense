@@ -211,4 +211,14 @@ public class EnemyManager {
     public ArrayList<Enemy> getEnemies() {
         return enemies;
     }
+
+    public int getAmountOfAliveEnemies() {
+        int size = 0;
+        for(Enemy enemy : enemies) {
+            if(enemy.isAlive()) {
+                size++;
+            }
+        }
+        return size;
+    }
 }

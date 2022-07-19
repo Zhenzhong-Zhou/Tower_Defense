@@ -110,15 +110,6 @@ public class Playing extends GameScene implements SceneMethods {
 
         drawSelectedTower(graphics);
         drawHighlight(graphics);
-
-        drawWaveInfo(graphics);
-    }
-
-    private void drawWaveInfo(Graphics graphics) {
-        if(waveManager.isWaveTimerStarted()) {
-            float timeLeft = waveManager.getTimeLeft();
-            graphics.drawString("Time Left: "+timeLeft,  250, 700);
-        }
     }
 
     private void drawLevel(Graphics graphics) {

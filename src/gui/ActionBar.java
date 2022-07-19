@@ -4,6 +4,7 @@ import objects.Tower;
 import scenes.Playing;
 
 import java.awt.*;
+import java.text.DecimalFormat;
 
 import static helperMethods.Constants.Towers.GetName;
 import static main.GameStates.MENU;
@@ -15,10 +16,12 @@ public class ActionBar extends Bar {
     private MyButton[] towerButtons;
     private Tower selectedTower;
     private Tower displayedTower;
+    private DecimalFormat format;
 
     public ActionBar(int x, int y, int width, int height, Playing playing) {
         super(x, y, width, height);
         this.playing = playing;
+        format = new DecimalFormat("0.0");
 
         initButtons();
     }
@@ -48,6 +51,9 @@ public class ActionBar extends Bar {
 
         // Displayed Tower
         drawDisplayedTower(graphics);
+
+        // Wave Info
+        drawWaveInfo(graphics);
     }
 
     private void drawButtons(Graphics graphics) {
@@ -78,6 +84,33 @@ public class ActionBar extends Bar {
             drawSelectedTowerBorder(graphics);
             drawSelectedTowerRange(graphics);
         }
+    }
+
+    private void drawWaveInfo(Graphics graphics) {
+        graphics.setFont(new Font("LucidaSans", Font.BOLD, 20));
+        drawWaveTimerInfo(graphics);
+        drawEnemiesLeftInfo(graphics);
+        drawWavesLeftInfo(graphics);
+    }
+
+    private void drawWaveTimerInfo(Graphics graphics) {
+        if(playing.getWaveManager().isWaveTimerStarted()) {
+            graphics.setColor(Color.BLACK);
+            float timeLeft = playing.getWaveManager().getTimeLeft();
+            String formattedText = format.format(timeLeft);
+            graphics.drawString("Time Left: "+formattedText,  425, 680);
+        }
+    }
+
+    private void drawWavesLeftInfo(Graphics graphics) {
+        int current = playing.getWaveManager().getWaveIndex() +1;
+        int size = playing.getWaveManager().getWaves().size();
+        graphics.drawString("Wave " + current + " / " +size, 425, 710);
+    }
+
+    private void drawEnemiesLeftInfo(Graphics graphics) {
+        int remain = playing.getEnemyManager().getAmountOfAliveEnemies();
+        graphics.drawString("Enemies Left: " + remain, 425, 740);
     }
 
     private void drawSelectedTowerRange(Graphics graphics) {
