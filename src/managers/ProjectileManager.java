@@ -7,6 +7,7 @@ import objects.Tower;
 import scenes.Playing;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -16,7 +17,8 @@ import static helperMethods.Constants.Towers.*;
 public class ProjectileManager {
     private Playing playing;
     private ArrayList<Projectile> projectiles = new ArrayList<>();
-    private BufferedImage[] projectile_images;
+    private ArrayList<Explosion> explosions = new ArrayList<>();
+    private BufferedImage[] projectile_images, explosion_images;
     private int project_id = 0;
 
     public ProjectileManager(Playing playing) {
@@ -32,6 +34,15 @@ public class ProjectileManager {
 
         for(int i=0; i< projectile_images.length; i++) {
             projectile_images[i] = atlas.getSubimage((7 +i)*32, 32, 32, 32);
+        }
+        importExplosion(atlas);
+    }
+
+    private void importExplosion(BufferedImage atlas) {
+        explosion_images = new BufferedImage[7];
+
+        for(int i =0; i < explosion_images.length; i++) {
+            explosion_images[i] = atlas.getSubimage(i*32, 32*2, 32, 23);
         }
     }
 
@@ -71,10 +82,17 @@ public class ProjectileManager {
                 projectile.move();
                 if(isProjHittingEnemy(projectile)) {
                     projectile.setActive(false);
+                    if(projectile.getProjectileType() == BOMB) {
+                       explosions.add(new Explosion(projectile.getPosition()));
+                    }
                 } else {
                     // we do nothing
                 }
             }
+        }
+
+        for(Explosion explosion : explosions) {
+            explosion.update();
         }
     }
 
@@ -104,6 +122,16 @@ public class ProjectileManager {
                 }
             }
         }
+        drawExplosions(graphics2D);
+    }
+
+    private void drawExplosions(Graphics2D graphics2D) {
+       for(Explosion explosion : explosions) {
+           if(explosion.getExplosionIndex() < explosion_images.length) {
+               graphics2D.drawImage(explosion_images[explosion.getExplosionIndex()],
+                       (int) explosion.getPosition().x-16, (int) explosion.getPosition().y-16, null);
+           }
+       }
     }
 
     private int getProjectileType(Tower tower) {
@@ -116,5 +144,29 @@ public class ProjectileManager {
                 return CHAINS;
         }
         return 0;
+    }
+
+    public class Explosion{
+        private  Point2D.Float position;
+        private int explosionTick=0, explosionIndex =0;
+        public Explosion(Point2D.Float position) {
+            this.position = position;
+        }
+
+        public void update() {
+            explosionTick++;
+            if(explosionTick >= 12) {
+                explosionTick = 0;
+                explosionIndex++;
+            }
+        }
+
+        public int getExplosionIndex() {
+            return explosionIndex;
+        }
+
+        public Point2D.Float getPosition() {
+            return position;
+        }
     }
 }
