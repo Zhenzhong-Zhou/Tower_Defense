@@ -5,10 +5,10 @@ import main.Game;
 import java.awt.image.BufferedImage;
 
 public class GameScene {
+    protected static final int ANIMATION_SPEED = 25;
     private final Game game;
     protected int animationIndex;
     protected int tick;
-    protected static final int ANIMATION_SPEED = 25;
 
     public GameScene(Game game) {
         this.game = game;

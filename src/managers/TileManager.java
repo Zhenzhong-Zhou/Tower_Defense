@@ -37,9 +37,9 @@ public class TileManager {
         roadStraights.add(ROAD_TB = new Tile(ImageFix.getRotateImage(getSprite(8, 0), 90), id++, ROAD_TILE));
 
         roadCorners.add(ROAD_B_TO_R = new Tile(getSprite(7, 0), id++, ROAD_TILE));
-        roadCorners.add(ROAD_L_TO_B = new Tile(ImageFix.getRotateImage(getSprite(7, 0),90), id++, ROAD_TILE));
-        roadCorners.add(ROAD_L_TO_T = new Tile(ImageFix.getRotateImage(getSprite(7, 0),180), id++, ROAD_TILE));
-        roadCorners.add(ROAD_T_TO_R = new Tile(ImageFix.getRotateImage(getSprite(7, 0),270), id++, ROAD_TILE));
+        roadCorners.add(ROAD_L_TO_B = new Tile(ImageFix.getRotateImage(getSprite(7, 0), 90), id++, ROAD_TILE));
+        roadCorners.add(ROAD_L_TO_T = new Tile(ImageFix.getRotateImage(getSprite(7, 0), 180), id++, ROAD_TILE));
+        roadCorners.add(ROAD_T_TO_R = new Tile(ImageFix.getRotateImage(getSprite(7, 0), 270), id++, ROAD_TILE));
 
         waterCorners.add(BL_WATER_CORNER = new Tile(ImageFix.getBuildRotateImage(getAniSprites(0, 0), getSprite(5, 0), 1, 0), id++, WATER_TILE));
         waterCorners.add(TL_WATER_CORNER = new Tile(ImageFix.getBuildRotateImage(getAniSprites(0, 0), getSprite(5, 0), 1, 90), id++, WATER_TILE));

@@ -12,10 +12,10 @@ import static helperMethods.Constants.Direction.*;
 import static helperMethods.Constants.Tiles.ROAD_TILE;
 
 public class EnemyManager {
-    private Playing playing;
-    private BufferedImage[] enemyImages;
-    private ArrayList<Enemy> enemies = new ArrayList<>();
-    private float speed = 0.5f;
+    private final Playing playing;
+    private final BufferedImage[] enemyImages;
+    private final ArrayList<Enemy> enemies = new ArrayList<>();
+    private final float speed = 0.5f;
 
     public EnemyManager(Playing playing) {
         this.playing = playing;
@@ -27,7 +27,7 @@ public class EnemyManager {
     private void loadEnemyImages() {
         BufferedImage atlas = LoadSave.getSpriteAtlas();
         for(int i = 0; i < 4; i++) {
-            enemyImages[i] = atlas.getSubimage(i * 32,32,32,32);
+            enemyImages[i] = atlas.getSubimage(i * 32, 32, 32, 32);
         }
     }
 
@@ -60,7 +60,7 @@ public class EnemyManager {
     }
 
     public void draw(Graphics graphics) {
-        for(Enemy enemy :  enemies) {
+        for(Enemy enemy : enemies) {
             drawEnemy(enemy, graphics);
         }
     }
@@ -71,7 +71,7 @@ public class EnemyManager {
 
     private float getSpeedAndHeight(int direction) {
         if(direction == UP) {
-            return -speed;
+            return - speed;
         } else if(direction == DOWN) {
             return speed + 32;
         } else {
@@ -81,7 +81,7 @@ public class EnemyManager {
 
     private float getSpeedAndWidth(int direction) {
         if(direction == LEFT) {
-            return -speed;
+            return - speed;
         } else if(direction == RIGHT) {
             return speed + 32;
         } else {

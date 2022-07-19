@@ -5,11 +5,11 @@ import java.awt.*;
 import static helperMethods.Constants.Direction.*;
 
 public class Enemy {
-    private float x, y;
     private final Rectangle bounds;
-    private int health;
     private final int ID;
     private final int enemyType;
+    private float x, y;
+    private int health;
     private int lastDirection;
 
     public Enemy(float x, float y, int ID, int enemyType) {

@@ -12,8 +12,8 @@ public class ImageFix {
         BufferedImage newImage = new BufferedImage(width, height, image.getType());
         Graphics2D graphics2D = newImage.createGraphics();
 
-        graphics2D.rotate(Math.toRadians(rotAngle), width/ 2, height / 2);
-        graphics2D.drawImage(image, 0, 0 , null);
+        graphics2D.rotate(Math.toRadians(rotAngle), width / 2, height / 2);
+        graphics2D.drawImage(image, 0, 0, null);
         graphics2D.dispose();
 
         return newImage;
@@ -28,7 +28,7 @@ public class ImageFix {
         Graphics2D graphics2D = newImage.createGraphics();
 
         for(BufferedImage image : images) {
-            graphics2D.drawImage(image, 0, 0 , null);
+            graphics2D.drawImage(image, 0, 0, null);
         }
         graphics2D.dispose();
 
@@ -47,13 +47,13 @@ public class ImageFix {
         int height = images[0].getHeight();
 
         BufferedImage[] array = new BufferedImage[images.length];
-        for(int i = 0; i< images.length; i++) {
+        for(int i = 0; i < images.length; i++) {
             BufferedImage newImage = new BufferedImage(width, height, images[0].getType());
             Graphics2D graphics2D = newImage.createGraphics();
 
-            graphics2D.drawImage(images[i], 0, 0 , null);
+            graphics2D.drawImage(images[i], 0, 0, null);
             graphics2D.rotate(Math.toRadians(rotation), width / 2, height / 2);
-            graphics2D.drawImage(secondImage, 0, 0 , null);
+            graphics2D.drawImage(secondImage, 0, 0, null);
             graphics2D.dispose();
 
             array[i] = newImage;

@@ -11,7 +11,7 @@ public class Playing extends GameScene implements SceneMethods {
     private final ActionBar bottomBar;
     private int[][] level;
     private int mouseX, mouseY;
-    private EnemyManager enemyManager;
+    private final EnemyManager enemyManager;
 
     public Playing(Game game) {
         super(game);
@@ -61,7 +61,7 @@ public class Playing extends GameScene implements SceneMethods {
         if(xCord < 0 || xCord > 19) {
             return 0;
         }
-        if(yCord < 0 || yCord> 19) {
+        if(yCord < 0 || yCord > 19) {
             return 0;
         }
 
