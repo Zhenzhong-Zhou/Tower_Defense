@@ -17,6 +17,7 @@ public class ActionBar extends Bar {
     private Tower selectedTower;
     private Tower displayedTower;
     private final DecimalFormat format;
+    private int gold = 100;
 
     public ActionBar(int x, int y, int width, int height, Playing playing) {
         super(x, y, width, height);
@@ -54,6 +55,9 @@ public class ActionBar extends Bar {
 
         // Wave Info
         drawWaveInfo(graphics);
+
+        // Gold Info
+        drawGoldAmount(graphics);
     }
 
     private void drawButtons(Graphics graphics) {
@@ -111,6 +115,10 @@ public class ActionBar extends Bar {
     private void drawEnemiesLeftInfo(Graphics graphics) {
         int remain = playing.getEnemyManager().getAmountOfAliveEnemies();
         graphics.drawString("Enemies Left: " + remain, 425, 740);
+    }
+
+    private void drawGoldAmount(Graphics graphics) {
+        graphics.drawString("Gold:" + gold,110, 725);
     }
 
     private void drawSelectedTowerRange(Graphics graphics) {
