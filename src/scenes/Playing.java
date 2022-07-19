@@ -49,9 +49,24 @@ public class Playing extends GameScene implements SceneMethods {
 
     public void update() {
         updateTick();
+        waveManager.update();
+        if(isTimeForNewEnemy()) {
+            spawnEnemy();
+        }
         enemyManager.update();
         towerManager.update();
         projectileManager.update();
+    }
+
+    private void spawnEnemy() {
+        enemyManager.spawnEnemy(waveManager.getNextEnemy());
+    }
+
+    private boolean isTimeForNewEnemy() {
+        if(waveManager.isTimeForNewEnemy()) {
+            return waveManager.isThereMoreEnemiesInWave();
+        }
+        return false;
     }
 
     @Override
