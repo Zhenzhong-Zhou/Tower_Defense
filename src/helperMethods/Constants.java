@@ -1,6 +1,24 @@
 package helperMethods;
 
 public class Constants {
+    public static class Projectiles {
+        public static final int ARROW = 0;
+        public static final int BOMB = 1;
+        public static final int CHAINS = 2;
+
+        public static float GetSpeed(int towerType) {
+            switch(towerType) {
+                case ARROW:
+                    return 3f;
+                case BOMB:
+                    return 1f;
+                case CHAINS:
+                    return 2f;
+            }
+            return 0;
+        }
+    }
+
     public static class Towers {
         public static final int CANNON = 0;
         public static final int ARCHER = 1;
