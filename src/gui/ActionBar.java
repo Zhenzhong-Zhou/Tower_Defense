@@ -102,19 +102,19 @@ public class ActionBar extends Bar {
         if(playing.getWaveManager().isWaveTimerStarted()) {
             float timeLeft = playing.getWaveManager().getTimeLeft();
             String formattedText = format.format(timeLeft);
-            graphics.drawString("Time Left: " + formattedText, 425, 680);
+            graphics.drawString("Time Left: " + formattedText, 425, 750);
         }
     }
 
     private void drawWavesLeftInfo(Graphics graphics) {
         int current = playing.getWaveManager().getWaveIndex() + 1;
         int size = playing.getWaveManager().getWaves().size();
-        graphics.drawString("Wave " + current + " / " + size, 425, 710);
+        graphics.drawString("Wave " + current + " / " + size, 425, 770);
     }
 
     private void drawEnemiesLeftInfo(Graphics graphics) {
         int remain = playing.getEnemyManager().getAmountOfAliveEnemies();
-        graphics.drawString("Enemies Left: " + remain, 425, 740);
+        graphics.drawString("Enemies Left: " + remain, 425, 790);
     }
 
     private void drawGoldAmount(Graphics graphics) {
