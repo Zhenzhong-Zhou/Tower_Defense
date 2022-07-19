@@ -6,13 +6,14 @@ import static helperMethods.Constants.Direction.*;
 import static helperMethods.Constants.Enemies.GetStartHealth;
 
 public abstract class Enemy {
-    private final Rectangle bounds;
-    private final int ID;
-    private final int enemyType;
-    private float x, y;
-    private int health;
-    private int maxHealth;
-    private int lastDirection;
+    protected final Rectangle bounds;
+    protected final int ID;
+    protected final int enemyType;
+    protected float x, y;
+    protected int health;
+    protected int maxHealth;
+    protected int lastDirection;
+    protected boolean alive = true;
 
     public Enemy(float x, float y, int ID, int enemyType) {
         this.x = x;
@@ -22,6 +23,13 @@ public abstract class Enemy {
         bounds = new Rectangle((int) x, (int) y, 32, 32);
         lastDirection = - 1;
         setStartHealth();
+    }
+
+    public void hurt(int damage) {
+        this.health -= damage;
+        if(health <= 0) {
+            alive = false;
+        }
     }
 
     public void move(float speed, int direction) {
@@ -72,6 +80,10 @@ public abstract class Enemy {
 
     public int getLastDirection() {
         return lastDirection;
+    }
+
+    public boolean isAlive() {
+        return alive;
     }
 
     public void setPosition(int x, int y) {

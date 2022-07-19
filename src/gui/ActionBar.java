@@ -82,9 +82,9 @@ public class ActionBar extends Bar {
 
     private void drawSelectedTowerRange(Graphics graphics) {
         graphics.setColor(Color.WHITE);
-        graphics.drawOval(displayedTower.getX() + 16 - (int) displayedTower.getRange() / 2,
-                displayedTower.getY() + 16 - (int) displayedTower.getRange() / 2,
-                (int) displayedTower.getRange(), (int) displayedTower.getRange());
+        graphics.drawOval(displayedTower.getX() + 16 - (int) (displayedTower.getRange()*2) / 2,
+                displayedTower.getY() + 16 - (int) (displayedTower.getRange()*2) / 2,
+                (int) displayedTower.getRange()*2, (int) displayedTower.getRange()*2);
     }
 
     public void displayTower(Tower tower) {

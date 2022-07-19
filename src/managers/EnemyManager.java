@@ -43,7 +43,9 @@ public class EnemyManager {
 
     public void update() {
         for(Enemy enemy : enemies) {
-            updateEnemyMove(enemy);
+            if(enemy.isAlive()) {
+                updateEnemyMove(enemy);
+            }
         }
     }
 
@@ -88,8 +90,10 @@ public class EnemyManager {
 
     public void draw(Graphics graphics) {
         for(Enemy enemy : enemies) {
-            drawEnemy(enemy, graphics);
-            drawHealthBar(enemy, graphics);
+            if(enemy.isAlive()) {
+                drawEnemy(enemy, graphics);
+                drawHealthBar(enemy, graphics);
+            }
         }
     }
 
@@ -182,5 +186,9 @@ public class EnemyManager {
 
     private int getTileType(int newX, int newY) {
         return playing.getTileType(newX, newY);
+    }
+
+    public ArrayList<Enemy> getEnemies() {
+        return enemies;
     }
 }

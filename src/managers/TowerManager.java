@@ -1,5 +1,6 @@
 package managers;
 
+import enemies.Enemy;
 import helperMethods.LoadSave;
 import objects.Tower;
 import scenes.Playing;
@@ -7,6 +8,8 @@ import scenes.Playing;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+
+import static helperMethods.Utilities.GetHypoDistance;
 
 public class TowerManager {
     private final Playing playing;
@@ -33,7 +36,27 @@ public class TowerManager {
     }
 
     public void update() {
+        attackEnemyIfClose();
+    }
 
+    private void attackEnemyIfClose() {
+        for(Tower tower : towers) {
+            for(Enemy enemy : playing.getEnemyManager().getEnemies()) {
+                if(enemy.isAlive()) {
+                    if(isEnemyInRange(tower, enemy)) {
+                        // tower shoot enemy
+                        enemy.hurt(1);
+                    } else {
+                        // we do nothing
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean isEnemyInRange(Tower tower, Enemy enemy) {
+        int range = GetHypoDistance(tower.getX(), tower.getY(), enemy.getX(), enemy.getY());
+        return range < tower.getRange();
     }
 
     public void draw(Graphics graphics) {
