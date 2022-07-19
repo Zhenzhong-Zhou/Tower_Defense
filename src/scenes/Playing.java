@@ -30,10 +30,6 @@ public class Playing extends GameScene implements SceneMethods {
         enemyManager.update();
     }
 
-    public void addEnemy(int x, int y) {
-
-    }
-
     @Override
     public void render(Graphics graphics) {
         drawLevel(graphics);

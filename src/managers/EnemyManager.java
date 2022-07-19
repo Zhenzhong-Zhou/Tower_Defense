@@ -1,6 +1,6 @@
 package managers;
 
-import enemies.Enemy;
+import enemies.*;
 import helperMethods.LoadSave;
 import scenes.Playing;
 
@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import static helperMethods.Constants.Direction.*;
+import static helperMethods.Constants.Enemies.*;
 import static helperMethods.Constants.Tiles.ROAD_TILE;
 
 public class EnemyManager {
@@ -20,7 +21,10 @@ public class EnemyManager {
     public EnemyManager(Playing playing) {
         this.playing = playing;
         enemyImages = new BufferedImage[4];
-        addEnemy(3, 9);
+        addEnemy(0, 19 * 32, ORC);
+        addEnemy(2 * 32, 19 * 32, BAT);
+        addEnemy(5 * 32, 8 * 32, KNIGHT);
+        addEnemy(8 * 32, 14 * 32, WOLF);
         loadEnemyImages();
     }
 
@@ -38,9 +42,10 @@ public class EnemyManager {
     }
 
     public void updateEnemyMove(Enemy enemy) {
-        // Enemy Position
-        // Enemy Direction
-        // Tile at new possible position
+        if(enemy.getLastDirection() == -1) {
+            setNewDirectionAndMove(enemy);
+        }
+
         int newX = (int) (enemy.getX() + getSpeedAndWidth(enemy.getLastDirection()));
         int newY = (int) (enemy.getY() + getSpeedAndHeight(enemy.getLastDirection()));
 
@@ -55,8 +60,21 @@ public class EnemyManager {
         }
     }
 
-    public void addEnemy(int x, int y) {
-        enemies.add(new Enemy(x, y, 0, 0));
+    public void addEnemy(int x, int y, int enemyType) {
+        switch(enemyType) {
+            case ORC:
+                enemies.add(new Orc(x, y, 0));
+                break;
+            case BAT:
+                enemies.add(new Bat(x, y, 0));
+                break;
+            case KNIGHT:
+                enemies.add(new Knight(x, y, 0));
+                break;
+            case WOLF:
+                enemies.add(new Wolf(x, y, 0));
+                break;
+        }
     }
 
     public void draw(Graphics graphics) {
@@ -66,7 +84,7 @@ public class EnemyManager {
     }
 
     private void drawEnemy(Enemy enemy, Graphics graphics) {
-        graphics.drawImage(enemyImages[0], (int) enemy.getX(), (int) enemy.getY(), null);
+        graphics.drawImage(enemyImages[enemy.getEnemyType()], (int) enemy.getX(), (int) enemy.getY(), null);
     }
 
     private float getSpeedAndHeight(int direction) {
