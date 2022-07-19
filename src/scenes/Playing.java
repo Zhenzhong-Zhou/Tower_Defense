@@ -53,6 +53,7 @@ public class Playing extends GameScene implements SceneMethods {
         enemyManager.draw(graphics);
         towerManager.draw(graphics);
         drawSelectedTower(graphics);
+        drawHighlight(graphics);
     }
 
     private void drawLevel(Graphics graphics) {
@@ -66,6 +67,11 @@ public class Playing extends GameScene implements SceneMethods {
                 }
             }
         }
+    }
+
+    private void drawHighlight(Graphics graphics) {
+        graphics.setColor(Color.PINK);
+        graphics.drawRect(mouseX, mouseY, 32, 32);
     }
 
     private void drawSelectedTower(Graphics graphics) {

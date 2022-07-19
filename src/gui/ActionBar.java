@@ -72,11 +72,18 @@ public class ActionBar extends Bar {
             graphics.setFont(new Font("LucidaSans", Font.BOLD, 15));
             graphics.drawString("" + GetName(displayedTower.getTowerType()), 490, 660);
             graphics.drawString("ID: " + displayedTower.getId(), 490, 675);
+
+            drawSelectedTowerBorder(graphics);
         }
     }
 
     public void displayTower(Tower tower) {
         displayedTower = tower;
+    }
+
+    private void drawSelectedTowerBorder(Graphics graphics) {
+        graphics.setColor(Color.cyan);
+        graphics.drawRect(displayedTower.getX(), displayedTower.getY(),32, 32);
     }
 
     public void mouseClicked(int x, int y) {
