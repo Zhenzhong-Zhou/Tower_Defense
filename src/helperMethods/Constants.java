@@ -9,11 +9,11 @@ public class Constants {
         public static float GetSpeed(int projectileType) {
             switch(projectileType) {
                 case ARROW:
-                    return 3f;
+                    return 8f;
                 case BOMB:
-                    return 1f;
+                    return 4f;
                 case CHAINS:
-                    return 2f;
+                    return 6f;
             }
             return 0;
         }
@@ -51,11 +51,11 @@ public class Constants {
         public static float GetDefaultRange(int towerType) {
             switch(towerType) {
                 case CANNON:
-                    return 300;
+                    return 100;
                 case ARCHER:
-                    return 200;
+                    return 50;
                 case WIZARD:
-                    return 150;
+                    return 80;
             }
             return 0;
         }
@@ -63,11 +63,11 @@ public class Constants {
         public static float GetDefaultCD(int towerType) {
             switch(towerType) {
                 case CANNON:
-                    return 10;
+                    return 120;
                 case ARCHER:
-                    return 5;
+                    return 25;
                 case WIZARD:
-                    return 3;
+                    return 40;
             }
             return 0;
         }
