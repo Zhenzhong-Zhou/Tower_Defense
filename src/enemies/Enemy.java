@@ -14,6 +14,8 @@ public abstract class Enemy {
     protected int maxHealth;
     protected int lastDirection;
     protected boolean alive = true;
+    protected int slowTickLimit = 120;
+    protected int slowTick = slowTickLimit;
 
     public Enemy(float x, float y, int ID, int enemyType) {
         this.x = x;
@@ -32,8 +34,16 @@ public abstract class Enemy {
         }
     }
 
+    public void slow() {
+        slowTick = 0;
+    }
+
     public void move(float speed, int direction) {
         lastDirection = direction;
+        if(slowTick < slowTickLimit) {
+            slowTick++;
+            speed*= 0.5f;
+        }
         switch(direction) {
             case LEFT:
                 this.x -= speed;
@@ -48,7 +58,6 @@ public abstract class Enemy {
                 this.y += speed;
                 break;
         }
-
         updateHitBox();
     }
 
@@ -91,6 +100,10 @@ public abstract class Enemy {
 
     public boolean isAlive() {
         return alive;
+    }
+
+    public boolean isSlowed() {
+        return slowTick < slowTickLimit;
     }
 
     public void setPosition(int x, int y) {
