@@ -18,16 +18,26 @@ public class Game extends JFrame implements Runnable {
     private GameOver gameOver;
 
     public Game() {
-        initClasses();
+        LoadSave.CreatedFolder();
+
         createDefaultLevel();
-        add(gameScreen);
-        pack();
+        initClasses();
 
         setResizable(false);
         setTitle("Tower Defense");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        add(gameScreen);
+        pack();
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    private void createDefaultLevel() {
+        int[] array = new int[400];
+        for(int i =0; i <array.length; i++) {
+            array[i] = 0;
+        }
+        LoadSave.CreateLevel(array);
     }
 
     public static void main(String[] args) {
@@ -45,11 +55,6 @@ public class Game extends JFrame implements Runnable {
         editing = new Editing(this);
         settings = new Settings(this);
         gameOver = new GameOver(this);
-    }
-
-    private void createDefaultLevel() {
-        int[] array = new int[400];
-        LoadSave.CreateLevel("default_level", array);
     }
 
     private void start() {
