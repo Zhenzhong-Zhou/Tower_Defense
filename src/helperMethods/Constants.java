@@ -55,7 +55,7 @@ public class Constants {
                 case ARCHER:
                     return 1;
                 case WIZARD:
-                    return 2;
+                    return 0;
             }
             return 0;
         }

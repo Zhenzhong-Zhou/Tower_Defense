@@ -235,7 +235,7 @@ public class ActionBar extends Bar {
             }
             for(MyButton button : towerButtons) {
                 if(button.getBounds().contains(x, y)) {
-                    if(! isGoldEnoughForTower(button.getId())) {
+                    if(! isGoldEnoughForTower(towerCostType)) {
                         return;
                     }
                     selectedTower = new Tower(0, 0, - 1, button.getId());
