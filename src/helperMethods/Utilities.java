@@ -1,8 +1,106 @@
 package helperMethods;
 
+import objects.PathPoint;
+
 import java.util.ArrayList;
 
+import static helperMethods.Constants.Direction.*;
+import static helperMethods.Constants.Tiles.ROAD_TILE;
+
 public class Utilities {
+    public static int[][] GetRoadDirectionArray(int [][] levelTypeArray, PathPoint start, PathPoint end) {
+        int[][] roadDirectionArray = new int[levelTypeArray.length][levelTypeArray[0].length];
+
+        PathPoint currentTile= start;
+        int lastDirection = -1;
+
+        while(!IsCurrentSameAsEnd(currentTile, end)) {
+            PathPoint prevTile = currentTile;
+            currentTile = GetNextRoadTile(prevTile, lastDirection, levelTypeArray);
+            lastDirection = GetDirectionFromPrevToCurrent(prevTile, currentTile);
+
+            roadDirectionArray[prevTile.getyCord()][prevTile.getxCord()] = lastDirection;
+        }
+        roadDirectionArray[end.getyCord()][end.getxCord()] = lastDirection;
+        return roadDirectionArray;
+    }
+
+    private static int GetDirectionFromPrevToCurrent(PathPoint prevTile, PathPoint currentTile) {
+        // Up or Down
+        if(prevTile.getxCord() == currentTile.getxCord()) {
+            if(prevTile.getyCord() > currentTile.getyCord()) {
+                return UP;
+            } else {
+                return DOWN;
+            }
+        } else {
+            // Right or Left
+            if(prevTile.getxCord() > currentTile.getxCord()) {
+                return LEFT;
+            } else {
+                return RIGHT;
+            }
+        }
+    }
+
+    private static PathPoint GetNextRoadTile(PathPoint prevTile, int lastDirection, int[][] levelTypeArray) {
+        int testDirection = lastDirection;
+        PathPoint testTile = GetTileInDirection(prevTile, testDirection, lastDirection);
+
+        while(!IsTileRoad(testTile, levelTypeArray)) {
+            testDirection++;
+            testDirection %= 4;
+            testTile= GetNextRoadTile(prevTile, lastDirection, levelTypeArray);
+        }
+        return testTile;
+    }
+
+    private static boolean IsTileRoad(PathPoint testTile, int[][] levelTypeArray) {
+        if(testTile != null) {
+            if(testTile.getyCord() >= 0) {
+                if(testTile.getyCord() < levelTypeArray.length) {
+                    if(testTile.getxCord() >= 0) {
+                        if(testTile.getxCord() < levelTypeArray[0].length) {
+                            if(levelTypeArray[testTile.getyCord()][testTile.getxCord()] == ROAD_TILE) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private static PathPoint GetTileInDirection(PathPoint prevTile, int testDirection, int lastDirection) {
+        switch(testDirection) {
+            case LEFT:
+                if(lastDirection != RIGHT) {
+                    return new PathPoint(prevTile.getxCord() -1, prevTile.getyCord());
+                }
+            case UP:
+                if(lastDirection != DOWN) {
+                    return new PathPoint(prevTile.getxCord(), prevTile.getyCord() - 1);
+                }
+            case RIGHT:
+                if(lastDirection != LEFT) {
+                    return new PathPoint(prevTile.getxCord()+1, prevTile.getyCord() );
+                }
+            case DOWN:
+                if(lastDirection != UP) {
+                    return new PathPoint(prevTile.getxCord(), prevTile.getyCord() + 1);
+                }
+        }
+        return null;
+    }
+
+    private static boolean IsCurrentSameAsEnd(PathPoint currentTile, PathPoint end) {
+        if(currentTile.getxCord() == end.getxCord()) {
+            return currentTile.getyCord() == end.getyCord();
+        }
+        return false;
+    }
+
     public static int[][] ArrayListTo2dInt(ArrayList<Integer> list, int ySize, int xSize) {
         int[][] new_Array = new int[ySize][xSize];
 
