@@ -22,6 +22,7 @@ public class EnemyManager {
     private final PathPoint end;
     private final int HpBarWidth = 20;
     private BufferedImage slowEffect;
+    private int[][] roadDirectionArray;
 
     public EnemyManager(Playing playing, PathPoint start, PathPoint end) {
         this.playing = playing;
@@ -30,8 +31,13 @@ public class EnemyManager {
         this.end = end;
         loadEffectImage();
         loadEnemyImages();
+        loadRoadDirectionArray();
 
-        tempMethod();
+//        tempMethod();
+    }
+
+    private void loadRoadDirectionArray() {
+        roadDirectionArray=GetRoadDirectionArray(playing.getGame().getTileManager().getTypeArray(), start, end);
     }
 
     private void tempMethod() {
@@ -59,9 +65,52 @@ public class EnemyManager {
     public void update() {
         for(Enemy enemy : enemies) {
             if(enemy.isAlive()) {
-                updateEnemyMove(enemy);
+//                updateEnemyMove(enemy);
+                updateEnemyMoveNew(enemy);
             }
         }
+    }
+
+    private void updateEnemyMoveNew(Enemy enemy) {
+        PathPoint currentTile = getEnemyTile(enemy);
+        int direction = roadDirectionArray[currentTile.getyCord()][currentTile.getxCord()];
+
+        enemy.move(GetSpeed(enemy.getEnemyType()), direction);
+
+        PathPoint newTile = getEnemyTile(enemy);
+        if(isTileTheSame(newTile, end)) {
+            enemy.kill();
+            playing.removeOneLife();
+        }
+        if(!isTileTheSame(currentTile, newTile)) {
+            int newDirection = roadDirectionArray[newTile.getyCord()][newTile.getxCord()];
+            if(newDirection != direction) {
+                enemy.setPosition(newTile.getxCord()*32, newTile.getyCord()*32);
+                enemy.setLastDirection(newDirection);
+            }
+        }
+    }
+
+    private PathPoint getEnemyTile(Enemy enemy) {
+        switch(enemy.getLastDirection()) {
+            case LEFT:
+                return new PathPoint((int) ((enemy.getX()+31)/32), (int) (enemy.getY()/32));
+            case UP:
+                return new PathPoint((int) (enemy.getX()/32), (int) ((enemy.getY()+31)/32));
+            case RIGHT:
+            case DOWN:
+                return new PathPoint((int) (enemy.getX()/32), (int) (enemy.getY()/32));
+        }
+        return new PathPoint((int) (enemy.getX()/32), (int) (enemy.getY()/32));
+    }
+
+    private boolean isTileTheSame(PathPoint currentTile, PathPoint newTile) {
+        if(currentTile.getxCord() == newTile.getxCord()) {
+            if(currentTile.getyCord() == newTile.getyCord()) {
+                return true;
+            }
+        }
+        return false;
     }
 
 

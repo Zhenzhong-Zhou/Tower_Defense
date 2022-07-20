@@ -127,4 +127,8 @@ public abstract class Enemy {
         health = GetStartHealth(enemyType);
         maxHealth = health;
     }
+
+    public void setLastDirection(int newDirection) {
+        this.lastDirection = newDirection;
+    }
 }
