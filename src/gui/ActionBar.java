@@ -153,6 +153,16 @@ public class ActionBar extends Bar {
 
         graphics.drawString(""+getTowerCostName(), 285, 670);
         graphics.drawString("Cost: "+getTowerCostGold() +"g", 285, 695);
+
+        // Show not enough gold warning messages
+        if(isTowerCostMoreThanCurrentGold()) {
+            graphics.setColor(Color.RED);
+            graphics.drawString("Can't Afford!", 270, 725);
+        }
+    }
+
+    private boolean isTowerCostMoreThanCurrentGold() {
+        return getTowerCostGold() > gold;
     }
 
     private String getTowerCostName() {
