@@ -2,10 +2,7 @@ package main;
 
 import helperMethods.LoadSave;
 import managers.TileManager;
-import scenes.Editing;
-import scenes.Menu;
-import scenes.Playing;
-import scenes.Settings;
+import scenes.*;
 
 import javax.swing.*;
 
@@ -18,6 +15,7 @@ public class Game extends JFrame implements Runnable {
     private Playing playing;
     private Editing editing;
     private Settings settings;
+    private GameOver gameOver;
 
     public Game() {
         initClasses();
@@ -46,6 +44,7 @@ public class Game extends JFrame implements Runnable {
         playing = new Playing(this);
         editing = new Editing(this);
         settings = new Settings(this);
+        gameOver = new GameOver(this);
     }
 
     private void createDefaultLevel() {
@@ -138,5 +137,9 @@ public class Game extends JFrame implements Runnable {
 
     public Settings getSettings() {
         return settings;
+    }
+
+    public GameOver getGameOver() {
+        return gameOver;
     }
 }

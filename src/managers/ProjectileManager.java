@@ -205,4 +205,11 @@ public class ProjectileManager {
             return position;
         }
     }
+
+    public void restProjectileManager() {
+        projectiles.clear();
+        explosions.clear();
+
+        project_id = 0;
+    }
 }

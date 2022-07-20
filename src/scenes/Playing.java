@@ -17,6 +17,8 @@ import java.util.ArrayList;
 
 import static helperMethods.Constants.Enemies.GetReward;
 import static helperMethods.Constants.Tiles.GRASS_TILE;
+import static main.GameStates.MENU;
+import static main.GameStates.SetGameSate;
 
 public class Playing extends GameScene implements SceneMethods {
     private final ActionBar actionBar;
@@ -288,5 +290,22 @@ public class Playing extends GameScene implements SceneMethods {
 
     public void removeOneLife() {
         actionBar.removeOneLife();
+    }
+
+    public void resetGame() {
+        actionBar.restGame();
+
+        // Managers
+        enemyManager.restEnemyManager();
+        towerManager.restTowerManager();
+        projectileManager.restProjectileManager();
+        waveManager.restWaveManager();
+
+        mouseX = 0;
+        mouseY=0;
+
+        selectedTower =null;
+        goldTick=0;
+        gamePaused=false;
     }
 }

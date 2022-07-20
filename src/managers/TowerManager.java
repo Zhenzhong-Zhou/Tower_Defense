@@ -99,4 +99,9 @@ public class TowerManager {
         }
         return null;
     }
+
+    public void restTowerManager() {
+        towers.clear();
+        towerAmount = 0;
+    }
 }

@@ -8,8 +8,7 @@ import java.text.DecimalFormat;
 
 import static helperMethods.Constants.Towers.GetName;
 import static helperMethods.Constants.Towers.GetTowerCost;
-import static main.GameStates.MENU;
-import static main.GameStates.SetGameSate;
+import static main.GameStates.*;
 
 public class ActionBar extends Bar {
     private final Playing playing;
@@ -54,7 +53,7 @@ public class ActionBar extends Bar {
     public void removeOneLife() {
         lives--;
         if(lives <= 0) {
-            System.out.println("Game Over!");
+            SetGameSate(GAME_OVER);
         }
     }
 
@@ -250,6 +249,15 @@ public class ActionBar extends Bar {
         } else {
             buttonPause.setText("Pause");
         }
+    }
+
+    public void restGame() {
+        lives = 25;
+        towerCostType = 0;
+        showTowerCost=false;
+        gold=100;
+        selectedTower=null;
+        displayedTower=null;
     }
 
     public void mouseClicked(int x, int y) {

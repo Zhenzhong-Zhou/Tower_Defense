@@ -219,4 +219,8 @@ public class EnemyManager {
     public void rewardPlayer(int enemyType) {
         playing.rewardPlayer(enemyType);
     }
+
+    public void restEnemyManager() {
+        enemies.clear();
+    }
 }

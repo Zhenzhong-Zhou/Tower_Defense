@@ -9,10 +9,10 @@ import java.util.Arrays;
 public class WaveManager {
     private final Playing playing;
     private final ArrayList<Wave> waves = new ArrayList<>();
-    private final int spawnEnemySecond = 1;
+    private int spawnEnemySecond = 1;
     private final int enemySpawnTickLimit = 60 * spawnEnemySecond;
     private int enemySpawnTick = enemySpawnTickLimit;
-    private final int spawnWaveSecond = 15;
+    private int spawnWaveSecond = 15;
     private final int waveTickLimit = 60 * spawnWaveSecond;
     private int enemyIndex, waveIndex;
     private int waveTick = 0;
@@ -90,5 +90,18 @@ public class WaveManager {
 
     public boolean isWaveTimerStarted() {
         return waveStartTimer;
+    }
+
+    public void restWaveManager() {
+        waves.clear();
+        createWaves();
+        enemyIndex = 0;
+        waveIndex = 0;
+        waveStartTimer = false;
+        waveTickTimerOver = false;
+        waveTick = 0;
+        enemySpawnTick = 0;
+        spawnWaveSecond = 0;
+        spawnEnemySecond = 0;
     }
 }
