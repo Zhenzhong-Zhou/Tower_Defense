@@ -20,6 +20,8 @@ public class ProjectileManager {
     private final ArrayList<Explosion> explosions = new ArrayList<>();
     private BufferedImage[] projectile_images, explosion_images;
     private int project_id = 0;
+    private boolean callTrue;
+    private long lastCall;
 
     public ProjectileManager(Playing playing) {
         this.playing = playing;
@@ -95,6 +97,21 @@ public class ProjectileManager {
         for(Explosion explosion : explosions) {
             if(explosion.explosionIndex < explosion_images.length) {
                 explosion.update();
+            }
+        }
+
+        // Check the size of projectiles
+        callSize();
+    }
+
+    private void callSize() {
+        if(callTrue) {
+            System.out.println("Size of projectiles: " + projectiles.size());
+            callTrue = false;
+        } else {
+            if(System.currentTimeMillis() >= lastCall + 1000) {
+                callTrue = true;
+                lastCall = System.currentTimeMillis();
             }
         }
     }
