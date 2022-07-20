@@ -8,10 +8,10 @@ import static helperMethods.Constants.Direction.*;
 import static helperMethods.Constants.Enemies.GetStartHealth;
 
 public abstract class Enemy {
-    protected EnemyManager enemyManager;
     protected final Rectangle bounds;
     protected final int ID;
     protected final int enemyType;
+    protected EnemyManager enemyManager;
     protected float x, y;
     protected int health;
     protected int maxHealth;

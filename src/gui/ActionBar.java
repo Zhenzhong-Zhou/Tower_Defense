@@ -13,11 +13,11 @@ import static main.GameStates.SetGameSate;
 
 public class ActionBar extends Bar {
     private final Playing playing;
+    private final DecimalFormat format;
     private MyButton buttonMenu;
     private MyButton[] towerButtons;
     private Tower selectedTower;
     private Tower displayedTower;
-    private final DecimalFormat format;
     private int gold = 100;
     private boolean showTowerCost;
     private int towerCostType;
@@ -126,7 +126,7 @@ public class ActionBar extends Bar {
     }
 
     private void drawGoldAmount(Graphics graphics) {
-        graphics.drawString("Gold:" + gold,110, 725);
+        graphics.drawString("Gold:" + gold, 110, 725);
     }
 
     private void drawSelectedTowerRange(Graphics graphics) {
@@ -147,12 +147,12 @@ public class ActionBar extends Bar {
 
     private void drawTowerCost(Graphics graphics) {
         graphics.setColor(Color.GRAY);
-        graphics.fillRect(280, 650, 120,50);
+        graphics.fillRect(280, 650, 120, 50);
         graphics.setColor(Color.BLACK);
-        graphics.drawRect(280, 650, 120,50);
+        graphics.drawRect(280, 650, 120, 50);
 
-        graphics.drawString(""+getTowerCostName(), 285, 670);
-        graphics.drawString("Cost: "+getTowerCostGold() +"g", 285, 695);
+        graphics.drawString("" + getTowerCostName(), 285, 670);
+        graphics.drawString("Cost: " + getTowerCostGold() + "g", 285, 695);
 
         // Show not enough gold warning messages
         if(isTowerCostMoreThanCurrentGold()) {
@@ -187,7 +187,7 @@ public class ActionBar extends Bar {
         } else {
             for(MyButton button : towerButtons) {
                 if(button.getBounds().contains(x, y)) {
-                    if(!isGoldEnoughForTower(button.getId())) {
+                    if(! isGoldEnoughForTower(button.getId())) {
                         return;
                     }
                     selectedTower = new Tower(0, 0, - 1, button.getId());
