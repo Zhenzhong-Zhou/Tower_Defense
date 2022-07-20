@@ -106,7 +106,7 @@ public class ActionBar extends Bar {
             drawButtonFeedback(graphics,sell);
 
             // Upgrade Button
-            if(displayedTower.getTier() < 3) {
+            if(displayedTower.getTier() < 3 && gold >= getUpgradeAmount(displayedTower)) {
                 upgrade.draw(graphics);
                 drawButtonFeedback(graphics,upgrade);
             }
@@ -115,7 +115,7 @@ public class ActionBar extends Bar {
                 // Display the selling value of the tower
                 graphics.setColor(Color.RED);
                 graphics.drawString("Sell for: "+getSellAmount(displayedTower)+"g", 480, 695);
-            } else if(upgrade.isMouseHover()) {
+            } else if(upgrade.isMouseHover() && gold >= getUpgradeAmount(displayedTower)) {
                 // Display the upgrade value of the tower
                 graphics.setColor(Color.GREEN);
                 graphics.drawString("Upgrade for: "+getUpgradeAmount(displayedTower)+"g", 480, 695);
@@ -217,6 +217,7 @@ public class ActionBar extends Bar {
 
     private void upgradeClicked() {
         playing.upgradeTower(displayedTower);
+        gold -= getUpgradeAmount(displayedTower);
     }
 
     public void mouseClicked(int x, int y) {
@@ -227,7 +228,7 @@ public class ActionBar extends Bar {
                 if(sell.getBounds().contains(x, y)) {
                     sellClicked();
                     return;
-                } else if(upgrade.getBounds().contains(x, y) && displayedTower.getTier() < 3) {
+                } else if(upgrade.getBounds().contains(x, y)&& gold >= getUpgradeAmount(displayedTower) && displayedTower.getTier() < 3) {
                     upgradeClicked();
                     return;
                 }
