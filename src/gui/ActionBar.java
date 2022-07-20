@@ -110,11 +110,13 @@ public class ActionBar extends Bar {
             drawSelectedTowerRange(graphics);
 
             // Sell Button
-            sell.draw(graphics);
-            drawButtonFeedback(graphics,sell);
+            if(!playing.isGamePaused()) {
+                sell.draw(graphics);
+                drawButtonFeedback(graphics,sell);
+            }
 
             // Upgrade Button
-            if(displayedTower.getTier() < 3 && gold >= getUpgradeAmount(displayedTower)) {
+            if(displayedTower.getTier() < 3 && gold >= getUpgradeAmount(displayedTower) && !playing.isGamePaused()) {
                 upgrade.draw(graphics);
                 drawButtonFeedback(graphics,upgrade);
             }
@@ -347,5 +349,13 @@ public class ActionBar extends Bar {
 
     private int getUpgradeAmount(Tower displayedTower) {
         return (int) (GetTowerCost(displayedTower.getTowerType())*0.3f);
+    }
+
+    public MyButton getButtonMenu() {
+        return buttonMenu;
+    }
+
+    public MyButton getButtonPause() {
+        return buttonPause;
     }
 }

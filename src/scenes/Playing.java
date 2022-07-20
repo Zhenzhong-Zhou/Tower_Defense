@@ -163,7 +163,10 @@ public class Playing extends GameScene implements SceneMethods {
 
     @Override
     public void mouseClicked(int x, int y) {
-        if(y >= 640) {
+        if(y >= 640 && !gamePaused) {
+            actionBar.mouseClicked(x, y);
+        } else if(gamePaused && actionBar.getButtonPause().getBounds().contains(x, y)
+                || actionBar.getButtonMenu().getBounds().contains(x,y)) {
             actionBar.mouseClicked(x, y);
         } else {
             if(selectedTower != null) {
@@ -222,6 +225,9 @@ public class Playing extends GameScene implements SceneMethods {
     public void mouseMoved(int x, int y) {
         if(y >= 640 && !gamePaused) {
             actionBar.mouseMoved(x, y);
+        } else if(gamePaused && actionBar.getButtonPause().getBounds().contains(x, y)
+                || actionBar.getButtonMenu().getBounds().contains(x,y)) {
+            actionBar.mouseMoved(x,y);
         } else {
             mouseX = (x / 32) * 32;
             mouseY = (y / 32) * 32;
@@ -232,6 +238,9 @@ public class Playing extends GameScene implements SceneMethods {
     public void mousePressed(int x, int y) {
         if(y >= 640 && !gamePaused) {
             actionBar.mousePressed(x, y);
+        } else if(gamePaused && actionBar.getButtonPause().getBounds().contains(x, y)
+                || actionBar.getButtonMenu().getBounds().contains(x,y)) {
+            actionBar.mouseMoved(x,y);
         }
     }
 
@@ -239,6 +248,9 @@ public class Playing extends GameScene implements SceneMethods {
     public void mouseReleased(int x, int y) {
         if(y >= 640 && !gamePaused) {
             actionBar.mouseReleased();
+        } else if(gamePaused && actionBar.getButtonPause().getBounds().contains(x, y)
+                || actionBar.getButtonMenu().getBounds().contains(x,y)) {
+            actionBar.mouseMoved(x,y);
         }
     }
 
