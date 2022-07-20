@@ -28,6 +28,7 @@ public class Playing extends GameScene implements SceneMethods {
     private int mouseX, mouseY;
     private PathPoint start, end;
     private Tower selectedTower;
+    private int goldTick;
 
     public Playing(Game game) {
         super(game);
@@ -51,6 +52,11 @@ public class Playing extends GameScene implements SceneMethods {
     public void update() {
         updateTick();
         waveManager.update();
+        // Gold tick
+        goldTick++;
+        if(goldTick % (60*3) == 0) {
+            actionBar.addGold(1);
+        }
         if(isAllEnemiesDead()) {
             if(isThereMoreWaves()) {
                 waveManager.startWaveTimer();
