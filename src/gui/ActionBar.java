@@ -177,6 +177,10 @@ public class ActionBar extends Bar {
         this.gold -= GetTowerCost(towerType);
     }
 
+    public void addGold(int getReward) {
+        this.gold += getReward;
+    }
+
     public void mouseClicked(int x, int y) {
         if(buttonMenu.getBounds().contains(x, y)) {
             SetGameSate(MENU);

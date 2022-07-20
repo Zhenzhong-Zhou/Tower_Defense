@@ -1,11 +1,14 @@
 package enemies;
 
+import managers.EnemyManager;
+
 import java.awt.*;
 
 import static helperMethods.Constants.Direction.*;
 import static helperMethods.Constants.Enemies.GetStartHealth;
 
 public abstract class Enemy {
+    protected EnemyManager enemyManager;
     protected final Rectangle bounds;
     protected final int ID;
     protected final int enemyType;
@@ -17,11 +20,12 @@ public abstract class Enemy {
     protected int slowTickLimit = 120;
     protected int slowTick = slowTickLimit;
 
-    public Enemy(float x, float y, int ID, int enemyType) {
+    public Enemy(float x, float y, int ID, int enemyType, EnemyManager enemyManager) {
         this.x = x;
         this.y = y;
         this.ID = ID;
         this.enemyType = enemyType;
+        this.enemyManager = enemyManager;
         bounds = new Rectangle((int) x, (int) y, 32, 32);
         lastDirection = - 1;
         setStartHealth();
@@ -31,6 +35,7 @@ public abstract class Enemy {
         this.health -= damage;
         if(health <= 0) {
             alive = false;
+            enemyManager.rewardPlayer(enemyType);
         }
     }
 

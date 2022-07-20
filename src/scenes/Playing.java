@@ -15,6 +15,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+import static helperMethods.Constants.Enemies.GetReward;
 import static helperMethods.Constants.Tiles.GRASS_TILE;
 
 public class Playing extends GameScene implements SceneMethods {
@@ -226,6 +227,10 @@ public class Playing extends GameScene implements SceneMethods {
 
     public void setLevel(int[][] level) {
         this.level = level;
+    }
+
+    public void rewardPlayer(int enemyType) {
+        actionBar.addGold(GetReward(enemyType));
     }
 
     public TowerManager getTowerManager() {
