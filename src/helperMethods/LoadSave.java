@@ -8,6 +8,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static helperMethods.Utilities.ArrayListTo2dInt;
+import static helperMethods.Utilities.TwoDtoIntArray;
+
 public class LoadSave {
     public static String homePath = System.getProperty("user.home");
     public static String saveFolder = "TowerDefense";
@@ -70,7 +73,7 @@ public class LoadSave {
 
     public static void SaveLevel(int[][] id_Array, PathPoint start, PathPoint end) {
         if(dataFile.exists()) {
-            WriteToFile(Utilities.TwoDtoIntArray(id_Array), start, end);
+            WriteToFile(TwoDtoIntArray(id_Array), start, end);
         } else {
             System.out.println("File: " + dataFile + " does not exist.");
         }
@@ -108,7 +111,7 @@ public class LoadSave {
     public static int[][] GetLevelData() {
         if(dataFile.exists()) {
             ArrayList<Integer> list = ReadFromFile();
-            return Utilities.ArrayListTo2dInt(list, 20, 20);
+            return ArrayListTo2dInt(list, 20, 20);
         } else {
             System.out.println("File: " + dataFile + " does not exist!");
             return null;
