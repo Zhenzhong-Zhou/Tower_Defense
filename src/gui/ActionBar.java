@@ -7,6 +7,7 @@ import java.awt.*;
 import java.text.DecimalFormat;
 
 import static helperMethods.Constants.Towers.GetName;
+import static helperMethods.Constants.Towers.GetTowerCost;
 import static main.GameStates.MENU;
 import static main.GameStates.SetGameSate;
 
@@ -18,6 +19,8 @@ public class ActionBar extends Bar {
     private Tower displayedTower;
     private final DecimalFormat format;
     private int gold = 100;
+    private boolean showTowerCost;
+    private int towerCostType;
 
     public ActionBar(int x, int y, int width, int height, Playing playing) {
         super(x, y, width, height);
@@ -58,6 +61,11 @@ public class ActionBar extends Bar {
 
         // Gold Info
         drawGoldAmount(graphics);
+
+        // Tower Cost Info
+        if(showTowerCost) {
+            drawTowerCost(graphics);
+        }
     }
 
     private void drawButtons(Graphics graphics) {
@@ -137,6 +145,24 @@ public class ActionBar extends Bar {
         graphics.drawRect(displayedTower.getX(), displayedTower.getY(), 32, 32);
     }
 
+    private void drawTowerCost(Graphics graphics) {
+        graphics.setColor(Color.GRAY);
+        graphics.fillRect(280, 650, 120,50);
+        graphics.setColor(Color.BLACK);
+        graphics.drawRect(280, 650, 120,50);
+
+        graphics.drawString(""+getTowerCostName(), 285, 670);
+        graphics.drawString("Cost: "+getTowerCostGold() +"g", 285, 695);
+    }
+
+    private String getTowerCostName() {
+        return GetName(towerCostType);
+    }
+
+    private int getTowerCostGold() {
+        return GetTowerCost(towerCostType);
+    }
+
     public void mouseClicked(int x, int y) {
         if(buttonMenu.getBounds().contains(x, y)) {
             SetGameSate(MENU);
@@ -153,6 +179,7 @@ public class ActionBar extends Bar {
 
     public void mouseMoved(int x, int y) {
         buttonMenu.setHover(false);
+        showTowerCost = false;
         for(MyButton button : towerButtons) {
             button.setHover(false);
         }
@@ -163,6 +190,8 @@ public class ActionBar extends Bar {
             for(MyButton button : towerButtons) {
                 if(button.getBounds().contains(x, y)) {
                     button.setHover(true);
+                    showTowerCost = true;
+                    towerCostType = button.getId();
                 }
             }
         }

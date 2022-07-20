@@ -24,6 +24,18 @@ public class Constants {
         public static final int ARCHER = 1;
         public static final int WIZARD = 2;
 
+        public static int GetTowerCost(int towerType) {
+            switch(towerType) {
+                case CANNON:
+                    return 65;
+                case ARCHER:
+                    return 30;
+                case WIZARD:
+                    return 45;
+            }
+            return 0;
+        }
+
         public static String GetName(int towerType) {
             switch(towerType) {
                 case CANNON:
