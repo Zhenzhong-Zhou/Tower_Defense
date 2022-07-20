@@ -43,9 +43,9 @@ public class EnemyManager {
     private void tempMethod() {
         int[][] array = GetRoadDirectionArray(playing.getGame().getTileManager().getTypeArray(), start, end);
 
-        for(int j =0; j <array.length; j++) {
-            for(int i=0; i<array[j].length; i++) {
-                System.out.print(array[j][i] + " | ");
+        for(int[] ints : array) {
+            for(int anInt : ints) {
+                System.out.print(anInt + " | ");
             }
             System.out.println();
         }
@@ -106,9 +106,7 @@ public class EnemyManager {
 
     private boolean isTileTheSame(PathPoint currentTile, PathPoint newTile) {
         if(currentTile.getxCord() == newTile.getxCord()) {
-            if(currentTile.getyCord() == newTile.getyCord()) {
-                return true;
-            }
+            return currentTile.getyCord() == newTile.getyCord();
         }
         return false;
     }
