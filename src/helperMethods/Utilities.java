@@ -50,7 +50,7 @@ public class Utilities {
         while(!IsTileRoad(testTile, levelTypeArray)) {
             testDirection++;
             testDirection %= 4;
-            testTile= GetNextRoadTile(prevTile, lastDirection, levelTypeArray);
+            testTile= GetTileInDirection(prevTile, testDirection, lastDirection);
         }
         return testTile;
     }
