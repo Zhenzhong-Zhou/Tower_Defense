@@ -29,6 +29,7 @@ public class Playing extends GameScene implements SceneMethods {
     private PathPoint start, end;
     private Tower selectedTower;
     private int goldTick;
+    private boolean gamePaused;
 
     public Playing(Game game) {
         super(game);
@@ -50,30 +51,32 @@ public class Playing extends GameScene implements SceneMethods {
     }
 
     public void update() {
-        updateTick();
-        waveManager.update();
-        // Gold tick
-        goldTick++;
-        if(goldTick % (60 * 3) == 0) {
-            actionBar.addGold(1);
-        }
-        if(isAllEnemiesDead()) {
-            if(isThereMoreWaves()) {
-                waveManager.startWaveTimer();
-                // Check timer
-                if(isWaveTimerOver()) {
-                    waveManager.increaseWaveIndex();
-                    enemyManager.getEnemies().clear();
-                    waveManager.resetEnemyIndex();
+        if(!gamePaused) {
+            updateTick();
+            waveManager.update();
+            // Gold tick
+            goldTick++;
+            if(goldTick % (60 * 3) == 0) {
+                actionBar.addGold(1);
+            }
+            if(isAllEnemiesDead()) {
+                if(isThereMoreWaves()) {
+                    waveManager.startWaveTimer();
+                    // Check timer
+                    if(isWaveTimerOver()) {
+                        waveManager.increaseWaveIndex();
+                        enemyManager.getEnemies().clear();
+                        waveManager.resetEnemyIndex();
+                    }
                 }
             }
+            if(isTimeForNewEnemy()) {
+                spawnEnemy();
+            }
+            enemyManager.update();
+            towerManager.update();
+            projectileManager.update();
         }
-        if(isTimeForNewEnemy()) {
-            spawnEnemy();
-        }
-        enemyManager.update();
-        towerManager.update();
-        projectileManager.update();
     }
 
     private boolean isWaveTimerOver() {
@@ -205,6 +208,10 @@ public class Playing extends GameScene implements SceneMethods {
         towerManager.upgradeTower(displayedTower);
     }
 
+    public void setGamePaused(boolean gamePaused) {
+        this.gamePaused = gamePaused;
+    }
+
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             selectedTower = null;
@@ -213,7 +220,7 @@ public class Playing extends GameScene implements SceneMethods {
 
     @Override
     public void mouseMoved(int x, int y) {
-        if(y >= 640) {
+        if(y >= 640 && !gamePaused) {
             actionBar.mouseMoved(x, y);
         } else {
             mouseX = (x / 32) * 32;
@@ -223,14 +230,14 @@ public class Playing extends GameScene implements SceneMethods {
 
     @Override
     public void mousePressed(int x, int y) {
-        if(y >= 640) {
+        if(y >= 640 && !gamePaused) {
             actionBar.mousePressed(x, y);
         }
     }
 
     @Override
     public void mouseReleased(int x, int y) {
-        if(y >= 640) {
+        if(y >= 640 && !gamePaused) {
             actionBar.mouseReleased();
         }
     }
@@ -261,5 +268,9 @@ public class Playing extends GameScene implements SceneMethods {
 
     public void setSelectedTower(Tower selectedTower) {
         this.selectedTower = selectedTower;
+    }
+
+    public boolean isGamePaused() {
+        return gamePaused;
     }
 }
