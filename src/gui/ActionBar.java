@@ -96,6 +96,7 @@ public class ActionBar extends Bar {
             graphics.setFont(new Font("LucidaSans", Font.BOLD, 15));
             graphics.drawString("" + GetName(displayedTower.getTowerType()), 480, 660);
             graphics.drawString("ID: " + displayedTower.getId(), 480, 675);
+            graphics.drawString("Tier: " + displayedTower.getTier(), 560, 660);
 
             drawSelectedTowerBorder(graphics);
             drawSelectedTowerRange(graphics);
