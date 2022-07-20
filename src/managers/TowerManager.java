@@ -36,7 +36,7 @@ public class TowerManager {
     }
 
     public void removeTower(Tower displayedTower) {
-        for(int i =0; i< towers.size(); i++) {
+        for(int i = 0; i < towers.size(); i++) {
             if(towers.get(i).getId() == displayedTower.getId()) {
                 towers.remove(i);
             }

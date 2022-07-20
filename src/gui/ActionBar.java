@@ -122,25 +122,25 @@ public class ActionBar extends Bar {
             drawSelectedTowerRange(graphics);
 
             // Sell Button
-            if(!playing.isGamePaused()) {
+            if(! playing.isGamePaused()) {
                 sell.draw(graphics);
-                drawButtonFeedback(graphics,sell);
+                drawButtonFeedback(graphics, sell);
             }
 
             // Upgrade Button
-            if(displayedTower.getTier() < 3 && gold >= getUpgradeAmount(displayedTower) && !playing.isGamePaused()) {
+            if(displayedTower.getTier() < 3 && gold >= getUpgradeAmount(displayedTower) && ! playing.isGamePaused()) {
                 upgrade.draw(graphics);
-                drawButtonFeedback(graphics,upgrade);
+                drawButtonFeedback(graphics, upgrade);
             }
 
             if(sell.isMouseHover()) {
                 // Display the selling value of the tower
                 graphics.setColor(Color.RED);
-                graphics.drawString("Sell for: "+getSellAmount(displayedTower)+"g", 480, 695);
+                graphics.drawString("Sell for: " + getSellAmount(displayedTower) + "g", 480, 695);
             } else if(upgrade.isMouseHover() && gold >= getUpgradeAmount(displayedTower)) {
                 // Display the upgrade value of the tower
                 graphics.setColor(Color.GREEN);
-                graphics.drawString("Upgrade for: "+getUpgradeAmount(displayedTower)+"g", 480, 695);
+                graphics.drawString("Upgrade for: " + getUpgradeAmount(displayedTower) + "g", 480, 695);
             }
         }
     }
@@ -230,10 +230,10 @@ public class ActionBar extends Bar {
 
     private void sellClicked() {
         playing.removeTower(displayedTower);
-        gold += GetTowerCost(displayedTower.getTowerType())/2;
-        int upgradeCost =(displayedTower.getTier()-1)*getUpgradeAmount(displayedTower);
+        gold += GetTowerCost(displayedTower.getTowerType()) / 2;
+        int upgradeCost = (displayedTower.getTier() - 1) * getUpgradeAmount(displayedTower);
         upgradeCost *= 0.5f;
-        gold+=upgradeCost;
+        gold += upgradeCost;
         displayedTower = null;
     }
 
@@ -243,7 +243,7 @@ public class ActionBar extends Bar {
     }
 
     private void togglePause() {
-        playing.setGamePaused(!playing.isGamePaused());
+        playing.setGamePaused(! playing.isGamePaused());
 
         if(playing.isGamePaused()) {
             buttonPause.setText("Resume");
@@ -262,7 +262,7 @@ public class ActionBar extends Bar {
                 if(sell.getBounds().contains(x, y)) {
                     sellClicked();
                     return;
-                } else if(upgrade.getBounds().contains(x, y)&& gold >= getUpgradeAmount(displayedTower) && displayedTower.getTier() < 3) {
+                } else if(upgrade.getBounds().contains(x, y) && gold >= getUpgradeAmount(displayedTower) && displayedTower.getTier() < 3) {
                     upgradeClicked();
                     return;
                 }
@@ -354,13 +354,13 @@ public class ActionBar extends Bar {
     }
 
     private int getSellAmount(Tower displayedTower) {
-        int upgradeCost =(displayedTower.getTier()-1)*getUpgradeAmount(displayedTower);
+        int upgradeCost = (displayedTower.getTier() - 1) * getUpgradeAmount(displayedTower);
         upgradeCost *= 0.5f;
-        return GetTowerCost(displayedTower.getTowerType())/2 + upgradeCost;
+        return GetTowerCost(displayedTower.getTowerType()) / 2 + upgradeCost;
     }
 
     private int getUpgradeAmount(Tower displayedTower) {
-        return (int) (GetTowerCost(displayedTower.getTowerType())*0.3f);
+        return (int) (GetTowerCost(displayedTower.getTowerType()) * 0.3f);
     }
 
     public MyButton getButtonMenu() {

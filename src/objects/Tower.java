@@ -27,18 +27,18 @@ public class Tower {
 
         switch(towerType) {
             case CANNON:
-                damage+=5;
-                range+=20;
-                CD-=15;
+                damage += 5;
+                range += 20;
+                CD -= 15;
                 break;
             case ARCHER:
-                damage+=2;
-                range+=20;
-                CD-=5;
+                damage += 2;
+                range += 20;
+                CD -= 5;
                 break;
             case WIZARD:
-                range+=20;
-                CD-=10;
+                range += 20;
+                CD -= 10;
                 break;
         }
     }

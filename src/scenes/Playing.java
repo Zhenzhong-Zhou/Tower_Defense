@@ -51,7 +51,7 @@ public class Playing extends GameScene implements SceneMethods {
     }
 
     public void update() {
-        if(!gamePaused) {
+        if(! gamePaused) {
             updateTick();
             waveManager.update();
             // Gold tick
@@ -163,10 +163,10 @@ public class Playing extends GameScene implements SceneMethods {
 
     @Override
     public void mouseClicked(int x, int y) {
-        if(y >= 640 && !gamePaused) {
+        if(y >= 640 && ! gamePaused) {
             actionBar.mouseClicked(x, y);
         } else if(gamePaused && actionBar.getButtonPause().getBounds().contains(x, y)
-                || actionBar.getButtonMenu().getBounds().contains(x,y)) {
+                || actionBar.getButtonMenu().getBounds().contains(x, y)) {
             actionBar.mouseClicked(x, y);
         } else {
             if(selectedTower != null) {
@@ -211,10 +211,6 @@ public class Playing extends GameScene implements SceneMethods {
         towerManager.upgradeTower(displayedTower);
     }
 
-    public void setGamePaused(boolean gamePaused) {
-        this.gamePaused = gamePaused;
-    }
-
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             selectedTower = null;
@@ -223,11 +219,11 @@ public class Playing extends GameScene implements SceneMethods {
 
     @Override
     public void mouseMoved(int x, int y) {
-        if(y >= 640 && !gamePaused) {
+        if(y >= 640 && ! gamePaused) {
             actionBar.mouseMoved(x, y);
         } else if(gamePaused && actionBar.getButtonPause().getBounds().contains(x, y)
-                || actionBar.getButtonMenu().getBounds().contains(x,y)) {
-            actionBar.mouseMoved(x,y);
+                || actionBar.getButtonMenu().getBounds().contains(x, y)) {
+            actionBar.mouseMoved(x, y);
         } else {
             mouseX = (x / 32) * 32;
             mouseY = (y / 32) * 32;
@@ -236,21 +232,21 @@ public class Playing extends GameScene implements SceneMethods {
 
     @Override
     public void mousePressed(int x, int y) {
-        if(y >= 640 && !gamePaused) {
+        if(y >= 640 && ! gamePaused) {
             actionBar.mousePressed(x, y);
         } else if(gamePaused && actionBar.getButtonPause().getBounds().contains(x, y)
-                || actionBar.getButtonMenu().getBounds().contains(x,y)) {
-            actionBar.mouseMoved(x,y);
+                || actionBar.getButtonMenu().getBounds().contains(x, y)) {
+            actionBar.mouseMoved(x, y);
         }
     }
 
     @Override
     public void mouseReleased(int x, int y) {
-        if(y >= 640 && !gamePaused) {
+        if(y >= 640 && ! gamePaused) {
             actionBar.mouseReleased();
         } else if(gamePaused && actionBar.getButtonPause().getBounds().contains(x, y)
-                || actionBar.getButtonMenu().getBounds().contains(x,y)) {
-            actionBar.mouseMoved(x,y);
+                || actionBar.getButtonMenu().getBounds().contains(x, y)) {
+            actionBar.mouseMoved(x, y);
         }
     }
 
@@ -284,6 +280,10 @@ public class Playing extends GameScene implements SceneMethods {
 
     public boolean isGamePaused() {
         return gamePaused;
+    }
+
+    public void setGamePaused(boolean gamePaused) {
+        this.gamePaused = gamePaused;
     }
 
     public void removeOneLife() {

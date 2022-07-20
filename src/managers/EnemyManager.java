@@ -28,10 +28,6 @@ public class EnemyManager {
         this.start = start;
         this.end = end;
         loadEffectImage();
-//        addEnemy(ORC);
-//        addEnemy(BAT);
-//        addEnemy(KNIGHT);
-//        addEnemy(WOLF);
         loadEnemyImages();
     }
 
