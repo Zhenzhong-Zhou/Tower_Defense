@@ -238,7 +238,7 @@ public class Playing extends GameScene implements SceneMethods {
             actionBar.mousePressed(x, y);
         } else if(gamePaused && actionBar.getButtonPause().getBounds().contains(x, y)
                 || actionBar.getButtonMenu().getBounds().contains(x, y)) {
-            actionBar.mouseMoved(x, y);
+            actionBar.mousePressed(x, y);
         }
     }
 
@@ -248,7 +248,7 @@ public class Playing extends GameScene implements SceneMethods {
             actionBar.mouseReleased();
         } else if(gamePaused && actionBar.getButtonPause().getBounds().contains(x, y)
                 || actionBar.getButtonMenu().getBounds().contains(x, y)) {
-            actionBar.mouseMoved(x, y);
+            actionBar.mouseReleased();
         }
     }
 

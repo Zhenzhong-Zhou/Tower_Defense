@@ -47,6 +47,7 @@ public class Menu extends GameScene implements SceneMethods {
     @Override
     public void mouseClicked(int x, int y) {
         if(buttonPlaying.getBounds().contains(x, y)) {
+            getGame().getPlaying().resetGame();
             SetGameSate(PLAYING);
         } else if(buttonEditing.getBounds().contains(x, y)) {
             SetGameSate(EDITING);
