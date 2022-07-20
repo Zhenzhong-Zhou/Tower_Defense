@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import static helperMethods.Constants.Direction.*;
 import static helperMethods.Constants.Enemies.*;
 import static helperMethods.Constants.Tiles.ROAD_TILE;
+import static helperMethods.Utilities.GetRoadDirectionArray;
 
 public class EnemyManager {
     private final Playing playing;
@@ -29,6 +30,19 @@ public class EnemyManager {
         this.end = end;
         loadEffectImage();
         loadEnemyImages();
+
+        tempMethod();
+    }
+
+    private void tempMethod() {
+        int[][] array = GetRoadDirectionArray(playing.getGame().getTileManager().getTypeArray(), start, end);
+
+        for(int j =0; j <array.length; j++) {
+            for(int i=0; i<array[j].length; i++) {
+                System.out.print(array[j][i] + " | ");
+            }
+            System.out.println();
+        }
     }
 
     private void loadEffectImage() {

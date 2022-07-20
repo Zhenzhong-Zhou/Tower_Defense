@@ -102,6 +102,20 @@ public class TileManager {
         return tiles.get(spriteID).isAnimation();
     }
 
+    public int[][] getTypeArray() {
+        int[][] id_array = LoadSave.GetLevelData();
+        assert id_array != null;
+        int[][] type_array = new int[id_array.length][id_array[0].length];
+
+        for(int j = 0; j < id_array.length; j++) {
+            for(int i = 0; i < id_array[j].length; i++) {
+                int id = id_array[j][i];
+                type_array[j][i] = tiles.get(id).getTileType();
+            }
+        }
+        return type_array;
+    }
+
     public ArrayList<Tile> getRoadStraights() {
         return roadStraights;
     }
