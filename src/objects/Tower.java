@@ -5,12 +5,14 @@ import static helperMethods.Constants.Towers.*;
 public class Tower {
     private int x, y, id, towerType, damage, cdTick;
     private float range, CD;
+    private int tier;
 
     public Tower(int x, int y, int id, int towerType) {
         this.x = x;
         this.y = y;
         this.id = id;
         this.towerType = towerType;
+        tier = 1;
         setDefaultDamage();
         setDefaultRange();
         setDefaultCD();
@@ -18,6 +20,27 @@ public class Tower {
 
     public void update() {
         cdTick++;
+    }
+
+    public void upgrade() {
+        this.tier++;
+
+        switch(towerType) {
+            case CANNON:
+                damage+=5;
+                range+=20;
+                CD-=15;
+                break;
+            case ARCHER:
+                damage+=2;
+                range+=20;
+                CD-=5;
+                break;
+            case WIZARD:
+                range+=20;
+                CD-=10;
+                break;
+        }
     }
 
     public boolean isCD() {
@@ -82,5 +105,9 @@ public class Tower {
 
     public float getCD() {
         return CD;
+    }
+
+    public int getTier() {
+        return tier;
     }
 }

@@ -201,6 +201,10 @@ public class Playing extends GameScene implements SceneMethods {
         actionBar.buyTower(towerType);
     }
 
+    public void upgradeTower(Tower displayedTower) {
+        towerManager.upgradeTower(displayedTower);
+    }
+
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             selectedTower = null;
