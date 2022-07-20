@@ -163,18 +163,29 @@ public class ActionBar extends Bar {
         return GetTowerCost(towerCostType);
     }
 
+    public void buyTower(int towerType) {
+        this.gold -= GetTowerCost(towerType);
+    }
+
     public void mouseClicked(int x, int y) {
         if(buttonMenu.getBounds().contains(x, y)) {
             SetGameSate(MENU);
         } else {
             for(MyButton button : towerButtons) {
                 if(button.getBounds().contains(x, y)) {
+                    if(!isGoldEnoughForTower(button.getId())) {
+                        return;
+                    }
                     selectedTower = new Tower(0, 0, - 1, button.getId());
                     playing.setSelectedTower(selectedTower);
                     return;
                 }
             }
         }
+    }
+
+    private boolean isGoldEnoughForTower(int towerType) {
+        return gold >= GetTowerCost(towerType);
     }
 
     public void mouseMoved(int x, int y) {
