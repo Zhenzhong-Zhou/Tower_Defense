@@ -32,23 +32,10 @@ public class EnemyManager {
         loadEffectImage();
         loadEnemyImages();
         loadRoadDirectionArray();
-
-//        tempMethod();
     }
 
     private void loadRoadDirectionArray() {
         roadDirectionArray=GetRoadDirectionArray(playing.getGame().getTileManager().getTypeArray(), start, end);
-    }
-
-    private void tempMethod() {
-        int[][] array = GetRoadDirectionArray(playing.getGame().getTileManager().getTypeArray(), start, end);
-
-        for(int[] ints : array) {
-            for(int anInt : ints) {
-                System.out.print(anInt + " | ");
-            }
-            System.out.println();
-        }
     }
 
     private void loadEffectImage() {

@@ -108,21 +108,6 @@ public class ProjectileManager {
                 explosion.update();
             }
         }
-
-        // Check the size of projectiles
-        callSize();
-    }
-
-    private void callSize() {
-        if(callTrue) {
-            System.out.println("Size of projectiles: " + projectiles.size());
-            callTrue = false;
-        } else {
-            if(System.currentTimeMillis() >= lastCall + 1000) {
-                callTrue = true;
-                lastCall = System.currentTimeMillis();
-            }
-        }
     }
 
     private void explodeOnEnemies(Projectile projectile) {
