@@ -5,10 +5,10 @@ import java.awt.geom.Point2D;
 public class Projectile {
     private final int id;
     private final int projectileType;
-    private final int damage;
-    private final float xSpeed;
-    private final float ySpeed;
-    private final float rotation;
+    private int damage;
+    private float xSpeed;
+    private float ySpeed;
+    private float rotation;
     private Point2D.Float position;
     private boolean active = true;
 
@@ -20,6 +20,15 @@ public class Projectile {
         this.rotation = rotation;
         this.id = id;
         this.projectileType = projectileType;
+    }
+
+    public void reuse(int x, int y, float xSpeed, float ySpeed, int damage, float rotation) {
+        position = new Point2D.Float(x, y);
+        this.xSpeed = xSpeed;
+        this.ySpeed = ySpeed;
+        this.damage = damage;
+        this.rotation = rotation;
+        active = true;
     }
 
     public void move() {

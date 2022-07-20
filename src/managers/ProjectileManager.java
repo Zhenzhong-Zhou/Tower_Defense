@@ -75,6 +75,15 @@ public class ProjectileManager {
                 rotation += 180;
             }
         }
+        // Reuse
+        for(Projectile projectile : projectiles) {
+            if(projectile.isActive()) {
+                if(projectile.getProjectileType() == projectileType) {
+                    projectile.reuse(tower.getX() + 16, tower.getY() + 16, xSpeed, ySpeed, tower.getDamage(), rotation);
+                    return;
+                }
+            }
+        }
         projectiles.add(new Projectile(tower.getX() + 16, tower.getY() + 16, xSpeed, ySpeed, tower.getDamage(), rotation, project_id++, projectileType));
     }
 
