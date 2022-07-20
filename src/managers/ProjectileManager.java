@@ -86,8 +86,8 @@ public class ProjectileManager {
                         explosions.add(new Explosion(projectile.getPosition()));
                         explodeOnEnemies(projectile);
                     }
-                } else {
-                    // we do nothing
+                } else if(isProOutsideBounds(projectile)) {
+                    projectile.setActive(false);
                 }
             }
         }
@@ -128,6 +128,17 @@ public class ProjectileManager {
             }
         }
         return false;
+    }
+
+    private boolean isProOutsideBounds(Projectile projectile) {
+        if(projectile.getPosition().x >= 0) {
+            if(projectile.getPosition().x <= 640) {
+                if(projectile.getPosition().y >= 0) {
+                    return ! (projectile.getPosition().y <= 800);
+                }
+            }
+        }
+        return true;
     }
 
     public void draw(Graphics graphics) {
