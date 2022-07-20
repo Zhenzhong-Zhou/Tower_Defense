@@ -185,6 +185,10 @@ public class Playing extends GameScene implements SceneMethods {
         return tileType == GRASS_TILE;
     }
 
+    public void removeTower(Tower displayedTower) {
+        towerManager.removeTower(displayedTower);
+    }
+
     private Tower getTowerAt(int x, int y) {
         return towerManager.getTowerAt(x, y);
     }
