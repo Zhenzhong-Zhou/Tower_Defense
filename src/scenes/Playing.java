@@ -285,4 +285,8 @@ public class Playing extends GameScene implements SceneMethods {
     public boolean isGamePaused() {
         return gamePaused;
     }
+
+    public void removeOneLife() {
+        actionBar.removeOneLife();
+    }
 }

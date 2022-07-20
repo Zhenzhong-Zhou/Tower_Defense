@@ -69,7 +69,7 @@ public class EnemyManager {
         } else if(isAtEnd(enemy)) {
             // reached the end
             enemy.kill();
-            System.out.println("A life is lost!");
+            playing.removeOneLife();
         } else {
             // find new direction
             setNewDirectionAndMove(enemy);

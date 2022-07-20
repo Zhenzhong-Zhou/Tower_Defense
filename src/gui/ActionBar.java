@@ -22,6 +22,7 @@ public class ActionBar extends Bar {
     private boolean showTowerCost;
     private int towerCostType;
     private MyButton sell, upgrade;
+    private int lives = 25;
 
     public ActionBar(int x, int y, int width, int height, Playing playing) {
         super(x, y, width, height);
@@ -48,6 +49,13 @@ public class ActionBar extends Bar {
 
         sell = new MyButton("Sell", 420, 702, 80, 25);
         upgrade = new MyButton("Upgrade", 545, 702, 80, 25);
+    }
+
+    public void removeOneLife() {
+        lives--;
+        if(lives <= 0) {
+            System.out.println("Game Over!");
+        }
     }
 
     public void draw(Graphics graphics) {
@@ -77,6 +85,10 @@ public class ActionBar extends Bar {
             graphics.setColor(Color.BLUE);
             graphics.drawString("Game is Paused!", 110, 790);
         }
+
+        // Lives
+        graphics.setColor(Color.RED);
+        graphics.drawString("Lives: " + lives, 110, 750);
     }
 
     private void drawButtons(Graphics graphics) {
@@ -357,5 +369,9 @@ public class ActionBar extends Bar {
 
     public MyButton getButtonPause() {
         return buttonPause;
+    }
+
+    public int getLives() {
+        return lives;
     }
 }
