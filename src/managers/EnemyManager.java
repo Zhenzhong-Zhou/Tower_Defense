@@ -31,7 +31,7 @@ public class EnemyManager {
         this.end = end;
         loadEffectImage();
         loadEnemyImages();
-        loadRoadDirectionArray();
+//        loadRoadDirectionArray();
     }
 
     private void loadRoadDirectionArray() {
@@ -52,8 +52,8 @@ public class EnemyManager {
     public void update() {
         for(Enemy enemy : enemies) {
             if(enemy.isAlive()) {
-//                updateEnemyMove(enemy);
-                updateEnemyMoveNew(enemy);
+                updateEnemyMove(enemy);
+//                updateEnemyMoveNew(enemy);
             }
         }
     }
